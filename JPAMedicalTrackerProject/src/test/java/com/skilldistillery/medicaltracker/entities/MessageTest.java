@@ -2,9 +2,6 @@ package com.skilldistillery.medicaltracker.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,11 +13,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PatientTest {
-
+class MessageTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Patient patient;
+	private Message m;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -35,42 +31,33 @@ class PatientTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		patient =em.find(Patient.class, 1);
+		m = em.find(Message.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		patient = null;
+		m = null;
 	}
 
 	@Test
-	void test_patient() {
-		assertNotNull(patient);
-		assertEquals("Winifred", patient.getFname());
-	}
-	
-	@Test
-	void test_patient_user_mapping() {
-		User user = patient.getUser();
-		assertNotNull(user);
-		assertEquals("patient", user.getUsername());
-	}
-	
-	@Test
-	void test_patient_provider_list_mapping() {
-		List<Provider> p = patient.getProviders();
-		assertNotNull(p);
-		assertTrue(p.size() > 0);
-		assertEquals("Lane", p.get(0).getFname());
-	}
-	
-	@Test
-	void test_patient_messages() {
-		List<Message> m = patient.getMessages();
+	void test_Message() {
 		assertNotNull(m);
-		assertTrue(m.size() > 0);
-		assertEquals("Hello World", m.get(0).getContent());
+		assertEquals("Hello World", m.getContent());
+	}
+	
+	@Test
+	void test_Message_Patient_mapping() {
+		Patient p = m.getPatient();
+		assertNotNull(p);
+		assertEquals("Winifred", p.getFname());
+	}
+	
+	@Test
+	void test_Message_Provider_mapping() {
+		Provider p = m.getProvider();
+		assertNotNull(p);
+		assertEquals("Lane", p.getFname());
 	}
 
 }

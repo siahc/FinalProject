@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -29,6 +30,8 @@ public class Patient {
 	private User user;
 	@ManyToMany(mappedBy="patients")
 	private List<Provider> providers;
+	@OneToMany(mappedBy="patient")
+	private List<Message> messages;
 	
 	public Patient() {}
 	public Patient(String fname, String lname, String dob, String img) {
@@ -95,6 +98,12 @@ public class Patient {
 	}
 	public void setProviders(List<Provider> providers) {
 		this.providers = providers;
+	}
+	public List<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 	@Override
 	public int hashCode() {
