@@ -34,6 +34,8 @@ public class Patient {
 	private List<Message> messages;
 	@OneToMany(mappedBy="patient")
 	private List<Medication> medications;
+	@OneToMany(mappedBy="patient")
+	private List<MedicalHistory> medHis;
 	
 	public Patient() {}
 	public Patient(String fname, String lname, String dob, String img) {
@@ -112,6 +114,12 @@ public class Patient {
 	}
 	public void setMedications(List<Medication> medications) {
 		this.medications = medications;
+	}
+	public List<MedicalHistory> getMedHis() {
+		return medHis;
+	}
+	public void setMedHis(List<MedicalHistory> medHis) {
+		this.medHis = medHis;
 	}
 	@Override
 	public int hashCode() {

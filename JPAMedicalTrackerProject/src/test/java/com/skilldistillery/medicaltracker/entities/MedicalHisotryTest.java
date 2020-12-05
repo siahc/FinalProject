@@ -13,15 +13,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MedicationTest {
+class MedicalHisotryTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Medication m;
+	private MedicalHistory medHis;
 	
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("MedicalTrackerPU");
+		
 	}
 
 	@AfterAll
@@ -32,32 +33,32 @@ class MedicationTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		m = em.find(Medication.class, 1);
+		medHis = em.find(MedicalHistory.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		m = null;
+		medHis = null;
 	}
 
 	@Test
-	void test_medication() {
+	void test_MedicalHistory_entity_mapping() {
+		assertNotNull(medHis);
+		assertEquals("CHF", medHis.getDiagnosis());
+		
+		
+	}
+	@Test
+	void test_MedicalHistory_Medication_mapping(){
+		Medication m = medHis.getMedication();
 		assertNotNull(m);
 		assertEquals("Botox", m.getName());
 	}
-	
 	@Test
-	void test_medication_patient_mapping() {
-		Patient p = m.getPatient();
+	void test_Medical_History_mapping() {
+		Patient p = medHis.getPatient();
 		assertNotNull(p);
 		assertEquals("Winifred", p.getFname());
 	}
-	@Test
-	void test_history_medication_mapping() {
-		MedicalHistory mh = m.getMedHis();
-		assertNotNull(mh);
-		assertEquals("CHF", mh.getDiagnosis());
-	}
-
 }

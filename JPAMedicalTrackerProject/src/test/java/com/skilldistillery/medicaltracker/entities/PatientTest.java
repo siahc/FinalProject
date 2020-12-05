@@ -80,5 +80,12 @@ class PatientTest {
 		assertTrue(m.size() > 0);
 		assertEquals("Botox", m.get(0).getName());
 	}
+	@Test
+	void test_patient_Medical_History() {
+		List<MedicalHistory> m = patient.getMedHis();
+		assertNotNull(m);
+		assertTrue(m.size() > 0);
+		assertEquals("CHF", m.get(0).getDiagnosis());
+	}
 
 }
