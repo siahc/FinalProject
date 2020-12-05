@@ -1,11 +1,17 @@
 package com.skilldistillery.medicaltracker.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -22,6 +28,12 @@ public class Provider {
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@JoinTable(name="provider_has_patient",
+	joinColumns = @JoinColumn(name = "provider_id"),
+	inverseJoinColumns = @JoinColumn(name = "patient_id"))
+	private List<Patient> patients;
+	
 	
 	public Provider() {}
 	public Provider(String fname, String lname, String location, String title) {
@@ -29,6 +41,23 @@ public class Provider {
 		this.lname = lname;
 		this.location = location;
 		this.title = title;
+	}
+	
+	public void addPatient(Patient patient) {
+		if (patients == null) {
+			patients = new ArrayList<Patient>();
+		}
+		if (!patients.contains(patient)) {
+			patients.add(patient);
+			patient.addProvider(this);
+		}
+	}
+	
+	public void removePatient(Patient patient) {
+		if (patients != null && patients.contains(patient)) {
+			patients.remove(patient);
+			patient.removeProvider(this);
+		}
 	}
 	
 	public int getId() {
@@ -66,6 +95,12 @@ public class Provider {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public List<Patient> getPatients() {
+		return patients;
+	}
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
 	}
 	@Override
 	public int hashCode() {

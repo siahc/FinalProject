@@ -1,6 +1,10 @@
 package com.skilldistillery.medicaltracker.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -51,6 +55,14 @@ class ProviderTest {
 		User user = provider.getUser();
 		assertNotNull(user);
 		assertEquals("provider", user.getUsername());
+	}
+	
+	@Test
+	void test_Provider_patients_mapping() {
+		List<Patient> p = provider.getPatients();
+		assertNotNull(p);
+		assertTrue(p.size() > 0);
+		assertEquals("Winifred", p.get(0).getFname());
 	}
 
 }
