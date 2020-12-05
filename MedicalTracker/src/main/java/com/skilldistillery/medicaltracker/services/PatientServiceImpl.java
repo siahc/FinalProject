@@ -1,13 +1,21 @@
 package com.skilldistillery.medicaltracker.services;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.skilldistillery.medicaltracker.entities.MedicalHistory;
+import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.Provider;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.repositories.PatientRespository;
 
+@Service
 public class PatientServiceImpl implements PatientService {
+	@Autowired
 	private PatientRespository patRepo; 
 
 	@Override
@@ -38,6 +46,39 @@ public class PatientServiceImpl implements PatientService {
 			dbPat.addProvider(provider);
 			patRepo.flush();
 		}
+	}
+	@Override
+	public Patient showPat(int patId) {
+		System.out.println("*************In service IMPL " + patId);
+		Optional<Patient> pat = patRepo.findById(patId);
+		if(pat.isPresent()) {
+			return pat.get();
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Patient> showAllPatients(){
+		return patRepo.findAll();
+	}
+	
+	@Override
+	public List<Medication> listMeds(Integer patId) {
+		Optional<Patient> patOpt = patRepo.findById(patId);
+		Patient dbPat = patOpt.get();
+		if (dbPat != null) {
+			return dbPat.getMedications();
+		}
+		return null;
+	}
+	@Override
+	public List<MedicalHistory> listMedHist(Integer patId) {
+		Optional<Patient> patOpt = patRepo.findById(patId);
+		Patient dbPat = patOpt.get();
+		if (dbPat != null) {
+			return dbPat.getMedHis();
+		}
+		return null;
 	}
 	
 }
