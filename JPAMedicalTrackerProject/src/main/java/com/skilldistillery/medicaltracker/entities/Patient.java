@@ -1,11 +1,15 @@
 package com.skilldistillery.medicaltracker.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -23,6 +27,8 @@ public class Patient {
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	@ManyToMany(mappedBy="patients")
+	private List<Provider> providers;
 	
 	public Patient() {}
 	public Patient(String fname, String lname, String dob, String img) {
@@ -30,6 +36,22 @@ public class Patient {
 		this.lname = lname;
 		this.dob = dob;
 		this.img = img;
+	}
+	
+	public void addProvider(Provider provider) {
+		if(providers == null) {
+			providers = new ArrayList<Provider>();
+		}
+		if(!providers.contains(provider)) {
+			providers.add(provider);
+			provider.addPatient(this);
+		}
+	}
+	public void removeProvider(Provider provider) {
+		if (providers != null && providers.contains(provider)) {
+			providers.remove(provider);
+			provider.removePatient(this);
+		}
 	}
 	
 	public int getId() {
@@ -56,10 +78,10 @@ public class Patient {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
-	public String getimg() {
+	public String getImg() {
 		return img;
 	}
-	public void setimg(String img) {
+	public void setImg(String img) {
 		this.img = img;
 	}
 	public User getUser() {
@@ -67,6 +89,12 @@ public class Patient {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public List<Provider> getProviders() {
+		return providers;
+	}
+	public void setProviders(List<Provider> providers) {
+		this.providers = providers;
 	}
 	@Override
 	public int hashCode() {
