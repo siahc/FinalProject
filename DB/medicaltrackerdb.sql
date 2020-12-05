@@ -241,6 +241,16 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `provider_has_patient`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `medicaltrackerdb`;
+INSERT INTO `provider_has_patient` (`provider_id`, `patient_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `message`
 -- -----------------------------------------------------
 START TRANSACTION;
