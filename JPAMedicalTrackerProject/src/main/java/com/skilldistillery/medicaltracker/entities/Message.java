@@ -7,15 +7,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String content;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="patient_id")
 	private Patient patient;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="provider_id")
 	private Provider provider;

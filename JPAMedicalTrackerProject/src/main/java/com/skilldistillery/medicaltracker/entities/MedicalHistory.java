@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "medical_history")
 public class MedicalHistory {
@@ -24,10 +26,11 @@ public class MedicalHistory {
 	private String onset;
 	
 	private String treatment;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "patient_id")
 	private Patient patient;
+	@JsonIgnore
 	
 	@OneToOne(mappedBy = "medHis")
 	private Medication medication;

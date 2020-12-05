@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Patient {
 	@Id
@@ -25,15 +27,20 @@ public class Patient {
 	@Column(name="date_of_birth")
 	private String dob;
 	private String img;
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	@JsonIgnore
 	@ManyToMany(mappedBy="patients")
 	private List<Provider> providers;
+	@JsonIgnore
 	@OneToMany(mappedBy="patient")
 	private List<Message> messages;
+	@JsonIgnore
 	@OneToMany(mappedBy="patient")
 	private List<Medication> medications;
+	@JsonIgnore
 	@OneToMany(mappedBy="patient")
 	private List<MedicalHistory> medHis;
 	

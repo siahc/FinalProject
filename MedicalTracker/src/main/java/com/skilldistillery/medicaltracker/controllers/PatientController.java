@@ -39,7 +39,7 @@ public class PatientController {
 		}
 		return pat;
 	}
-	@GetMapping("patient/{uid}/medications")
+	@GetMapping("patients/{pid}/medications")
 	public List<Medication> showMeds(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid) {
 		Patient pat = patServ.showPat(pid);
 		System.out.println(pat.getFname() + "**************************************");

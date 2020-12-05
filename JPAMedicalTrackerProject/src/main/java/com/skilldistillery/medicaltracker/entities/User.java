@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 	
@@ -16,8 +18,10 @@ public class User {
 	private String password;
 	private Boolean enabled;
 	private String role;
+	@JsonIgnore
 	@OneToOne(mappedBy = "user")
 	private Patient patient;
+	@JsonIgnore
 	@OneToOne(mappedBy = "user")
 	private Provider provider;
 
