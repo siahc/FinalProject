@@ -2,9 +2,6 @@ package com.skilldistillery.medicaltracker.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,12 +13,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PatientTest {
-
+class MedicationTest {
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Patient patient;
-
+	private Medication m;
+	
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("MedicalTrackerPU");
@@ -35,50 +32,26 @@ class PatientTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		patient =em.find(Patient.class, 1);
+		m = em.find(Medication.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		patient = null;
+		m = null;
 	}
 
 	@Test
-	void test_patient() {
-		assertNotNull(patient);
-		assertEquals("Winifred", patient.getFname());
+	void test_medication() {
+		assertNotNull(m);
+		assertEquals("Botox", m.getName());
 	}
 	
 	@Test
-	void test_patient_user_mapping() {
-		User user = patient.getUser();
-		assertNotNull(user);
-		assertEquals("patient", user.getUsername());
-	}
-	
-	@Test
-	void test_patient_provider_list_mapping() {
-		List<Provider> p = patient.getProviders();
+	void test_medication_patient_mapping() {
+		Patient p = m.getPatient();
 		assertNotNull(p);
-		assertTrue(p.size() > 0);
-		assertEquals("Lane", p.get(0).getFname());
-	}
-	
-	@Test
-	void test_patient_messages() {
-		List<Message> m = patient.getMessages();
-		assertNotNull(m);
-		assertTrue(m.size() > 0);
-		assertEquals("Hello World", m.get(0).getContent());
-	}
-	
-	@Test
-	void test_patient_medications() {
-		List<Medication> m = patient.getMedications();
-		assertNotNull(m);
-		assertTrue(m.size() > 0);
-		assertEquals("Botox", m.get(0).getName());
+		assertEquals("Winifred", p.getFname());
 	}
 
 }
