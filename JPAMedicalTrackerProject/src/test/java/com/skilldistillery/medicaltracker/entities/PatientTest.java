@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
-	
+class PatientTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private Patient patient;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,36 +31,26 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user =em.find(User.class, 1);
+		patient =em.find(Patient.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user = null;
+		patient = null;
 	}
 
 	@Test
-	void test() {
+	void test_patient() {
+		assertNotNull(patient);
+		assertEquals("Winifred", patient.getFname());
+	}
+	
+	@Test
+	void test_patient_user_mapping() {
+		User user = patient.getUser();
 		assertNotNull(user);
-		assertEquals("admin", user.getUsername());
-		assertEquals("admin", user.getRole());
-	}
-	
-	@Test
-	void test_user_patient_mapping() {
-		user = em.find(User.class, 2);
-		Patient pat = user.getPatient();
-		assertNotNull(pat);
-		assertEquals("Winifred", pat.getFname());
-	}
-	
-	@Test
-	void test_user_provider_mapping() {
-		user = em.find(User.class, 3);
-		Provider provider = user.getProvider();
-		assertNotNull(provider);
-		assertEquals("Lane", provider.getFname());
+		assertEquals("patient", user.getUsername());
 	}
 
 }
