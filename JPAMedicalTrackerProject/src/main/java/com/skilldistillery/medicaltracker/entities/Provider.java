@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -33,7 +34,8 @@ public class Provider {
 	joinColumns = @JoinColumn(name = "provider_id"),
 	inverseJoinColumns = @JoinColumn(name = "patient_id"))
 	private List<Patient> patients;
-	
+	@OneToMany(mappedBy="provider")
+	private List<Message> messages;
 	
 	public Provider() {}
 	public Provider(String fname, String lname, String location, String title) {
@@ -101,6 +103,12 @@ public class Provider {
 	}
 	public void setPatients(List<Patient> patients) {
 		this.patients = patients;
+	}
+	public List<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
 	}
 	@Override
 	public int hashCode() {

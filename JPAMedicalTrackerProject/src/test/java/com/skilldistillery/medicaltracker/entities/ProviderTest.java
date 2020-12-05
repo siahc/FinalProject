@@ -64,5 +64,13 @@ class ProviderTest {
 		assertTrue(p.size() > 0);
 		assertEquals("Winifred", p.get(0).getFname());
 	}
+	
+	@Test
+	void test_provider_messages() {
+		List<Message> m = provider.getMessages();
+		assertNotNull(m);
+		assertTrue(m.size() > 0);
+		assertEquals("Hello World", m.get(0).getContent());
+	}
 
 }
