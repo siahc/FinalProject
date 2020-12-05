@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Provider {
 	@Id
@@ -26,14 +28,17 @@ public class Provider {
 	private String lname;
 	private String location;
 	private String title;
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinTable(name="provider_has_patient",
 	joinColumns = @JoinColumn(name = "provider_id"),
 	inverseJoinColumns = @JoinColumn(name = "patient_id"))
 	private List<Patient> patients;
+	@JsonIgnore
 	@OneToMany(mappedBy="provider")
 	private List<Message> messages;
 	
