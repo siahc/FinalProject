@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Medication {
@@ -24,6 +25,13 @@ public class Medication {
 	@ManyToOne
 	@JoinColumn(name="patient_id")
 	private Patient patient;
+	@OneToOne
+	@JoinColumn(name="medical_history_id")
+	private MedicalHistory medHis;
+	
+	
+	
+	//Methods
 	
 	public Medication() {}
 	
@@ -81,6 +89,14 @@ public class Medication {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+	public MedicalHistory getMedHis() {
+		return medHis;
+	}
+
+	public void setMedHis(MedicalHistory medHis) {
+		this.medHis = medHis;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
