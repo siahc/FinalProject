@@ -28,7 +28,7 @@ public class Provider {
 	private String lname;
 	private String location;
 	private String title;
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
