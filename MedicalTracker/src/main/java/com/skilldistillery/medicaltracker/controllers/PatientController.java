@@ -1,12 +1,12 @@
 package com.skilldistillery.medicaltracker.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,16 +32,16 @@ public class PatientController {
 	}
 	
 	@GetMapping("patients/{pid}")
-	public Patient showById(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid) {
-		Patient pat = patServ.showPat(pid);
+	public Patient showById(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid, Principal principal) {
+		Patient pat = patServ.showPat(principal.getName(), pid);
 		if (pat == null) {
 			res.setStatus(404);
 		}
 		return pat;
 	}
 	@GetMapping("patients/{pid}/medications")
-	public List<Medication> showMeds(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid) {
-		Patient pat = patServ.showPat(pid);
+	public List<Medication> showMeds(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid, Principal principal) {
+		Patient pat = patServ.showPat(principal.getName(), pid);
 		System.out.println(pat.getFname() + "**************************************");
 		List<Medication> meds = pat.getMedications();
 		if (meds == null) {

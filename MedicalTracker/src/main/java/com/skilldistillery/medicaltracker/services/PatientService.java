@@ -16,7 +16,7 @@ public interface PatientService {
 
 	void addProviderToPatient(Provider provider, Integer patId);
 
-	Patient showPat(int patId);
+	Patient showPat(String username, int patId);
 
 	List<Medication> listMeds(Integer patId);
 	List<MedicalHistory> listMedHist(Integer patId);
