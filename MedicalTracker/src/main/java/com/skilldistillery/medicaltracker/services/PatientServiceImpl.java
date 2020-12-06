@@ -48,13 +48,9 @@ public class PatientServiceImpl implements PatientService {
 		}
 	}
 	@Override
-	public Patient showPat(int patId) {
-		System.out.println("*************In service IMPL " + patId);
-		Optional<Patient> pat = patRepo.findById(patId);
-		if(pat.isPresent()) {
-			return pat.get();
-		}
-		return null;
+	public Patient showPat(String username, int patId) {
+		Patient pat = patRepo.findByUser_UsernameAndId(username, patId);
+		return pat;
 	}
 	
 	@Override
