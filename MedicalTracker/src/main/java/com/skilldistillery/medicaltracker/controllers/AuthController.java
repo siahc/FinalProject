@@ -5,6 +5,7 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.services.AuthService;
 
 @RestController
+@CrossOrigin({"*", "http://localhost:4210"})
 public class AuthController {
 	@Autowired
 	private AuthService authService;
