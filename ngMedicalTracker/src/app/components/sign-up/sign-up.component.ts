@@ -49,6 +49,7 @@ export class SignUpComponent implements OnInit {
     this.patientService.createPatient(this.newPatient).subscribe(
       data => {
         console.log('create patient successful');
+        this.router.navigateByUrl('/howto')
       },
       err => {
         console.error(err)
