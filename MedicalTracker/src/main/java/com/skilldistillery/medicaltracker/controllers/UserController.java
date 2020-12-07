@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.medicaltracker.entities.MedicalHistory;
+import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.services.UserService;
@@ -74,9 +76,25 @@ public class UserController {
 			HttpServletResponse response,
 			Principal principal
 			) {
-		System.out.println("*******************" + principal.getName());
 		return userSvc.getUserPatient(principal.getName());
 	}
+	@GetMapping("patient/medHis")
+	public List<MedicalHistory> userPatientMedHis(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			) {
+		return userSvc.getUserPatientMedHis(principal.getName());
+	}
+	@GetMapping("patient/medication")
+	public List<Medication> userPatientMedication(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			) {
+		return userSvc.getUserPatientMeds(principal.getName());
+	}
+	
 	
 
 }

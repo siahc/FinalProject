@@ -1,9 +1,11 @@
+import { MedicalHistory } from './../models/medical-history';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Patient } from '../models/patient';
+import { Medication } from '../models/medication';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +61,26 @@ export class PatientService {
           return throwError('PatientService.index(): Error retrieving patient ' + patientId);
         })
       );
+    }
+    userPatientMedication():Observable<Medication[]>{
+      const httpOptions = this.getHttpOptions();
+      let testUrl = this.baseUrl + 'api/patient/medication';
+      return this.http.get<Medication[]>(testUrl, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('PatientService.userPatientMedication(): Failed to get patient')
+        })
+      )
+    }
+    userMedicalHistory():Observable<MedicalHistory[]>{
+      const httpOptions = this.getHttpOptions();
+      let testUrl = this.baseUrl + 'api/patient/medHis';
+      return this.http.get<MedicalHistory[]>(testUrl, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('PatientService.userMedicalHistory: Failed to get medical history')
+        })
+      )
     }
 
     }
