@@ -193,9 +193,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', '$2a$10$IlnXxhorq9uTuBY3JkHSD.noPEYSdWMe2q8hHsHv9tpohz7PwkzRS', 1, 'admin');
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'patient', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'provider', '$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', 'admin', 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'patient', 'patient', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'provider', 'provider', 1, 'provider');
 
 COMMIT;
 
@@ -206,6 +206,12 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (1, 'Winifred', 'Sanderson', 'October 31, 1759', 'https://pbs.twimg.com/profile_images/517608236783263744/OnfUnthO_400x400.jpeg', 2);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (2, 'Magic', 'Mike', '7/12/1960', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMPef4KPk-0QekdQ3cBE7DgoWcMcw7tJHXlQ&usqp=CAU', 2);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (3, 'Samuel', 'Adams', '1-16-1900', 'https://www.biography.com/.image/t_share/MTE1ODA0OTcxNTMzNDM2NDI5/samuel-adams-9176129-1-402.jpg', 2);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (4, 'Brennon', 'Pop', '9-9-1999', 'https://members.baseballfactory.com/player/bm/06bfa9a9fdec4bd0bcdf7906cad3b947.jpg', 2);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (5, 'Betty', 'Rivers', '10-1-1928', 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE1ODA0OTcxODg1ODIzNTAx/betty-white-9542614-1-402.jpg', 2);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (6, 'April', 'Chandler', '4-1-1982', 'https://m.media-amazon.com/images/M/MV5BYTBhZDg4N2YtYzlhMy00NzgzLWI3NGItMGVlM2U0NWVjNmMwXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg', 2);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (7, 'Richard', 'Dickies', '6-19-1958', 'https://doximity-res.cloudinary.com/image/upload/t_public_profile_photo_320x320/lm7mlawhrvq0wag6pjdp.jpg', 2);
 
 COMMIT;
 
@@ -216,6 +222,10 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (1, 'CHF', 1, '1800', 'Lasix', 1);
+INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (2, 'Eczema', 1, '1999', 'lotion', 5);
+INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (3, 'High Blood Pressure', 1, '1990\'s?', 'diet and exercise', 7);
+INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (4, 'Contraception', 1, 'early 2000\'s', 'condoms', 6);
+INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (5, 'Asthma', 1, '2006ish', 'ProAir', 4);
 
 COMMIT;
 
@@ -226,6 +236,10 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (1, 'Botox', 'youth', '1 child', 'daily', 'Billy', 'I hate Max Dennison', 1, 1, 1);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (2, 'Hydrocortisone', 'itch cream', '2.5%', '2-3X daily', 'Lane', 'I like this cream', 5, 1, 2);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (3, 'Lisinopril', 'my blood pressure pill', '20mg', '1 tab daily', 'Tommy', 'i get a cough with this.', 7, 1, 3);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (4, 'Avianne', 'birth control', '0.1 mg', '1 tab daily', 'Robert', 'do not forget. to broke for a baby', 6, 1, 4);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (5, 'Ventolin HFA', 'inhaler', '90 mcg', '2 puffs every 4 hrs', 'Samuel', 'makes me jittery', 4, 1, 5);
 
 COMMIT;
 
@@ -236,6 +250,10 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (1, 'Lane', 'Shepard', 'walkin', 'PA-C', 3);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (2, 'Robert', 'Benjamin', 'Cortez', 'PA-c', 3);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (3, 'Tommy', 'Cross', 'Denver', 'MD', 3);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (4, 'Maria', 'Cornelius', 'Shiprock', 'MD', 3);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (5, 'Amy', 'Powers', 'Las Vegas', 'DO', 3);
 
 COMMIT;
 
@@ -256,6 +274,8 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`) VALUES (1, 'Hello World', 1, 1);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`) VALUES (2, 'Hey Doc', 2, 2);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`) VALUES (3, 'I love this App', 3, 4);
 
 COMMIT;
 
