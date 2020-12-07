@@ -1,14 +1,13 @@
-<div>
-Username
-<input type="text" [(ngModel)]='newUser.username'>
-<div>
-  Password
-  <input type="text" name="" id="" [(ngModel)]='newUser.password'>
-</div>
-<button (click)="register()"></button>
-</div>
-<input type="text" [(ngModel)]='newPatient.fname'>
-<input type="text" [(ngModel)]='newPatient.lname'>
-<input type="text" [(ngModel)]='newPatient.dob'>
-<input type="text" [(ngModel)]='newPatient.img'>
+<div class="container-fluid">
 
+  <h4>User Registration Information</h4><br>
+  Username: <input type="text" [(ngModel)]='newUser.username'><br>
+  Password: <input type="text" name="" id="" [(ngModel)]='newUser.password'><br>
+  Firstname: <input type="text" [(ngModel)]='newPatient.fname'><br>
+  Lastname: <input type="text" [(ngModel)]='newPatient.lname'><br>
+  Date of Birth: <input type="date" name="dob" [(ngModel)]='newPatient.dob'><br>
+  Image url: <input type="text" [(ngModel)]='newPatient.img'><br>
+
+  <button type="submit" (click)="register()">Submit</button>
+
+</div>
