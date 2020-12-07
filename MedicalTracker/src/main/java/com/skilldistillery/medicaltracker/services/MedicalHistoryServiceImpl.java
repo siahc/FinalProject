@@ -3,6 +3,7 @@ package com.skilldistillery.medicaltracker.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.medicaltracker.entities.MedicalHistory;
@@ -10,7 +11,7 @@ import com.skilldistillery.medicaltracker.repositories.MedicalHistoryRepository;
 
 @Service
 public class MedicalHistoryServiceImpl implements MedicalHistoryService {
-	
+	@Autowired
 	private MedicalHistoryRepository repo;
 	
 	
@@ -23,6 +24,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 	
 	@Override
 	public MedicalHistory findById(int medHisId) {
+		System.out.println(medHisId);
 		Optional<MedicalHistory> medOpt = repo.findById(medHisId);
 		MedicalHistory medHis = null;
 		if(medOpt.isPresent()) {
