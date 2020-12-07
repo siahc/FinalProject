@@ -29,7 +29,20 @@
       <li>
         {{rxDeets.name}}
       </li>
+      <li>
+        <button (click)='rxUpdated=rxDeets'>Update Rx</button>
+      </li>
     </ul>
+    <div>
+      <Ul>
+        <li>
+          <input type="text" name="" id="" [(ngModel)]='rxUpdated.name'>
+          <input type="text" name="" id="" [(ngModel)]='rxUpdated.description'>
+{{rxUpdated.name}}
+        </li>
+        <button (click)='updateRxComponent()'>Submit</button>
+      </Ul>
+    </div>
   </div>
 
 

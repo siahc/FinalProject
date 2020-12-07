@@ -1,3 +1,4 @@
+import { MedicationService } from './../../services/medication.service';
 import { User } from 'src/app/models/user';
 import { MedicalHistory } from './../../models/medical-history';
 import { Medication } from './../../models/medication';
@@ -18,11 +19,13 @@ export class LoggedInComponent implements OnInit {
   medicalHistory = [];
   rxDeets = null;
   hisDeets = null;
+  rxUpdated = null;
 
   constructor(
     private patientService: PatientService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private rxService: MedicationService
   ) { }
 
   ngOnInit(): void {
@@ -66,6 +69,19 @@ export class LoggedInComponent implements OnInit {
       this.router.navigateByUrl('invalidId');
     }
   }
+
+  updateRxComponent(): void {
+    this.rxService.updateRx(this.rxUpdated).subscribe(
+      (good) => {
+      console.log('update Rx success')
+      },
+      (bad) => {
+        console.error(bad);
+      }
+    );
+    this.rxUpdated = null;
+  }
+
 
   reload(): void {
     this.patientService.index().subscribe(
