@@ -93,4 +93,19 @@
   <button (click)="updateHisComponent()">Submit Test Button</button>
 </form>
 </div>
+<div>
+  <h3>Add Medical History Item: </h3>
+  <form>
+    <div class="form-group">
+      Diagnosis
+      <input type="text" name="diagnosisName" [(ngModel)]="historyToAdd.diagnosis">
+    </div>
+    <div class="form-group">
+      Onset:
+      <input type="text" name="Onset" [(ngModel)]="historyToAdd.onset">
+    </div>
+    <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
+    <button (click)="createMedicalHistory()">Submit Test Button</button>
+  </form>
+</div>
 </div>
