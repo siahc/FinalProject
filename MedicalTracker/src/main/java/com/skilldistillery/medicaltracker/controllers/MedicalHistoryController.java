@@ -21,8 +21,8 @@ import com.skilldistillery.medicaltracker.entities.MedicalHistory;
 import com.skilldistillery.medicaltracker.services.MedicalHistoryService;
 
 
-@CrossOrigin({ "*", "http://localhost:4210" })
 @RestController
+@CrossOrigin({ "*", "http://localhost:4210" })
 @RequestMapping("api")
 public class MedicalHistoryController {
 	
@@ -36,8 +36,8 @@ public class MedicalHistoryController {
 	
 	
 	@GetMapping("medicalHistory/{medHisId}")
-	public MedicalHistory showMedicalHistory(@PathVariable Integer medId, HttpServletResponse response) {
-		MedicalHistory med = svc.findById(medId);
+	public MedicalHistory showMedicalHistory(@PathVariable Integer medHisId, HttpServletResponse response) {
+		MedicalHistory med = svc.findById(medHisId);
 		if(med == null) {
 			response.setStatus(404);
 		}

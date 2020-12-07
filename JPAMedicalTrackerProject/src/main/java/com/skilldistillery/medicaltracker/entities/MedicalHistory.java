@@ -26,13 +26,13 @@ public class MedicalHistory {
 	private String onset;
 	
 	private String treatment;
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "patient_id")
-	private Patient patient;
 	@JsonIgnore
-	
+	private Patient patient;
 	@OneToOne(mappedBy = "medHis")
+	@JsonIgnore
 	private Medication medication;
 	
 	
