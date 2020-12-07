@@ -1,4 +1,25 @@
 <h1>Logged-In Works!</h1>
 
 <h3>{{selected.fname}}</h3>
+<ul *ngFor='let med of medication'>
+<li>
+  {{med.name}}
+</li>
+</ul>
+<ul *ngFor='let medHis of medicalHistory'>
+  <li (click)='details=medHis'>
+    {{medHis.diagnosis}}
+  </li>
+  </ul>
+  <div *ngIf='details'>
+    <ul>
+      <li>
+        {{details.diagnosis}}
+      </li>
+      <li>
+        {{details.onset}}
+      </li>
+    </ul>
+  </div>
+
 

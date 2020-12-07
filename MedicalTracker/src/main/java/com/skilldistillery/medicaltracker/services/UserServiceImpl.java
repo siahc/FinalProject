@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.medicaltracker.entities.MedicalHistory;
+import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.repositories.UserRepository;
@@ -64,9 +66,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Patient getUserPatient(String username) {
 		User u = userRepo.findUniqueByUsername(username);
-		System.out.println("*******In user serviceimpl" + u.getUsername());
 		return u.getPatient();
 	}
+	@Override
+	public List<Medication> getUserPatientMeds(String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		return u.getPatient().getMedications();
+	}
+	@Override
+	public List<MedicalHistory> getUserPatientMedHis(String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		return u.getPatient().getMedHis();
+	}
+	
 	
 	
 
