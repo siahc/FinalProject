@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { HowToComponent } from './components/how-to/how-to.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     LogoutComponent,
     HomeComponent,
     LoggedInComponent,
-    SignUpComponent
+    SignUpComponent,
+    HowToComponent
   ],
   imports: [
     BrowserModule,
