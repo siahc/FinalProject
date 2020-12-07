@@ -3,7 +3,6 @@ import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Medication } from '../models/medication';
 import { AuthService } from './auth.service';
 
 @Injectable({

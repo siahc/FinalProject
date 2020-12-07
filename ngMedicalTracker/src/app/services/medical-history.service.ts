@@ -1,3 +1,4 @@
+import { MedicalHistoryService } from './medical-history.service';
 import { MedicalHistory } from './../models/medical-history';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -47,6 +48,16 @@ export class MedicalHistoryService {
       catchError((err:any) => {
         console.error(err);
         return throwError('medical History service failed to update')
+      })
+    )
+  }
+  createMedHis(medicalHistory: MedicalHistory):Observable<MedicalHistory>{
+    const httpOptions = this.getHttpOptions();
+
+    return this.http.post<MedicalHistory>(this.url, medicalHistory, httpOptions).pipe(
+      catchError((err:any) => {
+        console.error(err);
+        return throwError('medical History service failed to create')
       })
     )
   }

@@ -1,5 +1,6 @@
 package com.skilldistillery.medicaltracker.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.medicaltracker.entities.MedicalHistory;
-
+import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.services.MedicalHistoryService;
+import com.skilldistillery.medicaltracker.services.UserService;
 
 
 @RestController
@@ -26,6 +28,8 @@ import com.skilldistillery.medicaltracker.services.MedicalHistoryService;
 @RequestMapping("api")
 public class MedicalHistoryController {
 	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private MedicalHistoryService svc;
 	
@@ -48,8 +52,11 @@ public class MedicalHistoryController {
 	public MedicalHistory addMedicalHistory(
 			@RequestBody MedicalHistory medHis,
 			HttpServletRequest request,
-			HttpServletResponse response
+			HttpServletResponse response,
+			Principal principal
 	) {
+		User u = userService.getUserByUsername(principal.getName());
+		medHis.setPatient(u.getPatient());
 		try {
 		medHis = svc.createNewMedicalHistory(medHis);
 			response.setStatus(201);
