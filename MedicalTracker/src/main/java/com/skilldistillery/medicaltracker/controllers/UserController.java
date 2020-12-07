@@ -1,5 +1,6 @@
 package com.skilldistillery.medicaltracker.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.services.UserService;
 
@@ -66,7 +68,15 @@ public class UserController {
 		return user;
 	}
 	
-	
+	@GetMapping("patient/info")
+	public Patient userPatientInfo(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			) {
+		System.out.println("*******************" + principal.getName());
+		return userSvc.getUserPatient(principal.getName());
+	}
 	
 
 }

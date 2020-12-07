@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoggedInComponent implements OnInit {
   selected = null;
-
+  patients = [];
 
   constructor(
     private patientService: PatientService,
@@ -20,42 +20,32 @@ export class LoggedInComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.route.snapshot.paramMap);
-
-    // const idStr = this.route.snapshot.paramMap.get('id');
-    console.log(this.route.snapshot.paramMap.get('id'));
-    let idStr = 1
-
-    if (idStr) {
-
-
     try {
-      // const id: number = Number.parseInt(idStr, 10);
-      this.patientService.show(1).subscribe(
+      this.patientService.userPatientInfo().subscribe(
         patient => {
         //TODO: get todo with this id, set selected
         console.log('Todo retrieved, setting selected');
         this.selected = patient;
       },
       err => {
-        //TODO: If todo doesn't exist, forward to not found page
-        console.log('Todo ' + id + ' not found.');
         this.router.navigateByUrl('notFound');
       }
    );
     } catch (error) {
-      //TODO: forward to not found page
       this.router.navigateByUrl('invalidId');
     }
   }
-  else{}
-    // this.reload();
 
+  reload(): void {
+    this.patientService.index().subscribe(
+      data => {
+          this.patients = data;
+      },
+      err=>{
+        console.error('Loggedin.reload():index failed');
+        console.error(err);
+
+      }
+    )
   }
-  // reload(): void {
-  //   this.patientService.index().subscribe(
-  //     todos => {
-
-  //     }
-  //   )
-  // }
 }
