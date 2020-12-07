@@ -1,13 +1,31 @@
 <div class="container-fluid">
+<form>
+  <div class="form-group">
+    <label for="username">Email address</label>
+    <input type="test" class="form-control" id="username" placeholder="Enter a username" [(ngModel)]='newUser.username'>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]='newUser.password'>
+  </div>
+  <div class="form-group">
+    <label for="fname">First Name</label>
+    <input type="text" class="form-control" id="fname" placeholder="First Name" [(ngModel)]='newPatient.fname'>
+  </div>
+  <div class="form-group">
+    <label for="lname">First Name</label>
+    <input type="text" class="form-control" id="lname" placeholder="Last Name" [(ngModel)]='newPatient.lname'>
+  </div>
+  <div class="form-group">
+    <label for="dob">Date of Birth</label>
+    <input type="date" class="form-control" id="dob" placeholder="Date of Birth" [(ngModel)]='newPatient.dob'>
+  </div>
+  <div class="form-group">
+    <label for="img">Image URL</label>
+    <input type="text" class="form-control" id="img" placeholder="image@host.com" [(ngModel)]='newPatient.img'>
+  </div>
 
-  <h4>User Registration Information</h4><br>
-  Username: <input type="text" [(ngModel)]='newUser.username'><br>
-  Password: <input type="text" name="" id="" [(ngModel)]='newUser.password'><br>
-  Firstname: <input type="text" [(ngModel)]='newPatient.fname'><br>
-  Lastname: <input type="text" [(ngModel)]='newPatient.lname'><br>
-  Date of Birth: <input type="date" name="dob" [(ngModel)]='newPatient.dob'><br>
-  Image url: <input type="text" [(ngModel)]='newPatient.img'><br>
-
-  <button type="submit" (click)="register()">Submit</button>
-
+  <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
+  <button type="submit" class="btn btn-primary" (click)='register()'>Submit</button>
+</form>
 </div>
