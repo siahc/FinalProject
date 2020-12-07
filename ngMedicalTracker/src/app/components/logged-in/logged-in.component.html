@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{user.fname}} {{user.lname}}</h3>
-  <div>
+
+  <div *ngIf="!rxDeets">
   <table class="table">
     <tbody>
       <tr *ngFor='let rx of medication'>
@@ -10,15 +11,20 @@
         <td>
           {{rx.description}}
         </td>
+        <td (click)="rxDeets=rx">
+          View Detailed Information
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
-<div>
+
+<div *ngIf="rxDeets">
 <ul>
   <li>
-    <!-- Name:{{rxDeets.name}} -->
+     Name:{{rxDeets.name}}
   </li>
 </ul>
 </div>
+
 </div>
