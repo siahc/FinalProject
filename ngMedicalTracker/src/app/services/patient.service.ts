@@ -1,3 +1,5 @@
+import { User } from 'src/app/models/user';
+import { Patient } from './../models/patient';
 import { MedicalHistory } from './../models/medical-history';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -81,6 +83,16 @@ export class PatientService {
           return throwError('PatientService.userMedicalHistory: Failed to get medical history')
         })
       )
+    }
+    createPatient(patient: Patient):Observable<Patient> {
+      const httpOptions = this.getHttpOptions();
+
+      return this.http.post<Patient>(this.url, patient, httpOptions).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Patient.create(): Error creating patient');
+        })
+      );
     }
 
     }

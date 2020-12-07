@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoggedInComponent } from './components/logged-in/logged-in.component';
     LoginComponent,
     LogoutComponent,
     HomeComponent,
-    LoggedInComponent
+    LoggedInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
