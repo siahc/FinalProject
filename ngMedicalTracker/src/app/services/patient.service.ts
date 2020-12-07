@@ -1,5 +1,4 @@
 import { User } from 'src/app/models/user';
-import { Patient } from './../models/patient';
 import { MedicalHistory } from './../models/medical-history';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
