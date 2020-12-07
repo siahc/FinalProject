@@ -22,6 +22,8 @@ public interface UserService {
 	List<Medication> getUserPatientMeds(String username);
 
 	List<MedicalHistory> getUserPatientMedHis(String username);
+
+	User getUserByUsername(String username);
 	
 	
 }

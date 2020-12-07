@@ -1,3 +1,4 @@
+import { Medication } from './../models/medication';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -41,6 +42,16 @@ export class MedicationService {
       )
     }
 
+    addMed(medication: Medication): Observable<Medication> {
+      const httpOptions = this.getHttpOptions();
+
+      return this.http.post<Medication>(this.url, medication, httpOptions).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('TodoService.create(): Error creating todo');
+        })
+      );
+    }
 
 
 }
