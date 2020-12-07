@@ -18,29 +18,47 @@ export class PatientService {
     private auth: AuthService
     ) { }
 
-      show(patientId: number): Observable<Patient> {
-        const httpOptions = this.getHttpOptions();
-  console.log(patientId);
+    getHttpOptions() {
+      const credentials = this.auth.getCredentials();
 
-        return this.http.get<Patient>(`${this.url}/${patientId}`, httpOptions).pipe(
-          catchError((err: any) => {
-            console.log(err);
-            return throwError('PatientService.index(): Error retrieving patient ' + patientId);
-          })
-        );
-      }
+      const httpOptions = {
+        headers: new HttpHeaders({
+          Authorization: `Basic ${credentials}`,
+          'X-Requested-With': 'XMLHttpRequest'
+        })
+      };
+      return httpOptions;
+    }
 
-      getHttpOptions() {
-        console.log('****************************************************');
+    index(): Observable<Patient[]>{
+      const httpOptions = this.getHttpOptions();
+      return this.http.get<Patient[]>(this.url, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('PatientService.Index(): Failed to get patients[]')
+        })
+      )
+    }
 
-        const credentials = this.auth.getCredentials();
-        const httpOptions = {
-          headers: new HttpHeaders({
-            Authorization: `Basic ${credentials}`,
-            'X-Requested-With': 'XMLHttpRequest'
-          })
-        };
-        return httpOptions;
-      }
+    userPatientInfo():Observable<Patient>{
+      const httpOptions = this.getHttpOptions();
+      let testUrl = this.baseUrl + 'api/patient/info';
+      return this.http.get<Patient>(testUrl, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('PatientService.userPatientInfo(): Failed to get patient')
+        })
+      )
+    }
+
+    show(patientId: number): Observable<Patient> {
+      const httpOptions = this.getHttpOptions();
+      return this.http.get<Patient>(`${this.url}/${patientId}`, httpOptions).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('PatientService.index(): Error retrieving patient ' + patientId);
+        })
+      );
+    }
 
     }
