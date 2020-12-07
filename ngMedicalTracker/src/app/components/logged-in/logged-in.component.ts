@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/user';
 import { MedicalHistory } from './../../models/medical-history';
 import { Medication } from './../../models/medication';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,11 +12,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./logged-in.component.css']
 })
 export class LoggedInComponent implements OnInit {
-  selected = null;
+  user = null;
   patients = [];
   medication = [];
   medicalHistory = [];
-  details = null;
+  rxDeets = null;
+  hisDeets = null;
 
   constructor(
     private patientService: PatientService,
@@ -29,9 +31,9 @@ export class LoggedInComponent implements OnInit {
       this.patientService.userPatientInfo().subscribe(
         patient => {
         //TODO: get todo with this id, set selected
-        console.log('Todo retrieved, setting selected');
-        this.selected = patient;
-        if(this.selected != null){
+        console.log('Patient retrieved');
+        this.user = patient;
+        if(this.user != null){
           this.patientService.userPatientMedication().subscribe(
             data => {
               this.medication = data;
@@ -43,7 +45,7 @@ export class LoggedInComponent implements OnInit {
           }
           )
         }
-        if(this.selected != null){
+        if(this.user != null){
           this.patientService.userMedicalHistory().subscribe(
             data => {
               this.medicalHistory = data;

@@ -1,23 +1,33 @@
 <h1>Logged-In Works!</h1>
 
-<h3>{{selected.fname}}</h3>
+<h3>{{user.fname}}</h3>
 <ul *ngFor='let med of medication'>
-<li>
+<li (click)='rxDeets=med'>
   {{med.name}}
 </li>
 </ul>
 <ul *ngFor='let medHis of medicalHistory'>
-  <li (click)='details=medHis'>
+  <li (click)='hisDeets=medHis'>
     {{medHis.diagnosis}}
   </li>
   </ul>
-  <div *ngIf='details'>
+  <div *ngIf='hisDeets'>
     <ul>
       <li>
-        {{details.diagnosis}}
+        {{hisDeets.diagnosis}}
       </li>
       <li>
-        {{details.onset}}
+        {{hisDeets.onset}}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf='rxDeets'>
+    <ul>
+      <li>
+        {{rxDeets.description}}
+      </li>
+      <li>
+        {{rxDeets.name}}
       </li>
     </ul>
   </div>
