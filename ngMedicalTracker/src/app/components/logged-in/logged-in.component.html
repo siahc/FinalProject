@@ -1,48 +1,24 @@
-<h1>Logged-In Works!</h1>
-
-<h3>{{user.fname}}</h3>
-<ul *ngFor='let med of medication'>
-<li (click)='rxDeets=med'>
-  {{med.name}}
-</li>
-</ul>
-<ul *ngFor='let medHis of medicalHistory'>
-  <li (click)='hisDeets=medHis'>
-    {{medHis.diagnosis}}
+<div class="container-fluid">
+  <h3 class="text-center">Welcome {{user.fname}} {{user.lname}}</h3>
+  <div>
+  <table class="table">
+    <tbody>
+      <tr *ngFor='let rx of medication'>
+        <td>
+          {{rx.name}}
+        </td>
+        <td>
+          {{rx.description}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div>
+<ul>
+  <li>
+    <!-- Name:{{rxDeets.name}} -->
   </li>
-  </ul>
-  <div *ngIf='hisDeets'>
-    <ul>
-      <li>
-        {{hisDeets.diagnosis}}
-      </li>
-      <li>
-        {{hisDeets.onset}}
-      </li>
-    </ul>
-  </div>
-  <div *ngIf='rxDeets'>
-    <ul>
-      <li>
-        {{rxDeets.description}}
-      </li>
-      <li>
-        {{rxDeets.name}}
-      </li>
-      <li>
-        <button (click)='rxUpdated=rxDeets'>Update Rx</button>
-      </li>
-    </ul>
-    <div>
-      <Ul>
-        <li>
-          <input type="text" name="" id="" [(ngModel)]='rxUpdated.name'>
-          <input type="text" name="" id="" [(ngModel)]='rxUpdated.description'>
-{{rxUpdated.name}}
-        </li>
-        <button (click)='updateRxComponent()'>Submit</button>
-      </Ul>
-    </div>
-  </div>
-
-
+</ul>
+</div>
+</div>

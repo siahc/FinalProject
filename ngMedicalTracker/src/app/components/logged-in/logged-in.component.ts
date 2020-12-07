@@ -1,3 +1,4 @@
+import { MedicalHistoryService } from './../../services/medical-history.service';
 import { MedicationService } from './../../services/medication.service';
 import { User } from 'src/app/models/user';
 import { MedicalHistory } from './../../models/medical-history';
@@ -20,12 +21,14 @@ export class LoggedInComponent implements OnInit {
   rxDeets = null;
   hisDeets = null;
   rxUpdated = null;
+  hisUpdated = null;
 
   constructor(
     private patientService: PatientService,
     private router: Router,
     private route: ActivatedRoute,
-    private rxService: MedicationService
+    private rxService: MedicationService,
+    private hisService: MedicalHistoryService
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +73,17 @@ export class LoggedInComponent implements OnInit {
     }
   }
 
+  updateHisComponent(): void {
+    this.hisService.updateMedHis(this.hisUpdated).subscribe(
+      (good) => {
+      console.log('update MedHis success')
+      },
+      (bad) => {
+        console.error(bad);
+      }
+    );
+    this.hisUpdated = null;
+  }
   updateRxComponent(): void {
     this.rxService.updateRx(this.rxUpdated).subscribe(
       (good) => {
