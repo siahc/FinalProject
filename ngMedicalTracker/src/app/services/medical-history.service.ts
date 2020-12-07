@@ -40,4 +40,15 @@ export class MedicalHistoryService {
       })
     );
   }
+  updateMedHis(medicalHistory: MedicalHistory):Observable<MedicalHistory>{
+    const httpOptions = this.getHttpOptions();
+
+    return this.http.put<MedicalHistory>(`${this.url}/${medicalHistory.id}`, medicalHistory, httpOptions).pipe(
+      catchError((err:any) => {
+        console.error(err);
+        return throwError('medical History service failed to update')
+      })
+    )
+  }
+
 }
