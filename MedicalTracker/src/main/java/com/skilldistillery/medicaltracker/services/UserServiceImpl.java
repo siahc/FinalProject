@@ -78,6 +78,11 @@ public class UserServiceImpl implements UserService {
 		User u = userRepo.findUniqueByUsername(username);
 		return u.getPatient().getMedHis();
 	}
+	@Override
+	public User getUserByUsername(String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		return u;
+	}
 	
 	
 	

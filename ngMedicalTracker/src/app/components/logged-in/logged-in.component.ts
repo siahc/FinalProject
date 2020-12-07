@@ -22,6 +22,7 @@ export class LoggedInComponent implements OnInit {
   hisDeets = null;
   rxUpdated = null;
   hisUpdated = null;
+  medToAdd = new Medication();
 
   constructor(
     private patientService: PatientService,
@@ -95,6 +96,16 @@ export class LoggedInComponent implements OnInit {
       }
     );
     this.rxUpdated = null;
+  }
+  createMed(): void {
+    this.rxService.addMed(this.medToAdd).subscribe(
+      (good) => {
+        console.log('added med successfully')
+      },
+      (bad) => {
+        console.error(bad);
+      }
+    );
   }
 
 

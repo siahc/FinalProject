@@ -1,5 +1,6 @@
 package com.skilldistillery.medicaltracker.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.medicaltracker.entities.Medication;
+import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.services.MedicationService;
+import com.skilldistillery.medicaltracker.services.UserService;
 
 @CrossOrigin({ "*", "http://localhost:4210" })
 @RestController
 @RequestMapping("api")
 public class MedicationController {
 	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private MedicationService svc;
 	
@@ -46,8 +51,11 @@ public class MedicationController {
 	public Medication addMedication(
 			@RequestBody Medication med,
 			HttpServletRequest request,
-			HttpServletResponse response
+			HttpServletResponse response,
+			Principal principal
 	) {
+		User u = userService.getUserByUsername(principal.getName());
+		med.setPatient(u.getPatient());
 		try {
 		med = svc.createMedication(med);
 			response.setStatus(201);
