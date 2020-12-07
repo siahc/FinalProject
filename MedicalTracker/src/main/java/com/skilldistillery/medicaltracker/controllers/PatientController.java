@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.services.PatientService;
+import com.skilldistillery.medicaltracker.services.UserService;
 
 @RestController
 @CrossOrigin({"*", "http://localhost:4210"})
@@ -23,6 +26,8 @@ import com.skilldistillery.medicaltracker.services.PatientService;
 public class PatientController {
 	@Autowired
 	private PatientService patServ;
+	@Autowired 
+	private UserService userServ;
 	
 	@GetMapping("patients")
 	public List<Patient> showAllPats(HttpServletRequest req, HttpServletResponse res){
@@ -51,5 +56,8 @@ public class PatientController {
 		}
 		return meds;
 	}
- 
+	@PostMapping("patients")
+	public Patient createPatient(HttpServletRequest req, HttpServletResponse res, @RequestBody Patient pat, Principal principal) {
+		return patServ.createPatient(pat, principal.getName());
+	}
 }

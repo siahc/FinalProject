@@ -12,15 +12,19 @@ import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.Provider;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.repositories.PatientRespository;
+import com.skilldistillery.medicaltracker.repositories.UserRepository;
 
 @Service
 public class PatientServiceImpl implements PatientService {
 	@Autowired
-	private PatientRespository patRepo; 
+	private PatientRespository patRepo;
+	@Autowired
+	private UserRepository userRepo;
 
 	@Override
-	public Patient createPatient(Patient patient, User user) {
+	public Patient createPatient(Patient patient, String username) {
 		Patient patToAdd = patient;
+		User user = userRepo.findUniqueByUsername(username);
 		patToAdd.setUser(user);
 		patRepo.saveAndFlush(patToAdd);
 		return patToAdd;

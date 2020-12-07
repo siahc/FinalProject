@@ -12,7 +12,7 @@ public interface PatientService {
 
 	Patient update(Patient patient, Integer id);
 
-	Patient createPatient(Patient patient, User user);
+	Patient createPatient(Patient patient, String username);
 
 	void addProviderToPatient(Provider provider, Integer patId);
 
