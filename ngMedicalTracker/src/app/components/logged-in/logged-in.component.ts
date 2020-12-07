@@ -74,6 +74,7 @@ export class LoggedInComponent implements OnInit {
   }
 
   updateHisComponent(): void {
+    console.log(this.hisUpdated.diagnosis)
     this.hisService.updateMedHis(this.hisUpdated).subscribe(
       (good) => {
       console.log('update MedHis success')

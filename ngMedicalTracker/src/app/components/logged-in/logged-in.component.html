@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
 
+  <!-- Rx -->
   <div *ngIf="!rxDeets">
     <table class="table">
       <tbody>
@@ -37,5 +38,45 @@
     </div>
     <input type="submit" value="Submit" (click)="updateRxComponent()">
   </form>
+</div>
+
+<!-- MedHis -->
+<div *ngIf="!hisDeets">
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let history of medicalHistory">
+        <td>
+          {{ history.diagnosis }}
+        </td>
+        <td>
+          {{ history.onset}}
+        </td>
+        <td (click)="hisDeets = history">View Detailed Information</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="hisDeets">
+  <ul>
+    <li>Diagnosis:{{ hisDeets.diagnosis }}</li>
+  </ul>
+  <ul>
+    <li>Onset:{{ hisDeets.onset }}</li>
+  </ul>
+  <input type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
+</div>
+<div *ngIf="hisUpdated">
+<form>
+  <div class="form-group">
+    Diagnosis
+    <input type="text" name="diagnosisName" [(ngModel)]="hisUpdated.diagnosis">
+  </div>
+  <div class="form-group">
+    Onset:
+    <input type="text" name="Onset" [(ngModel)]="hisUpdated.onset">
+  </div>
+  <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
+  <button (click)="updateHisComponent()">Submit Test Button</button>
+</form>
 </div>
 </div>
