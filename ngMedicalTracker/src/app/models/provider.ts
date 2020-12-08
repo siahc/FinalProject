@@ -7,11 +7,11 @@ export class Provider {
   location: string;
   title: string;
   constructor(
-    id?: number = number;
-    fname?: string = string;
-    lname?: string = string;
-    location?: string = string;
-    title?: string = string;
+    id?: number,
+    fname?: string,
+    lname?: string,
+    location?: string,
+    title?: string
   ){
     this.id = id;
   this.fname = fname;
