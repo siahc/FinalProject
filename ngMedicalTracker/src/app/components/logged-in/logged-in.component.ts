@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from './../../services/patient.service';
 import { Patient } from './../../models/patient';
 import { Component, OnInit } from '@angular/core';
-import { log } from 'console';
 
 @Component({
   selector: 'app-logged-in',
