@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `medication` (
   `comment` VARCHAR(2000) NULL,
   `patient_id` INT NOT NULL,
   `active` TINYINT NULL,
-  `medical_history_id` INT NOT NULL,
+  `medical_history_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_medications_patient1_idx` (`patient_id` ASC),
   INDEX `fk_medications_medical_history1_idx` (`medical_history_id` ASC),
@@ -196,6 +196,18 @@ USE `medicaltrackerdb`;
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', '$2a$10$IlnXxhorq9uTuBY3JkHSD.noPEYSdWMe2q8hHsHv9tpohz7PwkzRS', 1, 'admin');
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'patient', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW\n\n$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW\n\n$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW\n$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'provider', '$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy\n\n\n\n\n\n$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy\n\n\n\n\n\n$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (4, 'rben', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (5, 'lshep', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (6, 'tcross', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (7, 'mcornelius', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (8, 'apow', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (9, 'winisand', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (10, 'magicmike', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (11, 'samadams', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (12, 'brenpop', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (13, 'bettyrivers', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (14, 'aprilchan', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (15, 'ddickies', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
 
 COMMIT;
 
@@ -205,13 +217,13 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (1, 'Winifred', 'Sanderson', 'October 31, 1759', 'https://pbs.twimg.com/profile_images/517608236783263744/OnfUnthO_400x400.jpeg', 2);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (2, 'Magic', 'Mike', '7/12/1960', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMPef4KPk-0QekdQ3cBE7DgoWcMcw7tJHXlQ&usqp=CAU', 2);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (3, 'Samuel', 'Adams', '1-16-1900', 'https://www.biography.com/.image/t_share/MTE1ODA0OTcxNTMzNDM2NDI5/samuel-adams-9176129-1-402.jpg', 2);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (4, 'Brennon', 'Pop', '9-9-1999', 'https://members.baseballfactory.com/player/bm/06bfa9a9fdec4bd0bcdf7906cad3b947.jpg', 2);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (5, 'Betty', 'Rivers', '10-1-1928', 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE1ODA0OTcxODg1ODIzNTAx/betty-white-9542614-1-402.jpg', 2);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (6, 'April', 'Chandler', '4-1-1982', 'https://m.media-amazon.com/images/M/MV5BYTBhZDg4N2YtYzlhMy00NzgzLWI3NGItMGVlM2U0NWVjNmMwXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg', 2);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (7, 'Richard', 'Dickies', '6-19-1958', 'https://doximity-res.cloudinary.com/image/upload/t_public_profile_photo_320x320/lm7mlawhrvq0wag6pjdp.jpg', 2);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (1, 'Winifred', 'Sanderson', 'October 31, 1759', 'https://pbs.twimg.com/profile_images/517608236783263744/OnfUnthO_400x400.jpeg', 9);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (2, 'Magic', 'Mike', '7/12/1960', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMPef4KPk-0QekdQ3cBE7DgoWcMcw7tJHXlQ&usqp=CAU', 10);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (3, 'Samuel', 'Adams', '1-16-1900', 'https://www.biography.com/.image/t_share/MTE1ODA0OTcxNTMzNDM2NDI5/samuel-adams-9176129-1-402.jpg', 11);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (4, 'Brennon', 'Pop', '9-9-1999', 'https://members.baseballfactory.com/player/bm/06bfa9a9fdec4bd0bcdf7906cad3b947.jpg', 12);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (5, 'Betty', 'Rivers', '10-1-1928', 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE1ODA0OTcxODg1ODIzNTAx/betty-white-9542614-1-402.jpg', 13);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (6, 'April', 'Chandler', '4-1-1982', 'https://m.media-amazon.com/images/M/MV5BYTBhZDg4N2YtYzlhMy00NzgzLWI3NGItMGVlM2U0NWVjNmMwXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg', 14);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (7, 'Richard', 'Dickies', '6-19-1958', 'https://doximity-res.cloudinary.com/image/upload/t_public_profile_photo_320x320/lm7mlawhrvq0wag6pjdp.jpg', 15);
 
 COMMIT;
 
@@ -249,11 +261,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (1, 'Lane', 'Shepard', 'walkin', 'PA-C', 3);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (2, 'Robert', 'Benjamin', 'Cortez', 'PA-c', 3);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (3, 'Tommy', 'Cross', 'Denver', 'MD', 3);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (4, 'Maria', 'Cornelius', 'Shiprock', 'MD', 3);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (5, 'Amy', 'Powers', 'Las Vegas', 'DO', 3);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (1, 'Lane', 'Shepard', 'walkin', 'PA-C', 5);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (2, 'Robert', 'Benjamin', 'Cortez', 'PA-c', 4);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (3, 'Tommy', 'Cross', 'Denver', 'MD', 6);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (4, 'Maria', 'Cornelius', 'Shiprock', 'MD', 7);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (5, 'Amy', 'Powers', 'Las Vegas', 'DO', 8);
 
 COMMIT;
 
