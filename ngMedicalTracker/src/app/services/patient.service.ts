@@ -1,3 +1,4 @@
+import { Patient } from './../models/patient';
 import { User } from 'src/app/models/user';
 import { MedicalHistory } from './../models/medical-history';
 import { AuthService } from './auth.service';
@@ -5,7 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Patient } from '../models/patient';
 import { Medication } from '../models/medication';
 
 @Injectable({
@@ -90,6 +90,16 @@ export class PatientService {
         catchError((err: any) => {
           console.log(err);
           return throwError('Patient.create(): Error creating patient');
+        })
+      );
+    }
+    addPatient(patient: Patient): Observable<Patient>{
+      const httpOptions = this.getHttpOptions();
+
+      return this.http.get<Patient>(this.url, patient, httpOptions).pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('Patient.add(): Error adding patient');
         })
       );
     }
