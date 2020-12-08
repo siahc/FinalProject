@@ -121,6 +121,13 @@ export class LoggedInComponent implements OnInit {
     );
   }
 
+  destroyRX():void{
+
+  }
+
+  destroyHist():void{
+
+  }
 
   reload(): void {
     this.patientService.index().subscribe(

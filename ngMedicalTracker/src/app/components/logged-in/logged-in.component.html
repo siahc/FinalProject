@@ -39,6 +39,7 @@
       <input type="text" name="rxDescription" [(ngModel)]="rxUpdated.description">
     </div>
     <input type="submit" value="Submit" (click)="updateRxComponent()">
+    <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
   </form>
 </div>
 
@@ -80,6 +81,7 @@
     <li>Onset:{{ hisDeets.onset }}</li>
   </ul>
   <input type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
+  <button class="btn btn-danger" (click)="destroyHist()">Delete History Item</button>
 </div>
 <div *ngIf="hisUpdated">
 <form>
