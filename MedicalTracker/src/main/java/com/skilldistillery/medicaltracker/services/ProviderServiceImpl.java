@@ -6,15 +6,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.Provider;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.repositories.ProviderRepository;
+import com.skilldistillery.medicaltracker.repositories.UserRepository;
 
 @Service
 public class ProviderServiceImpl implements ProviderService {
 
 	@Autowired
 	private ProviderRepository providerRepo;
+	@Autowired
+	private UserRepository userRepo;
 	
 	@Override
 	public List<Provider> getAllProviders() {
@@ -66,7 +70,17 @@ public class ProviderServiceImpl implements ProviderService {
 		return providerRepo.saveAndFlush(p);
 	}
 	
-	
+	@Override
+	public Provider getProviderByUsername(String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		return u.getProvider();
+	}
+
+	@Override
+	public List<Patient> getProviderPatientsByUsername(String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		return u.getProvider().getPatients();
+	}
 	
 
 }
