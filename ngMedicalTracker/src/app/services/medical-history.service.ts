@@ -1,4 +1,3 @@
-import { MedicalHistoryService } from './medical-history.service';
 import { MedicalHistory } from './../models/medical-history';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
