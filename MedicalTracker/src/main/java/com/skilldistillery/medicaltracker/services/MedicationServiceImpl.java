@@ -67,6 +67,9 @@ public class MedicationServiceImpl implements MedicationService {
 		boolean deleted = false;
 		Optional<Medication> medOpt = repo.findById(medId);
 		if(medOpt.isPresent()) {
+			Medication med = medOpt.get();
+			med.setMedHis(null);
+			repo.saveAndFlush(med);
 			repo.deleteById(medId);
 			deleted = true;
 		}

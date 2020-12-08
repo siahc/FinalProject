@@ -51,6 +51,16 @@ export class MedicationService {
         })
       );
     }
+    deleteMed(rxId: number): Observable<boolean>{
+      const httpOptions = this.getHttpOptions();
+
+      return this.http.delete<boolean>(`${this.url}/${rxId}`, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('medication service failed to delete')
+        })
+      )
+    }
 
 
 }
