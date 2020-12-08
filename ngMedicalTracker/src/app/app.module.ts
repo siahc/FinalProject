@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HowToComponent } from './components/how-to/how-to.component';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HowToComponent } from './components/how-to/how-to.component';
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicModule.forRoot()
   ],
   providers: [
     AuthService
