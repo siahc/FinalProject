@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Provider } from '../models/provider';
-import { log } from 'console';
 import { Patient } from '../models/patient';
 
 @Injectable({
