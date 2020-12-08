@@ -1,5 +1,6 @@
 package com.skilldistillery.medicaltracker.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.Provider;
 import com.skilldistillery.medicaltracker.services.ProviderService;
 
@@ -25,15 +27,21 @@ public class ProviderController {
 	@Autowired
 	private ProviderService providerSvc;
 	
-	@GetMapping("provider")
-	public List<Provider> getProviders(){
+	@GetMapping("provider/all")
+	public List<Provider> getProviders(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			){
 		return providerSvc.getAllProviders();
 	}
 	
 	@GetMapping("provider/{id}")
 	public Provider findProvider(
 		@PathVariable int id,
-		HttpServletResponse response
+		HttpServletRequest request,
+		HttpServletResponse response,
+		Principal principal
 		) {
 		if(id < 1) {
 			response.setStatus(400);
@@ -51,7 +59,8 @@ public class ProviderController {
 	public Provider createProvider(
 			@RequestBody Provider provider,
 			HttpServletRequest request,
-			HttpServletResponse response
+			HttpServletResponse response,
+			Principal principal
 		) {
 		providerSvc.createProvider(provider);
 			
@@ -59,6 +68,23 @@ public class ProviderController {
 			response.setStatus(400);
 		}
 		return provider;
+	}
+	
+	@GetMapping("provider/info")
+	public Provider showProvider(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			) {
+		return providerSvc.getProviderByUsername(principal.getName());
+	}
+	@GetMapping("provider/patients")
+	public List<Patient> showProviderPatients(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			) {
+		return providerSvc.getProviderPatientsByUsername(principal.getName());
 	}
 	
 	
