@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from './../../services/patient.service';
 import { Patient } from './../../models/patient';
 import { Component, OnInit } from '@angular/core';
+import { log } from 'console';
 
 @Component({
   selector: 'app-logged-in',
@@ -122,11 +123,28 @@ export class LoggedInComponent implements OnInit {
   }
 
   destroyRX():void{
+    this.rxService.deleteMed(this.rxDeets.id).subscribe(
+      (good) => {
+        console.log('medication deleted successfully')
+      },
+      (bad) => {
+        console.log(bad);
+
+      }
+    );
 
   }
 
   destroyHist():void{
+    this.hisService.deleteMedHis(this.hisDeets.id).subscribe(
+      (good) => {
+        console.log('Medical History deleted successfully')
+      },
+      (bad) => {
+        console.log(bad);
 
+      }
+    );
   }
 
   reload(): void {

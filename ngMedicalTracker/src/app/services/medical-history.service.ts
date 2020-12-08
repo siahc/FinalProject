@@ -60,5 +60,14 @@ export class MedicalHistoryService {
       })
     )
   }
+  deleteMedHis(medHisId: number): Observable<boolean>{
+    const httpOptions = this.getHttpOptions();
 
+    return this.http.delete<boolean>(`${this.url}/${medHisId}`, httpOptions).pipe(
+      catchError((err:any)=> {
+        console.error(err);
+        return throwError('medical History service failed to delete')
+      })
+    )
+  }
 }
