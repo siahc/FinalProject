@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 export class ProviderService {
 
   private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/patients';
+  private url = this.baseUrl + 'api/provider';
 
   constructor(
     private http: HttpClient,
