@@ -4,13 +4,15 @@ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { HowToComponent } from './components/how-to/how-to.component';
+import { ProviderComponent } from './components/provider/provider.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   {path: 'logged-in', component: LoggedInComponent},
   {path: 'register', component: SignUpComponent},
-  {path: 'howto', component: HowToComponent}
+  {path: 'howto', component: HowToComponent},
+  {path: 'provider', component: ProviderComponent}
 ];
 
 @NgModule({

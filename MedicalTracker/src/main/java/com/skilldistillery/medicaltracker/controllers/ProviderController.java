@@ -70,7 +70,7 @@ public class ProviderController {
 		return provider;
 	}
 	
-	@GetMapping("provider/info")
+	@GetMapping("providerinfo")
 	public Provider showProvider(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -78,7 +78,7 @@ public class ProviderController {
 			) {
 		return providerSvc.getProviderByUsername(principal.getName());
 	}
-	@GetMapping("provider/patients")
+	@GetMapping("providerpatients")
 	public List<Patient> showProviderPatients(
 			HttpServletRequest request,
 			HttpServletResponse response,

@@ -15,6 +15,7 @@ import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HowToComponent } from './components/how-to/how-to.component';
 import { IonicModule } from '@ionic/angular';
+import { ProviderComponent } from './components/provider/provider.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { IonicModule } from '@ionic/angular';
     HomeComponent,
     LoggedInComponent,
     SignUpComponent,
-    HowToComponent
+    HowToComponent,
+    ProviderComponent
   ],
   imports: [
     BrowserModule,
