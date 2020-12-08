@@ -1,31 +1,25 @@
 <div class="container-fluid">
-<form>
-  <div class="form-group">
-    <label for="username">Email address</label>
+
+    <label for="username">User Name</label>
     <input type="test" class="form-control" id="username" placeholder="Enter a username" [(ngModel)]='newUser.username'>
-  </div>
-  <div class="form-group">
+
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]='newUser.password'>
-  </div>
-  <div class="form-group">
+
     <label for="fname">First Name</label>
     <input type="text" class="form-control" id="fname" placeholder="First Name" [(ngModel)]='newPatient.fname'>
-  </div>
-  <div class="form-group">
+
     <label for="lname">First Name</label>
     <input type="text" class="form-control" id="lname" placeholder="Last Name" [(ngModel)]='newPatient.lname'>
-  </div>
-  <div class="form-group">
+
     <label for="dob">Date of Birth</label>
     <input type="date" class="form-control" id="dob" placeholder="Date of Birth" [(ngModel)]='newPatient.dob'>
-  </div>
-  <div class="form-group">
+
     <label for="img">Image URL</label>
     <input type="text" class="form-control" id="img" placeholder="image@host.com" [(ngModel)]='newPatient.img'>
-  </div>
+
 
   <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
   <button type="submit" class="btn btn-primary" (click)='register()'>Submit</button>
-</form>
+
 </div>
