@@ -24,6 +24,8 @@ export class LoggedInComponent implements OnInit {
   hisUpdated = null;
   medToAdd = new Medication();
   historyToAdd = new MedicalHistory();
+  showMedToAdd = false;
+  showHistoryForm = false;
 
   constructor(
     private patientService: PatientService,
