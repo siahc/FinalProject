@@ -33,7 +33,7 @@ export class ProviderService {
 
   showProvider(): Observable<Provider>{
     const httpOptions = this.getHttpOptions();
-    let providerURL = this.baseUrl + 'api/provider/info';
+    let providerURL = this.baseUrl + 'api/providerinfo';
     return this.http.get<Provider>(providerURL, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
@@ -44,7 +44,7 @@ export class ProviderService {
 }
 providerPatientInformation():Observable<Patient[]>{
   const httpOptions = this.getHttpOptions();
-  let testUrl = this.baseUrl + 'api/provider/patients';
+  let testUrl = this.baseUrl + 'api/providerpatients';
   return this.http.get<Patient[]>(testUrl, httpOptions).pipe(
     catchError((err:any)=> {
       console.error(err);

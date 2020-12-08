@@ -93,15 +93,15 @@ export class PatientService {
         })
       );
     }
-    addPatient(patient: Patient): Observable<Patient>{
-      const httpOptions = this.getHttpOptions();
+    // addPatient(patient: Patient): Observable<Patient>{
+    //   const httpOptions = this.getHttpOptions();
 
-      return this.http.get<Patient>(this.url, patient, httpOptions).pipe(
-        catchError((err: any) => {
-          console.log(err);
-          return throwError('Patient.add(): Error adding patient');
-        })
-      );
-    }
+    //   return this.http.get<Patient>(this.url, patient, httpOptions).pipe(
+    //     catchError((err: any) => {
+    //       console.log(err);
+    //       return throwError('Patient.add(): Error adding patient');
+    //     })
+    //   );
+    // }
 
     }

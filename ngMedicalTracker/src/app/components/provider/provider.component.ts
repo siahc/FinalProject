@@ -21,7 +21,6 @@ export class ProviderComponent implements OnInit {
     private route: ActivatedRoute,
     private rxService: MedicationService,
     private hisService: MedicalHistoryService,
-    private showPatients: PatientService
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +52,20 @@ export class ProviderComponent implements OnInit {
       this.router.navigateByUrl('invalidId');
     }
   }
+
+  // addPatient(): void {
+  //   console.log(this.patients)
+  //   this.hisService.updateMedHis(this.hisUpdated).subscribe(
+  //     (good) => {
+  //     console.log('update MedHis success')
+  //     },
+  //     (bad) => {
+  //       console.error(bad);
+  //     }
+  //   );
+  //   this.hisUpdated = null;
+  // }
+
 
   reload(): void {
     this.providerService.providerPatientInformation().subscribe(
