@@ -1,8 +1,10 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
+  <button (click)="showMedToAdd = true">Add medication</button>
+  <button (click)="showHistoryForm = true">Add Medical History</button>
 
   <!-- Rx -->
-  <div *ngIf="!rxDeets">
+  <div *ngIf="!rxDeets && !showMedToAdd">
     <table class="table">
       <tbody>
         <tr *ngFor="let rx of medication">
@@ -40,7 +42,7 @@
   </form>
 </div>
 
-<div>
+<div *ngIf="showMedToAdd">
   <form>
     <div class="form-group">
       Name:
@@ -55,7 +57,7 @@
 </div>
 
 <!-- MedHis -->
-<div *ngIf="!hisDeets">
+<div *ngIf="!hisDeets && !showHistoryForm">
   <table class="table">
     <tbody>
       <tr *ngFor="let history of medicalHistory">
@@ -93,7 +95,7 @@
   <button (click)="updateHisComponent()">Submit Test Button</button>
 </form>
 </div>
-<div>
+<div *ngIf="showHistoryForm">
   <h3>Add Medical History Item: </h3>
   <form>
     <div class="form-group">
