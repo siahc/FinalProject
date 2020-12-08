@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `user` ;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(200) NOT NULL,
+  `password` VARCHAR(2000) NOT NULL,
   `enabled` TINYINT(1) NOT NULL,
   `role` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -193,9 +193,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', 'admin', 1, 'admin');
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'patient', 'patient', 1, 'patient');
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'provider', 'provider', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', '$2a$10$IlnXxhorq9uTuBY3JkHSD.noPEYSdWMe2q8hHsHv9tpohz7PwkzRS', 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'patient', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW\n\n$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW\n\n$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW\n$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'provider', '$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy\n\n\n\n\n\n$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy\n\n\n\n\n\n$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy', 1, 'provider');
 
 COMMIT;
 
