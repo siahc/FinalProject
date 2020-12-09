@@ -1,9 +1,12 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
-  <button (click)="showMedToAdd = true">Add medication</button>
-  <button (click)="showHistoryForm = true">Add Medical History</button>
-  <button (click)="myProvList = true">My Providers</button>
-  <button (click)="myMessages = true">My Messages</button>
+
+  <button class="btn btn-small btn-info" (click)="showMedToAdd = true">Add medication</button>
+  <button class="btn btn-small btn-info" (click)="showHistoryForm = true">Add Medical History</button>
+
+  <button class="btn btn-small btn-info" (click)="myProvList = true">My Providers</button>
+  <button class="btn btn-small btn-info" (click)="myMessages = true">My Messages</button>
+
 
 
   <!-- Rx -->
@@ -17,7 +20,7 @@
           <td>
             {{ rx.description }}
           </td>
-          <td (click)="rxDeets = rx">View Detailed Information</td>
+          <td class="details"(click)="rxDeets = rx">View Detailed Information</td>
         </tr>
       </tbody>
     </table>
@@ -29,7 +32,7 @@
     <ul>
       <li>Description:{{ rxDeets.description }}</li>
     </ul>
-    <input type="button" value="Update this medication" (click)="rxUpdated=rxDeets">
+    <input class="btn btn-success" type="button" value="Update this medication" (click)="rxUpdated=rxDeets">
     <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
   </div>
 <div *ngIf="rxUpdated">
@@ -46,7 +49,7 @@
   </form>
 </div>
 
-<div *ngIf="showMedToAdd">
+<div class="formdiv" *ngIf="showMedToAdd">
   <form>
     <div class="form-group">
       Name:
@@ -56,7 +59,7 @@
       Description:
       <input type="text" name="rxDescription" [(ngModel)]="medToAdd.description">
     </div>
-    <input type="submit" value="Submit" (click)="createMed()">
+    <input class= "btn btn-success" type="submit" value="Submit" (click)="createMed()">
   </form>
 </div>
 
@@ -71,7 +74,7 @@
         <td>
           {{ history.onset}}
         </td>
-        <td (click)="hisDeets = history">View Detailed Information</td>
+        <td class="details" (click)="hisDeets = history">View Detailed Information</td>
       </tr>
     </tbody>
   </table>
@@ -83,13 +86,13 @@
   <ul>
     <li>Onset:{{ hisDeets.onset }}</li>
   </ul>
-  <input type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
+  <input class="btn btn-success" type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
   <button class="btn btn-danger" (click)="destroyHist()">Delete History Item</button>
 </div>
 <div *ngIf="hisUpdated">
 <form>
   <div class="form-group">
-    Diagnosis
+    Diagnosis:
     <input type="text" name="diagnosisName" [(ngModel)]="hisUpdated.diagnosis">
   </div>
   <div class="form-group">
@@ -100,7 +103,7 @@
   <button (click)="updateHisComponent()">Submit Test Button</button>
 </form>
 </div>
-<div *ngIf="showHistoryForm">
+<div class="formdiv" *ngIf="showHistoryForm">
   <h3>Add Medical History Item: </h3>
   <form>
     <div class="form-group">
@@ -112,7 +115,7 @@
       <input type="text" name="Onset" [(ngModel)]="historyToAdd.onset">
     </div>
     <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
-    <button (click)="createMedicalHistory()">Submit Test Button</button>
+    <button class="btn btn-success" (click)="createMedicalHistory()">Submit Test Button</button>
   </form>
 </div>
 <div *ngIf="myProvList">

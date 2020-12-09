@@ -4,6 +4,9 @@
   }
 
 .btn:hover {
-  text-emphasis: bold;
-  color: white;
+  background-color: #bbe1fa;
+}
+
+.formdiv {
+  background-color: #e4e3e3;
 }

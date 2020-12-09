@@ -10,3 +10,12 @@ body{
   /* overflow: scroll !important;
   position: absolute  !important; */
 }
+.btn {
+  color: white;
+  background-color:#204051 ;
+}
+
+.formdiv {
+  background-color: #e4e3e3;
+
+}

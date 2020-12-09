@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid formdiv">
   <form class="form-inline">
     <div class="form-group">
       <input placeholder="Username" type="text" name="username" id="username" [(ngModel)]="authUser.username">
@@ -6,6 +6,6 @@
     <div class="form-group">
       <input placeholder="Password" type="password" name="password" id="password" [(ngModel)]="authUser.password">
     </div>
+    <input type="submit" class="btn" value="Login" (click)="login()">
   </form>
-  <input type="submit" class="btn" value="Login" (click)="login()">
 </div>
