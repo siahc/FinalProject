@@ -21,14 +21,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.authUser.username, this.authUser.password).subscribe(
       next => {
         console.log('Component.Login.login():User logged in successfully');
-        let test:string = localStorage.getItem('role');
-        console.log(test);
-
-        if(test == 'provider'){
-          this.router.navigateByUrl('provider');
-        }
-        this.router.navigateByUrl('logged-in');
-
+        this.router.navigateByUrl('home');
       },
       error=>{
         console.error(error);

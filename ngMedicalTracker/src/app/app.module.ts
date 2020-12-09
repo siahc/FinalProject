@@ -16,6 +16,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HowToComponent } from './components/how-to/how-to.component';
 import { IonicModule } from '@ionic/angular';
 import { ProviderComponent } from './components/provider/provider.component';
+import { RedirectComponent } from './components/redirect/redirect.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProviderComponent } from './components/provider/provider.component';
     LoggedInComponent,
     SignUpComponent,
     HowToComponent,
-    ProviderComponent
+    ProviderComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,
