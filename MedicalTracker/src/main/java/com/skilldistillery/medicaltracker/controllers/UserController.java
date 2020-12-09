@@ -81,30 +81,7 @@ public class UserController {
 		return user;
 	}
 	
-	@GetMapping("patient/info")
-	public Patient userPatientInfo(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			Principal principal
-			) {
-		return userSvc.getUserPatient(principal.getName());
-	}
-	@GetMapping("patient/medHis")
-	public List<MedicalHistory> userPatientMedHis(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			Principal principal
-			) {
-		return userSvc.getUserPatientMedHis(principal.getName());
-	}
-	@GetMapping("patient/medication")
-	public List<Medication> userPatientMedication(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			Principal principal
-			) {
-		return userSvc.getUserPatientMeds(principal.getName());
-	}
+
 	
 	
 
