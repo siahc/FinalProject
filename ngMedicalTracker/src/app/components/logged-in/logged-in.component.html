@@ -3,6 +3,8 @@
   <button (click)="showMedToAdd = true">Add medication</button>
   <button (click)="showHistoryForm = true">Add Medical History</button>
   <button (click)="myProvList = true">My Providers</button>
+  <button (click)="myMessages = true">My Messages</button>
+
 
   <!-- Rx -->
   <div *ngIf="!rxDeets && !showMedToAdd">
@@ -120,10 +122,38 @@
     {{prov.fname}} {{prov.lname}}
   <button class="btn btn-danger" (click)="removeProvider(prov.id)">Remove Provider</button>
   </li>
+  <li>
+    <button (click)="msgProvId = prov.id">Message Provider</button>
+  </li>
 </ul>
+<div *ngIf="msgProvId" >
+<input type="text" name="content" [(ngModel)]="message.content">
+<button (click)="createMessage(message, msgProvId)">Submit</button>
+</div>
 </div>
 <div>
 <input type="number" name="providerId" [(ngModel)]="provId">
-<input type="button" (click)="addProvider(provId)">
+<input type="button" (click)="addProvider(provId)" value="Add Provider">
+</div>
+<div *ngIf="myMessages">
+  <h1>My Messages:</h1>
+  <ul *ngFor="let msg of messages">
+    <li>
+      {{msg.content}}
+    </li>
+    <li>
+      <button (click)="deleteMessage(msg)">Delete Message</button>
+    </li>
+    <li>
+      <button (click)="msgToEdit = msg">Update This Message</button>
+    </li>
+  </ul>
+  <div *ngIf="msgToEdit">
+  <input type="text" name="content" [(ngModel)]="msgToEdit.content">
+  <button (click)="updateMessage(msgToEdit)">Submit</button>
+  <br>
+  <button (click)="msgToEdit = null">Cancel</button>
+  </div>
+<button (click)="myMessages=(false)">Close Messages</button>
 </div>
 </div>
