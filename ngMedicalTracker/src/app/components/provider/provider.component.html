@@ -1,18 +1,18 @@
 <div class="container-fluid">
-<h3 class="text-center">Selcome {{user.fname}} {{user.lname}}</h3>
-<!-- <button (click)="showPatient" -->
+  <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
 
+  <ion-card *ngFor="let pt of patients" (click)="displayDetails(pt)">
+    <ion-card-header (click)="selectedPt = pt">{{ pt.fname }} {{ pt.lname }}</ion-card-header>
+  </ion-card>
 
-<div>
-<table>
-<tr *ngFor="let pt of patients">
-  <td>
-    {{pt.fname}} {{pt.lname}}
-  </td>
-</tr>
-</table>
-</div>
-<form>
-
-</form>
+  <ul *ngIf="selectedPt">
+    <li *ngFor="let rx of medications">
+      {{ rx.name }}
+    </li>
+  </ul>
+  <ul *ngIf="selectedPt">
+    <li *ngFor="let hist of history">
+      {{ hist.diagnosis }}
+    </li>
+  </ul>
 </div>
