@@ -13,7 +13,6 @@ public interface PatientService {
 
 	Patient createPatient(Patient patient, String username);
 
-	void addProviderToPatient(Provider provider, Integer patId);
 
 	Patient showPat(String username, int patId);
 

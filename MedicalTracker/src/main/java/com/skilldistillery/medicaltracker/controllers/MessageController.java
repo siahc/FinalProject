@@ -26,7 +26,7 @@ import com.skilldistillery.medicaltracker.services.PatientService;
 import com.skilldistillery.medicaltracker.services.ProviderService;
 import com.skilldistillery.medicaltracker.services.UserService;
 
-@CrossOrigin({ "*", "http://localhost:8090" })
+@CrossOrigin({ "*", "http://localhost:4210" })
 @RestController
 @RequestMapping("api")
 public class MessageController {
