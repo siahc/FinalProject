@@ -145,6 +145,33 @@ export class LoggedInComponent implements OnInit {
       }
     );
   }
+  removeProvider(id: number): void{
+    this.patientService.rmvPtProvList(id).subscribe(
+      (deleted) => {
+      console.log(
+        'Provider successfully removed'
+      );
+      },
+      (err) => {
+        console.error('Component.patient.ts.removeProviderFailed')
+        console.error(err);
+      }
+    );
+  }
+  addProvider(id: number): void{
+    this.patientService.addPtProvList(id).subscribe(
+      (added) => {
+      console.log(
+        'Provider successfully added'
+      );
+      },
+      (err) => {
+        console.error('Component.patient.ts.addProviderFailed')
+        console.error(err);
+      }
+    );
+  }
+
 
   reload(): void {
     this.patientService.index().subscribe(
