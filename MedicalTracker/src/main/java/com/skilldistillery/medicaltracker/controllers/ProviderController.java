@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.medicaltracker.entities.MedicalHistory;
+import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.Provider;
+import com.skilldistillery.medicaltracker.entities.User;
+import com.skilldistillery.medicaltracker.services.PatientService;
 import com.skilldistillery.medicaltracker.services.ProviderService;
+import com.skilldistillery.medicaltracker.services.UserService;
 
 @RequestMapping("api")
 @CrossOrigin({"*", "http://localhost:4210"})
@@ -27,6 +32,10 @@ public class ProviderController {
 	
 	@Autowired
 	private ProviderService providerSvc;
+	@Autowired
+	private PatientService patServ;
+	@Autowired
+	private UserService userSvc;
 	
 	@GetMapping("provider/all")
 	public List<Provider> getProviders(
@@ -108,9 +117,49 @@ public class ProviderController {
 		return providerSvc.addPatientToProvider(id, principal.getName());
 	}
 	
-	
-	
-
+	//Provider patient views
+	@GetMapping("providerpatients/{pid}")
+	public Patient showById(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid, Principal principal) {
+		User u = userSvc.getUserByUsername(principal.getName());
+		Provider prov = u.getProvider();
+		Patient pat = patServ.findPatientById(pid);
+		if (prov.getPatients().contains(pat)) {
+		if (pat == null) {
+			res.setStatus(404);
+		}
+		return pat;
+		}
+		return null;
+	}
+	@GetMapping("providerpatients/{pid}/medications")
+	public List<Medication> showMeds(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid, Principal principal) {
+		User u = userSvc.getUserByUsername(principal.getName());
+		Provider prov = u.getProvider();		
+		Patient pat = patServ.findPatientById(pid);
+		if (prov.getPatients().contains(pat)) {
+		List<Medication> meds = pat.getMedications();
+		if (meds == null) {
+			res.setStatus(404);
+		}
+		return meds;
+		}
+		return null;
+	}
+	@GetMapping("providerpatients/{pid}/history")
+	public List<MedicalHistory> showHistory(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid, Principal principal) {
+		User u = userSvc.getUserByUsername(principal.getName());
+		Provider prov = u.getProvider();
+		Patient pat = patServ.findPatientById(pid);
+		if (prov.getPatients().contains(pat)) {
+		List<MedicalHistory> meds = pat.getMedHis();
+		if (meds == null) {
+			res.setStatus(404);
+		}
+		return meds;
+		}
+		return null;
+		
+	}
 }
 
 

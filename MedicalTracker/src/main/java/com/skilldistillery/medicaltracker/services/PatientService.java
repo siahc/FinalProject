@@ -6,7 +6,6 @@ import com.skilldistillery.medicaltracker.entities.MedicalHistory;
 import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.Provider;
-import com.skilldistillery.medicaltracker.entities.User;
 
 public interface PatientService {
 
