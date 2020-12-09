@@ -89,6 +89,20 @@ export class ProviderComponent implements OnInit {
     this.viewPtHist();
   }
 
+  removePatient(): void{
+    this.providerService.providerRemovePatient(this.selectedPt.id).subscribe(
+      (deleted) => {
+      console.log(
+        'Patient successfully removed'
+      );
+      },
+      (err) => {
+        console.error('Component.provider.ts.removePatientFailed')
+        console.error(err);
+      }
+    );
+  }
+
   reload(): void {
     this.providerService.providerPatientList().subscribe(
       (data) => {

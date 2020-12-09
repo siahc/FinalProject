@@ -70,4 +70,13 @@ export class ProviderService {
       })
     )
   }
+  providerRemovePatient(id:number): Observable<boolean>{
+    const httpOptions = this.getHttpOptions();
+    return this.http.delete<boolean>(`${this.url}/${id}`, httpOptions).pipe(
+      catchError((err:any)=>{
+        console.error(err);
+        return throwError('Provider.service.providerViewPatientHist():Failed to delete patient');
+      })
+    )
+  }
 }
