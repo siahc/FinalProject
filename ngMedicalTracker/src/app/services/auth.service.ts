@@ -11,7 +11,7 @@ import { tap, catchError } from 'rxjs/operators';
 export class AuthService {
   private baseUrl = 'http://localhost:8090/'
   // private baseUrl = environment.baseUrl;
-
+  user = null;
   constructor(
     private http:HttpClient
     ) { }
@@ -33,6 +33,7 @@ export class AuthService {
       .pipe(
         tap((res) => {
           localStorage.setItem('credentials' , credentials);
+          this.setUserRole();
           return res;
         }),
         catchError((err: any) => {
@@ -55,6 +56,7 @@ export class AuthService {
 
   logout():void {
     localStorage.removeItem('credentials');
+    localStorage.removeItem('role');
   }
 
   checkLogin():boolean {
@@ -71,4 +73,30 @@ export class AuthService {
   getCredentials():string {
     return localStorage.getItem('credentials');
   }
+
+  getHttpOptions() {
+    const credentials = this.getCredentials();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Basic ${credentials}`,
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    };
+    return httpOptions;
+  }
+
+  setUserRole() {
+    const httpOptions = this.getHttpOptions();
+     this.http.get(this.baseUrl + 'api/user', httpOptions).subscribe(
+      data=>{
+        this.user = data;
+        localStorage.setItem('role', this.user.role);
+      },
+      err=>{
+        console.error(err);
+
+      }
+    )
+  }
+
 }

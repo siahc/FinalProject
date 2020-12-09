@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  role = localStorage.getItem('role');
   constructor(
     private auth:AuthService
   ) { }

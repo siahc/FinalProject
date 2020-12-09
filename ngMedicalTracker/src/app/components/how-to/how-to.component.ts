@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./how-to.component.css']
 })
 export class HowToComponent implements OnInit {
-
+  test = localStorage.getItem('role');
   constructor() { }
 
   ngOnInit(): void {
