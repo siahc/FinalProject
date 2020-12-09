@@ -25,6 +25,14 @@ public class PatientServiceImpl implements PatientService {
 	private ProviderRepository providerRepo;
 
 	@Override
+	public Patient findPatientById(int id) {
+		Optional<Patient> ptOpt = patRepo.findById(id);
+		if (ptOpt.isPresent()) {
+			return ptOpt.get();
+		}
+		return null;
+	}
+	@Override
 	public Patient createPatient(Patient patient, String username) {
 		Patient patToAdd = patient;
 		User user = userRepo.findUniqueByUsername(username);
