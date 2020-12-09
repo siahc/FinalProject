@@ -1,7 +1,22 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
+  <button (click)="viewMsg = true">View Messages</button>
+  <div *ngIf="viewMsg">
+    <ul *ngFor="let msg of messages">
+      <li>{{msg.content}}</li>
+      <li><button (click)="msgToEdit= msg">Update Message</button></li>
+      <li><button (click)="deleteMessage(msg)">Delete Message</button></li>
+    </ul>
+    <div *ngIf="msgToEdit">
+      <input type="text" name="content" [(ngModel)]="msgToEdit.content">
+      <button (click)="updateMessage(msgToEdit)">Submit</button>
+      <br>
+      <button (click)="msgToEdit = null">Cancel</button>
+    </div>
+  </div>
 
-  <div *ngIf="!selectedPt">
+
+  <div *ngIf="!selectedPt && !viewMsg">
     <table class="table table-hover">
       <thead>
         <th>Patient Id</th>
@@ -13,9 +28,15 @@
           <td>{{pt.id}}</td>
           <td>{{pt.fname}}</td>
           <td>{{pt.lname}}</td>
+          <td><button (click)="ptToMsgId = pt.id">Message PT</button></td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div *ngIf="ptToMsgId">
+    <input type="text" name="content" [(ngModel)]="message.content">
+    <button type="submit" (click)="createMessage(message, ptToMsgId)">Send</button>
   </div>
 
   <div *ngIf="selectedPt">
