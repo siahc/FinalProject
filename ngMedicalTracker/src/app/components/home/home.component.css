@@ -1,4 +1,13 @@
-.container-fluid{
-  background-color: #bbe1fa;
+
+.container-fluid {
+  padding: 3% 5%;
 }
 
+.title {
+  color: #204051;
+}
+
+h1{
+  font-size: 3rem;
+  line-height: 1.5;
+}

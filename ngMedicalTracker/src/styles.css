@@ -1,3 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 
+.home{
+  background-color: #bbe1fa;
+}
+
+body{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
