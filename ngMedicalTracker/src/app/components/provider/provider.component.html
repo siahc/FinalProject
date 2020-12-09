@@ -21,6 +21,8 @@
   <div *ngIf="selectedPt">
     <h3>{{selectedPt.fname}} {{selectedPt.lname}} Entered Information</h3>
     <button class="btn btn-primary" (click)="selectedPt = null">Return to Patient List</button>
+    <button class="btn btn-primary" (click)="removePatient()">Remove Patient from List</button>
+
     <h5>Medications</h5>
     <ul *ngFor="let rx of medications">
       <li>{{rx.name}}</li>
