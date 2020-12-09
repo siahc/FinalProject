@@ -1,7 +1,8 @@
 .btn {
-  text-emphasis: bold;
-  color: #0f4c75;
-}
+    color: white;
+    background-color:#204051 ;
+  }
+
 .btn:hover {
   text-emphasis: bold;
   color: white;

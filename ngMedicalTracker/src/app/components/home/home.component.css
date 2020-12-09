@@ -1,18 +1,62 @@
-
-.container-fluid {
-  padding: 3% 5%;
-}
-
 .title {
+  padding: 3% 5%;
   color: #204051;
 }
 
-h1{
-  font-size: 3rem;
+h1 {
+  font-size: 3.5rem;
   line-height: 1.5;
+  font-weight: bold;
 }
 
 .btn {
   color: white;
-  background-color:#204051 ;
+  background-color: #204051;
+}
+
+#features {
+  padding: 7% 15%;
+}
+
+.feature-box {
+  text-align: center;
+  padding: 5%;
+}
+h2 {
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5;
+  font-size: 3rem;
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+  color: #204051;
+}
+
+p {
+  color: #8f8f8f;
+}
+
+.icon {
+  /* color: #84a9ac; */
+  color: #204051;
+  /* background-color: #bbe1fa; */
+  margin-bottom: 1rem;
+}
+
+.testimonial-image {
+  width: 20%;
+  border-radius: 100%;
+  margin: 20px;
+}
+
+#testimonials {
+  /* background-color: #84a9ac; */
+  background-color: #bbe1fa;
+  color: #204051;
+  text-align: center;
+}
+
+.carousel-item {
+  padding: 7% 15%;
 }
