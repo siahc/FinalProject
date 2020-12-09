@@ -126,7 +126,7 @@ export class PatientService {
   addPtProvList(id: number): Observable<boolean> {
     const httpOptions = this.getHttpOptions();
     let addptprovlist = this.baseUrl + 'api/patientproviders';
-    return this.http.post<boolean>(`${addptprovlist}/${id}`, httpOptions).pipe(
+    return this.http.get<boolean>(`${addptprovlist}/${id}`, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

@@ -56,7 +56,7 @@ public class PatientController {
 		return patServ.removeProvider(id, principal.getName());
 	}
 	
-	@PostMapping("patientproviders/{id}")
+	@GetMapping("patientproviders/{id}")
 	public boolean addProviderToPatient(
 			HttpServletRequest request,
 			HttpServletRequest response,
