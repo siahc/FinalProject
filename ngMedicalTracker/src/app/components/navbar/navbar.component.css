@@ -1,19 +1,36 @@
 #navbaredit{
   background-color: #bbe1fa;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 3% 5%;
 }
 
 .nav-item:hover {
   color: #0f4c75;
+
+}
+
+.navbar {
+  padding:0 0 4.5rem ;
 }
 
 .navbar-brand{
   color: #204051;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 .navbar-brand:hover{
   color: #0f4c75;
 }
 
+.nav-item{
+  padding: 0,18px;
+}
+
+nav-link {
+  font-size: 1.2rem;
+  font-weight: lighter;
+}
 
 
 
