@@ -39,6 +39,17 @@ public class UserController {
 		return userSvc.getAllUsers();
 	}
 	
+	@GetMapping("user")
+	public User getUserByUsername(
+		HttpServletResponse response,
+		HttpServletRequest req,
+		Principal principal
+		) {
+		User u = userSvc.getUserByUsername(principal.getName());
+		return u;
+	}
+	
+	
 	@GetMapping("users/{id}")
 	public User findUser(
 		@PathVariable int id,
