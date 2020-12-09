@@ -17,5 +17,7 @@ public interface ProviderService {
 
 	Provider getProviderByUsername(String username);
 	List<Patient> getProviderPatientsByUsername(String username);
+	Boolean removePatient(int id, String username);
+	
 	
 }

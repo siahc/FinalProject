@@ -11,6 +11,8 @@ import com.skilldistillery.medicaltracker.entities.Provider;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.repositories.ProviderRepository;
 import com.skilldistillery.medicaltracker.repositories.UserRepository;
+import com.skilldistillery.medicaltracker.repositories.PatientRespository;
+
 
 @Service
 public class ProviderServiceImpl implements ProviderService {
@@ -19,6 +21,9 @@ public class ProviderServiceImpl implements ProviderService {
 	private ProviderRepository providerRepo;
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private PatientRespository patientRepo;
 	
 	@Override
 	public List<Provider> getAllProviders() {
@@ -80,6 +85,19 @@ public class ProviderServiceImpl implements ProviderService {
 	public List<Patient> getProviderPatientsByUsername(String username) {
 		User u = userRepo.findUniqueByUsername(username);
 		return u.getProvider().getPatients();
+	}
+
+	@Override
+	public Boolean removePatient(int id, String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		Provider p = u.getProvider();
+		Optional<Patient> pt = patientRepo.findById(id);
+		Patient patient = pt.get();
+		p.removePatient(patient);
+		patientRepo.saveAndFlush(patient);
+		providerRepo.saveAndFlush(p);
+		boolean delete = !p.getPatients().contains(patient);
+		return delete;
 	}
 	
 
