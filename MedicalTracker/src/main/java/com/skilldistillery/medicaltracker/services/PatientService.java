@@ -26,5 +26,7 @@ public interface PatientService {
 
 	Boolean addProviderToPatient(int id, String username);
 
+	Patient findPatientById(int id);
+
 
 }
