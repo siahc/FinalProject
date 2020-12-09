@@ -100,5 +100,16 @@ public class ProviderServiceImpl implements ProviderService {
 		return delete;
 	}
 	
+	@Override
+	public Boolean addPatientToProvider(int id, String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		Provider p = u.getProvider();
+		Optional<Patient> pt = patientRepo.findById(id);
+		Patient patient = pt.get();
+		p.addPatient(patient);
+		providerRepo.saveAndFlush(p);
+		Boolean added = p.getPatients().contains(patient);
+		return added;
+	}
 
 }

@@ -98,6 +98,15 @@ public class ProviderController {
 		return providerSvc.removePatient(id, principal.getName());
 	}
 	
+	@PostMapping("providerpatients/{id}")
+	public boolean addPatientToProvider(
+			HttpServletRequest request,
+			HttpServletRequest response,
+			Principal principal,
+			@PathVariable int id
+			) {
+		return providerSvc.addPatientToProvider(id, principal.getName());
+	}
 	
 	
 	

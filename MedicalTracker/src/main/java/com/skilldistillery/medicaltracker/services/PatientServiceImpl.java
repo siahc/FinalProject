@@ -96,4 +96,16 @@ public class PatientServiceImpl implements PatientService {
 		boolean delete = !p.getProviders().contains(provider);
 		return delete;
 	}
+	
+	@Override
+	public Boolean addProviderToPatient(int id, String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		Patient p = u.getPatient();
+		Optional<Provider> prov = providerRepo.findById(id);
+		Provider provider = prov.get();
+		p.addProvider(provider);
+		patRepo.save(p);
+		Boolean added = p.getProviders().contains(provider);
+		return added;
+	}
 }

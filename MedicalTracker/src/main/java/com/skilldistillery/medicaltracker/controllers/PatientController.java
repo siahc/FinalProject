@@ -50,7 +50,6 @@ public class PatientController {
 	@GetMapping("patients/{pid}/medications")
 	public List<Medication> showMeds(HttpServletRequest req, HttpServletResponse res, @PathVariable int pid, Principal principal) {
 		Patient pat = patServ.showPat(principal.getName(), pid);
-		System.out.println(pat.getFname() + "**************************************");
 		List<Medication> meds = pat.getMedications();
 		if (meds == null) {
 			res.setStatus(404);
@@ -70,5 +69,15 @@ public class PatientController {
 			@PathVariable int id
 			) {
 		return patServ.removeProvider(id, principal.getName());
+	}
+	
+	@PostMapping("patientproviders/{id}")
+	public boolean addProviderToPatient(
+			HttpServletRequest request,
+			HttpServletRequest response,
+			Principal principal,
+			@PathVariable int id
+			) {
+		return patServ.addProviderToPatient(id, principal.getName());
 	}
 }
