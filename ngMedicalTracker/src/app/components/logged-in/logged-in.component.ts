@@ -28,7 +28,7 @@ export class LoggedInComponent implements OnInit {
   showHistoryForm = false;
   providers = [];
   myProvList = false;
-  providerId = null;
+  provId = null;
 
 
   constructor(
@@ -175,12 +175,10 @@ export class LoggedInComponent implements OnInit {
       }
     );
   }
-  addProvider(): void{
-    this.patientService.addPtProvList(this.providerId).subscribe(
+  addProvider(id:number): void{
+    this.patientService.addPtProvList(id).subscribe(
       (added) => {
-      console.log(
-        'Provider successfully added'
-      );
+      console.log('Provider successfully added');
       },
       (err) => {
         console.error('Component.patient.ts.addProviderFailed')
@@ -188,21 +186,6 @@ export class LoggedInComponent implements OnInit {
       }
     );
   }
-  // showProvList():void{
-  //   this.patientService.patientProvList().subscribe(
-  //     data => {
-  //       this.providers = data;
-  //     },
-  //     err=>{
-  //       console.error('Loggedin.showProvList():show providers list failed');
-  //       console.error(err);
-
-  //     }
-
-  //   )
-  // }
-
-
   reload(): void {
     this.patientService.index().subscribe(
       data => {
