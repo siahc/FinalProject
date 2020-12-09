@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,5 +60,15 @@ public class PatientController {
 	@PostMapping("patients")
 	public Patient createPatient(HttpServletRequest req, HttpServletResponse res, @RequestBody Patient pat, Principal principal) {
 		return patServ.createPatient(pat, principal.getName());
+	}
+	
+	@DeleteMapping("patientproviders/{id}")
+	public boolean removeProvider(
+			HttpServletRequest request,
+			HttpServletRequest response,
+			Principal principal,
+			@PathVariable int id
+			) {
+		return patServ.removeProvider(id, principal.getName());
 	}
 }
