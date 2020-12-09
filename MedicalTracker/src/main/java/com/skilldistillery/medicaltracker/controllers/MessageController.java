@@ -40,11 +40,6 @@ public class MessageController {
 	@Autowired
 	private UserService userSvc;
 	
-	@GetMapping("message")
-	public List<Message> list(){
-		return svc.index();
-	}
-	
 	@GetMapping("message/{messId}")
 	public Message showMessage(@PathVariable Integer messId, HttpServletResponse response) {
 		Message message = svc.showMessage(messId);
@@ -54,8 +49,26 @@ public class MessageController {
 		return message;
 	}
 	
+	@GetMapping("message")
+	public List<Message> getUserMessage(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			){
+		User u = userSvc.getUserByUsername(principal.getName());
+		Patient pt = null;
+		Provider prov = null;
+		if(u.getPatient() != null) {
+			pt = u.getPatient();
+			return pt.getMessages();
+		} else {
+			prov = u.getProvider();
+			return prov.getMessages();
+		}
+	}
+	
 	@PostMapping("message/{id}")
-	public Message addMessageToProvider(
+	public Message addMessage(
 			@PathVariable Integer id,
 			@RequestBody Message message,
 			HttpServletRequest request,
@@ -66,8 +79,8 @@ public class MessageController {
 		Patient pt = null;
 		Provider prov = null;
 		if(u.getPatient() != null) {
-		pt = u.getPatient();
-		prov = providerSvc.findById(id);
+			pt = u.getPatient();
+			prov = providerSvc.findById(id);
 		} else {
 			prov = u.getProvider();
 			pt = ptSvc.findPatientById(id);
@@ -75,7 +88,7 @@ public class MessageController {
 		message.setPatient(pt);
 		message.setProvider(prov);
 		try {
-		message = svc.createMessage(message);
+			message = svc.createMessage(message);
 			response.setStatus(201);
 //			StringBuffer url = request.getRequestURL();
 //			url.append("/").append(message.getId());
