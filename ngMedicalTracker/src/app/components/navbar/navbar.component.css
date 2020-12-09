@@ -1,0 +1,17 @@
+#navbarColor{
+  background-color: #bbe1fa;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.nav-item:hover {
+  color: white;
+}
+
+.navbar-brand{
+  color: #0f4c75;
+}
+.navbar-brand:hover{
+  color: white;
+}
+
+
