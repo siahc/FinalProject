@@ -95,6 +95,7 @@ export class ProviderComponent implements OnInit {
       console.log(
         'Patient successfully removed'
       );
+      this.reload();
       },
       (err) => {
         console.error('Component.provider.ts.removePatientFailed')
@@ -104,17 +105,43 @@ export class ProviderComponent implements OnInit {
   }
 
   reload(): void {
-    this.providerService.providerPatientList().subscribe(
-      (data) => {
-        this.patients = data;
-        this.medications = [];
-        this.history = [];
-        this.selectedPt = [];
-      },
-      (err) => {
-        console.error('Patients.reload():patients failed');
-        console.error(err);
-      }
-    );
+    this.patients = [];
+    this.medications = [];
+    this.history = [];
+    this.user = null;
+    this.selectedPt = null;
+
+    try {
+      this.providerService.showProvider().subscribe(
+        (provider) => {
+          console.log('Provider.Component.ngOnInit(): Provider retrieved');
+          this.user = provider;
+          if (this.user != null) {
+            this.providerService.providerPatientList().subscribe(
+              (data) => {
+                console.log(
+                  'Provider.Component.ngOnInit(): Patients List retrieved'
+                );
+                this.patients = data;
+              },
+              (err) => {
+                console.error(
+                  'Provider.Component.ngOnInit(): Failed to retreive patients list'
+                );
+                console.error(err);
+              }
+            );
+          }
+        },
+        (err) => {
+          this.router.navigateByUrl(
+            'Provider.Component.ngOnInit(): Failed to retreive provider'
+          );
+          console.error(err);
+        }
+      );
+    } catch (error) {
+      this.router.navigateByUrl('invalid');
+    }
   }
 }
