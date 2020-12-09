@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Medication } from '../models/medication';
+import { Provider } from '../models/provider';
 
 @Injectable({
   providedIn: 'root'
@@ -93,5 +94,37 @@ export class PatientService {
         })
       );
     }
+    patientProvList():Observable<Provider[]> {
+      const httpOptions = this.getHttpOptions();
 
+      let ptproviderlist = this.baseUrl + 'api/patient/providers';
+      return this.http.get<Provider[]>(ptproviderlist, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('PatientService.providerlist: Failed to get list of providers')
+        })
+      )
+    }
+    rmvPtProvList(id: number):Observable<boolean> {
+      const httpOptions = this.getHttpOptions();
+
+      let rmvptprovlist = this.baseUrl + 'api/patientproviders';
+      return this.http.delete<boolean>(`${rmvptprovlist}/${id}`, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('PatientService.rmptproviderlist: Failed to remove provider from list')
+        })
+      )
+    }
+    addPtProvList(id: number):Observable<boolean> {
+      const httpOptions = this.getHttpOptions();
+
+      let addptprovlist = this.baseUrl + 'api/patientproviders';
+      return this.http.post<boolean>(`${addptprovlist}/${id}`, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('PatientService.addptproviderlist: Failed to add provider from list')
+        })
+      )
+    }
     }
