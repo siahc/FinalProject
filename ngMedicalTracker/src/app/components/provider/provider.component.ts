@@ -1,7 +1,9 @@
-import { Patient } from './../../models/patient';
-import { ProviderService } from './../../services/provider.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { Message } from 'src/app/models/message';
+import { Patient } from './../../models/patient';
+import { MessageService } from './../../services/message.service';
+import { ProviderService } from './../../services/provider.service';
 
 @Component({
   selector: 'app-provider',
@@ -12,10 +14,16 @@ export class ProviderComponent implements OnInit {
   patients = [];
   medications = [];
   history = [];
+  messages = [];
+  message = new Message();
+  msgToEdit = null;
+  ptToMsgId = null;
   user = null;
   selectedPt = null;
+  viewMsg = false;
 
   constructor(
+    private messageService: MessageService,
     private providerService: ProviderService,
     private router: Router
   ) {}
@@ -27,6 +35,7 @@ export class ProviderComponent implements OnInit {
           console.log('Provider.Component.ngOnInit(): Provider retrieved');
           this.user = provider;
           if (this.user != null) {
+            this.getMessages();
             this.providerService.providerPatientList().subscribe(
               (data) => {
                 console.log(
@@ -95,6 +104,7 @@ export class ProviderComponent implements OnInit {
       console.log(
         'Patient successfully removed'
       );
+      this.reload();
       },
       (err) => {
         console.error('Component.provider.ts.removePatientFailed')
@@ -103,18 +113,96 @@ export class ProviderComponent implements OnInit {
     );
   }
 
-  reload(): void {
-    this.providerService.providerPatientList().subscribe(
-      (data) => {
-        this.patients = data;
-        this.medications = [];
-        this.history = [];
-        this.selectedPt = [];
+  getMessages(): void {
+    this.messageService.getMessages().subscribe(
+    data => {
+      this.messages = data;
+      console.log('Messages successfully retrieved');
+    },
+    (err) => {
+      console.error('Component.message.ts.getMessages() failed')
+      console.error(err);
+    }
+    )
+  }
+  deleteMessage(message: Message): void {
+    this.messageService.deleteMessage(message).subscribe(
+      data => {
+       this.getMessages();
+        console.log("Message deleted successfully");
       },
       (err) => {
-        console.error('Patients.reload():patients failed');
+        console.error('Component.message.ts.deleteMessages() failed')
         console.error(err);
       }
-    );
+    )
+  }
+  updateMessage(message: Message): void{
+    this.messageService.updateMessage(message).subscribe(
+      data => {
+        this.getMessages();
+        console.log("Message updated successfully");
+        this.msgToEdit = null;
+      },
+    (err) => {
+      console.error('Component.message.ts.updateMessages() failed');
+      console.error(err);
+    }
+    )
+  }
+  createMessage(message: Message, id: number): void{
+    this.messageService.createMessage(id, message).subscribe(
+      data => {
+        this.getMessages();
+        this.message = new Message;
+        this.ptToMsgId = null;
+        console.log("Message created successfully");
+      },
+      err => {
+        console.error('Component.message.tx.crateMessage() failed');
+        console.error(err);
+      }
+    )
+  }
+
+  reload(): void {
+    this.patients = [];
+    this.medications = [];
+    this.history = [];
+    this.user = null;
+    this.selectedPt = null;
+
+    try {
+      this.providerService.showProvider().subscribe(
+        (provider) => {
+          console.log('Provider.Component.ngOnInit(): Provider retrieved');
+          this.user = provider;
+          if (this.user != null) {
+            this.providerService.providerPatientList().subscribe(
+              (data) => {
+                console.log(
+                  'Provider.Component.ngOnInit(): Patients List retrieved'
+                );
+                this.patients = data;
+              },
+              (err) => {
+                console.error(
+                  'Provider.Component.ngOnInit(): Failed to retreive patients list'
+                );
+                console.error(err);
+              }
+            );
+          }
+        },
+        (err) => {
+          this.router.navigateByUrl(
+            'Provider.Component.ngOnInit(): Failed to retreive provider'
+          );
+          console.error(err);
+        }
+      );
+    } catch (error) {
+      this.router.navigateByUrl('invalid');
+    }
   }
 }

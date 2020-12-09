@@ -26,7 +26,7 @@ import com.skilldistillery.medicaltracker.services.PatientService;
 import com.skilldistillery.medicaltracker.services.ProviderService;
 import com.skilldistillery.medicaltracker.services.UserService;
 
-@CrossOrigin({ "*", "http://localhost:8090" })
+@CrossOrigin({ "*", "http://localhost:4210" })
 @RestController
 @RequestMapping("api")
 public class MessageController {
@@ -120,13 +120,14 @@ public class MessageController {
 	}
 	
 	@DeleteMapping("message/{messId}")
-	public void deleteMessage(
+	public boolean deleteMessage(
 			@PathVariable Integer messId,
 			HttpServletResponse response
 	) {
 		try {
 			if (svc.deleteMessage(messId)) {
 				response.setStatus(204);
+				return true;
 			}
 			else {
 				response.setStatus(404);
@@ -134,6 +135,7 @@ public class MessageController {
 		} catch (Exception e) {
 			response.setStatus(400);
 		}
+		return false;
 	}
 
 

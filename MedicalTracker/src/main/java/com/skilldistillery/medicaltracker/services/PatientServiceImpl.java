@@ -54,15 +54,6 @@ public class PatientServiceImpl implements PatientService {
 		return dbPat;
 	}
 	@Override
-	public void addProviderToPatient(Provider provider, Integer patId) {
-		Optional<Patient> patOpt = patRepo.findById(patId);
-		Patient dbPat = patOpt.get();
-		if(dbPat != null) {
-			dbPat.addProvider(provider);
-			patRepo.flush();
-		}
-	}
-	@Override
 	public Patient showPat(String username, int patId) {
 		Patient pat = patRepo.findByUser_UsernameAndId(username, patId);
 		return pat;
