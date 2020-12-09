@@ -2,6 +2,7 @@
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
   <button (click)="showMedToAdd = true">Add medication</button>
   <button (click)="showHistoryForm = true">Add Medical History</button>
+  <button (click)="myProvList = true">My Providers</button>
 
   <!-- Rx -->
   <div *ngIf="!rxDeets && !showMedToAdd">
@@ -111,5 +112,18 @@
     <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
     <button (click)="createMedicalHistory()">Submit Test Button</button>
   </form>
+</div>
+<div *ngIf="myProvList">
+  <h1>My Providers:</h1>
+<ul *ngFor="let prov of providers">
+  <li>
+    {{prov.fname}} {{prov.lname}}
+  <button class="btn btn-danger" (click)="removeProvider(prov.id)">Remove Provider</button>
+  </li>
+</ul>
+</div>
+<div>
+<input type="number" name="providerId" [(ngModel)]="providerId">
+<input type="button" (click)="addProvider()">
 </div>
 </div>

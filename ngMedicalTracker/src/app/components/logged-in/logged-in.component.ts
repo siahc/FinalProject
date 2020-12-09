@@ -6,7 +6,7 @@ import { Medication } from './../../models/medication';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from './../../services/patient.service';
 import { Patient } from './../../models/patient';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Provider } from '@angular/core';
 
 @Component({
   selector: 'app-logged-in',
@@ -26,6 +26,10 @@ export class LoggedInComponent implements OnInit {
   historyToAdd = new MedicalHistory();
   showMedToAdd = false;
   showHistoryForm = false;
+  providers = [];
+  myProvList = false;
+  providerId = null;
+
 
   constructor(
     private patientService: PatientService,
@@ -67,6 +71,19 @@ export class LoggedInComponent implements OnInit {
           }
           )
         }
+        if(this.user != null){
+          this.patientService.patientProvList().subscribe(
+            data => {
+              this.providers = data;
+          },
+          err=>{
+            console.error('Pt Providers:provider list failed');
+            console.error(err);
+
+          }
+          )
+        }
+
       },
       err => {
         this.router.navigateByUrl('notFound');
@@ -158,8 +175,8 @@ export class LoggedInComponent implements OnInit {
       }
     );
   }
-  addProvider(id: number): void{
-    this.patientService.addPtProvList(id).subscribe(
+  addProvider(): void{
+    this.patientService.addPtProvList(this.providerId).subscribe(
       (added) => {
       console.log(
         'Provider successfully added'
@@ -171,6 +188,19 @@ export class LoggedInComponent implements OnInit {
       }
     );
   }
+  // showProvList():void{
+  //   this.patientService.patientProvList().subscribe(
+  //     data => {
+  //       this.providers = data;
+  //     },
+  //     err=>{
+  //       console.error('Loggedin.showProvList():show providers list failed');
+  //       console.error(err);
+
+  //     }
+
+  //   )
+  // }
 
 
   reload(): void {
