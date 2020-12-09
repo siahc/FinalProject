@@ -22,5 +22,7 @@ public interface PatientService {
 	List<MedicalHistory> listMedHist(Integer patId);
 
 	List<Patient> showAllPatients();
+	Boolean removeProvider(int id, String username);
+
 
 }

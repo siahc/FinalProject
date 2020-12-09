@@ -12,6 +12,7 @@ import com.skilldistillery.medicaltracker.entities.Patient;
 import com.skilldistillery.medicaltracker.entities.Provider;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.repositories.PatientRespository;
+import com.skilldistillery.medicaltracker.repositories.ProviderRepository;
 import com.skilldistillery.medicaltracker.repositories.UserRepository;
 
 @Service
@@ -20,6 +21,8 @@ public class PatientServiceImpl implements PatientService {
 	private PatientRespository patRepo;
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private ProviderRepository providerRepo;
 
 	@Override
 	public Patient createPatient(Patient patient, String username) {
@@ -81,4 +84,16 @@ public class PatientServiceImpl implements PatientService {
 		return null;
 	}
 	
+	@Override
+	public Boolean removeProvider(int id, String username) {
+		User u = userRepo.findUniqueByUsername(username);
+		Patient p = u.getPatient();
+		Optional<Provider> prov = providerRepo.findById(id);
+		Provider provider = prov.get();
+		p.removeProvider(provider);
+		providerRepo.saveAndFlush(provider);
+		patRepo.saveAndFlush(p);
+		boolean delete = !p.getProviders().contains(provider);
+		return delete;
+	}
 }
