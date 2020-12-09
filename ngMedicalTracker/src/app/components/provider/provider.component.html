@@ -5,14 +5,39 @@
     <ion-card-header (click)="selectedPt = pt">{{ pt.fname }} {{ pt.lname }}</ion-card-header>
   </ion-card>
 
-  <ul *ngIf="selectedPt">
+  <!-- <ul *ngIf="selectedPt">
     <li *ngFor="let rx of medications">
       {{ rx.name }}
     </li>
-  </ul>
-  <ul *ngIf="selectedPt">
-    <li *ngFor="let hist of history">
-      {{ hist.diagnosis }}
-    </li>
-  </ul>
+  </ul> -->
+  <div *ngIf="selectedPt">
+  <ion-card *ngFor="let rx of medications">
+    <ion-card-header>Medication</ion-card-header>
+    <ion-card-content>
+      <ion-card-title>{{rx.name}}</ion-card-title>
+      <ul>
+        <li>{{rx.description}}</li>
+        <li>{{rx.dose}}</li>
+        <li>{{rx.frequency}}</li>
+        <li>{{rx.provider}}</li>
+        <li>{{rx.comment}}</li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+  </div>
+  <div *ngIf="selectedPt">
+  <ion-card *ngFor="let hist of history">
+    <ion-card-header>Medical History Item</ion-card-header>
+    <ion-card-content>
+      <ion-card-title>{{hist.diagnosis}}</ion-card-title>
+      <ul>
+        <li>{{hist.onset}}</li>
+        <li>{{hist.active}}</li>
+        <li>{{hist.treatment}}</li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+  </div>
+
+
 </div>
