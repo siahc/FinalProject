@@ -1,3 +1,5 @@
+import { Message } from './../../models/message';
+import { MessageService } from './../../services/message.service';
 import { MedicalHistoryService } from './../../services/medical-history.service';
 import { MedicationService } from './../../services/medication.service';
 import { User } from 'src/app/models/user';
@@ -7,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from './../../services/patient.service';
 import { Patient } from './../../models/patient';
 import { Component, OnInit, Provider } from '@angular/core';
+import { log, error } from 'console';
 
 @Component({
   selector: 'app-logged-in',
@@ -29,6 +32,12 @@ export class LoggedInComponent implements OnInit {
   providers = [];
   myProvList = false;
   provId = null;
+  message = new Message();
+  messages = [];
+  myMessages = false;
+  msgToEdit = null;
+  msgProvId = null;
+
 
 
   constructor(
@@ -36,7 +45,8 @@ export class LoggedInComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private rxService: MedicationService,
-    private hisService: MedicalHistoryService
+    private hisService: MedicalHistoryService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +58,7 @@ export class LoggedInComponent implements OnInit {
         console.log('Patient retrieved');
         this.user = patient;
         if(this.user != null){
+          this.getMessages();
           this.patientService.userPatientMedication().subscribe(
             data => {
               this.medication = data;
@@ -192,6 +203,56 @@ export class LoggedInComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+  getMessages(): void {
+    this.messageService.getMessages().subscribe(
+    data => {
+      this.messages = data;
+      console.log('Messages successfully retrieved');
+    },
+    (err) => {
+      console.error('Component.message.ts.getMessages() failed')
+      console.error(err);
+    }
+    )
+  }
+  deleteMessage(message: Message): void {
+    this.messageService.deleteMessage(message).subscribe(
+      data => {
+       this.getMessages();
+        console.log("Message deleted successfully");
+      },
+      (err) => {
+        console.error('Component.message.ts.deleteMessages() failed')
+        console.error(err);
+      }
+    )
+  }
+  updateMessage(message: Message): void{
+    this.messageService.updateMessage(message).subscribe(
+      data => {
+        this.getMessages();
+        console.log("Message updated successfully");
+        this.msgToEdit = null;
+      },
+    (err) => {
+      console.error('Component.message.ts.updateMessages() failed');
+      console.error(err);
+    }
+    )
+  }
+  createMessage(message: Message, id: number): void{
+    this.messageService.createMessage(id, message).subscribe(
+      data => {
+        this.getMessages();
+        this.message = new Message;
+        console.log("Message created successfully");
+      },
+      err => {
+        console.error('Component.message.tx.crateMessage() failed');
+        console.error(err);
+      }
+    )
   }
 
   reload(): void {
