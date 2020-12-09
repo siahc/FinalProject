@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skilldistillery.medicaltracker.entities.MedicalHistory;
 import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.Patient;
+import com.skilldistillery.medicaltracker.entities.Provider;
 import com.skilldistillery.medicaltracker.services.PatientService;
 import com.skilldistillery.medicaltracker.services.UserService;
 
@@ -88,5 +89,13 @@ public class PatientController {
 			Principal principal
 			) {
 		return userSvc.getUserPatientMeds(principal.getName());
+	}
+	@GetMapping("patient/providers")
+	public List<Provider> userProviderList(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal
+			){
+		return patServ.listProviders(principal.getName());
 	}
 }

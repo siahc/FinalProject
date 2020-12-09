@@ -91,6 +91,11 @@ public class PatientServiceImpl implements PatientService {
 		}
 		return null;
 	}
+	@Override
+	public List<Provider> listProviders(String username){
+		User u = userRepo.findUniqueByUsername(username);
+		return u.getPatient().getProviders();
+	}
 	
 	@Override
 	public Boolean removeProvider(int id, String username) {
