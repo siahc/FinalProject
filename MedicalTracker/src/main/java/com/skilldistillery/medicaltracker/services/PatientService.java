@@ -24,5 +24,7 @@ public interface PatientService {
 	List<Patient> showAllPatients();
 	Boolean removeProvider(int id, String username);
 
+	Boolean addProviderToPatient(int id, String username);
+
 
 }
