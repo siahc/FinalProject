@@ -27,5 +27,7 @@ public interface PatientService {
 
 	Patient findPatientById(int id);
 
+	List<Provider> listProviders(String username);
+
 
 }
