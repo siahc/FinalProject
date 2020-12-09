@@ -1,42 +1,38 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
 
-  <ion-card *ngFor="let pt of patients" (click)="displayDetails(pt)">
-    <ion-card-header (click)="selectedPt = pt">{{ pt.fname }} {{ pt.lname }}</ion-card-header>
-  </ion-card>
+  <div *ngIf="!selectedPt">
+    <table class="table table-hover">
+      <thead>
+        <th>Patient Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+      </thead>
+      <tbody *ngFor="let pt of patients" (click)="displayDetails(pt)">
+        <tr>
+          <td>{{pt.id}}</td>
+          <td>{{pt.fname}}</td>
+          <td>{{pt.lname}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <!-- <ul *ngIf="selectedPt">
-    <li *ngFor="let rx of medications">
-      {{ rx.name }}
-    </li>
-  </ul> -->
   <div *ngIf="selectedPt">
-  <ion-card *ngFor="let rx of medications">
-    <ion-card-header>Medication</ion-card-header>
-    <ion-card-content>
-      <ion-card-title>{{rx.name}}</ion-card-title>
-      <ul>
-        <li>{{rx.description}}</li>
-        <li>{{rx.dose}}</li>
-        <li>{{rx.frequency}}</li>
-        <li>{{rx.provider}}</li>
-        <li>{{rx.comment}}</li>
-      </ul>
-    </ion-card-content>
-  </ion-card>
+    <h3>{{selectedPt.fname}} {{selectedPt.lname}} Entered Information</h3>
+    <button class="btn btn-primary" (click)="selectedPt = null">Return to Patient List</button>
+    <h5>Medications</h5>
+    <ul *ngFor="let rx of medications">
+      <li>{{rx.name}}</li>
+      <li>{{rx.description}}</li>
+    </ul>
   </div>
   <div *ngIf="selectedPt">
-  <ion-card *ngFor="let hist of history">
-    <ion-card-header>Medical History Item</ion-card-header>
-    <ion-card-content>
-      <ion-card-title>{{hist.diagnosis}}</ion-card-title>
-      <ul>
-        <li>{{hist.onset}}</li>
-        <li>{{hist.active}}</li>
-        <li>{{hist.treatment}}</li>
-      </ul>
-    </ion-card-content>
-  </ion-card>
+    <h5>Medical History</h5>
+    <ul *ngFor="let hist of history">
+      <li>{{hist.diagnosis}}</li>
+      <li>{{hist.onset}}</li>
+    </ul>
   </div>
 
 
