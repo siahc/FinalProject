@@ -1,3 +1,4 @@
+import { Medication } from './../models/medication';
 import { MedicalHistory } from './../models/medical-history';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -70,4 +71,13 @@ export class MedicalHistoryService {
       })
     )
   }
-}
+  getDxMedications(medHisId: number): Observable<Medication[]> {
+    const httpOptions = this.getHttpOptions();
+    return this.http.get<Medication[]>(`${this.url}/${medHisId}/medications`, httpOptions).pipe(
+      catchError((err:any)=> {
+        console.error(err);
+        return throwError('Medications service failed to display')
+      })
+    )
+  }
+  }

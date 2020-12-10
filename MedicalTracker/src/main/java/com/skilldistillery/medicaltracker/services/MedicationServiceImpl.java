@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.medicaltracker.entities.MedicalHistory;
 import com.skilldistillery.medicaltracker.entities.Medication;
+import com.skilldistillery.medicaltracker.repositories.MedicalHistoryRepository;
 import com.skilldistillery.medicaltracker.repositories.MedicationRepository;
 
 
@@ -17,6 +18,8 @@ public class MedicationServiceImpl implements MedicationService {
 	
 	@Autowired
 	private MedicationRepository repo;
+	@Autowired
+	private MedicalHistoryRepository histRepo;
 	
 	@Override
 	public List<Medication> index() {
@@ -43,6 +46,31 @@ public class MedicationServiceImpl implements MedicationService {
 			medHist = med.getMedHis();
 		}
 		return medHist;
+	}
+	@Override
+	public boolean addHistoryToMedication(int medId, int histId) {
+		Optional<Medication> medOpt = repo.findById(medId);
+		Optional<MedicalHistory> histOpt = histRepo.findById(histId);
+		Medication med = null;
+		MedicalHistory medHist = null;
+		if(medOpt.isPresent() && histOpt.isPresent()) {
+			med = medOpt.get();
+			medHist = histOpt.get();
+			med.setMedHis(medHist);
+			repo.saveAndFlush(med);
+		}
+		return med.getMedHis().equals(medHist);
+	}
+	@Override
+	public boolean removeHistFromMed(int medId) {
+		Optional<Medication> medOpt = repo.findById(medId);
+		Medication med = null;
+		if(medOpt.isPresent()) {
+			med = medOpt.get();
+			med.setMedHis(null);
+			repo.saveAndFlush(med);
+		}
+		return med.getMedHis() == null;
 	}
 	
 	@Override

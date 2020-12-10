@@ -25,7 +25,6 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 
 	@Override
 	public MedicalHistory findById(int medHisId) {
-		System.out.println(medHisId);
 		Optional<MedicalHistory> medOpt = repo.findById(medHisId);
 		MedicalHistory medHis = null;
 		if (medOpt.isPresent()) {
@@ -35,7 +34,6 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 	}
 	@Override
 	public List<Medication> findHistoryMedsById(int medHisId) {
-		System.out.println(medHisId);
 		Optional<MedicalHistory> medOpt = repo.findById(medHisId);
 		MedicalHistory medHis = null;
 		List<Medication> meds = null;
@@ -45,6 +43,25 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 		}
 		return meds;
 	}
+
+	@Override
+	public List<Medication> addMedToHist(int medHistId, int medId) {
+		Optional<MedicalHistory> medHistOpt = repo.findById(medHistId);
+		Optional<Medication> medOpt = rxRepo.findById(medId);
+		List<Medication> meds = null;
+		MedicalHistory hist = null;
+		if (medOpt.isPresent() && medHistOpt.isPresent()) {
+			Medication rx = medOpt.get();
+			hist = medHistOpt.get();
+			meds = hist.getMedications();
+			rx.setMedHis(hist);
+			meds.add(rx);
+			hist.setMedications(meds);
+			repo.saveAndFlush(hist);
+		}
+		return meds;
+	}
+
 
 	@Override
 	public MedicalHistory createNewMedicalHistory(MedicalHistory medHis) {

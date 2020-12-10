@@ -25,7 +25,11 @@
           <td>
             {{ rx.description }}
           </td>
+
           <td class="btn btn-info details" (click)="rxDeets = rx">View Detailed Information</td>
+
+          <td class="details"(click)="setRxDeets(rx)">View Detailed Information</td>
+
         </tr>
       </tbody>
     </table>
@@ -37,6 +41,7 @@
     <ul>
       <li>Description: {{ rxDeets.description }}</li>
     </ul>
+<<<<<<< HEAD
     <ul>
       <li>Dose: {{ rxDeets.dose }}</li>
     </ul>
@@ -48,6 +53,10 @@
     </ul>
     <ul>
       <li>Comment: {{ rxDeets.comment }}</li>
+=======
+    <ul *ngIf="rxHisDeets">
+      <li>Diagnosis: {{rxHisDeets.diagnosis}} </li>
+>>>>>>> ab67664d086e0cc3b7140ff971fc30ae3863361c
     </ul>
     <input class="btn btn-success" type="button" value="Update this medication" (click)="rxUpdated=rxDeets">
     <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
@@ -96,7 +105,11 @@
         <td>
           {{ history.onset}}
         </td>
+
         <td class=" btn btn-info details" (click)="hisDeets = history">View Detailed Information</td>
+
+        <td class="details" (click)="setDxMedications(history)">View Detailed Information</td>
+
       </tr>
     </tbody>
   </table>
@@ -108,8 +121,13 @@
   <ul>
     <li>Onset: {{ hisDeets.onset }}</li>
   </ul>
+<<<<<<< HEAD
   <ul>
     <li>Treament: {{ hisDeets.treatment }}</li>
+=======
+  <ul *ngFor="let medication of dxMedDeets">
+    <li>Meds: {{medication.name}}</li>
+>>>>>>> ab67664d086e0cc3b7140ff971fc30ae3863361c
   </ul>
   <input class="btn btn-success" type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
   <button class="btn btn-danger" (click)="destroyHist()">Delete History Item</button>
