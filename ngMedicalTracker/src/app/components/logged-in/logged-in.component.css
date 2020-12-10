@@ -1,6 +1,22 @@
+thead{
+  font-weight: bold;
+  font-size: 30px;
+}
 
-.details:hover{
-    color: white;
-    background-color:#204051 ;
-  }
+tbody{
+  background-color: white;
+}
 
+
+.userWelcome{
+  color:#204051
+}
+
+.info{
+  background-color: #e4e3e3;
+}
+
+.display {
+  padding:0;
+  background-color: #bbe1fa;
+}
