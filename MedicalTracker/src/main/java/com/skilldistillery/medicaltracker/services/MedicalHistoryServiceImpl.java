@@ -33,6 +33,18 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 		}
 		return medHis;
 	}
+	@Override
+	public List<Medication> findHistoryMedsById(int medHisId) {
+		System.out.println(medHisId);
+		Optional<MedicalHistory> medOpt = repo.findById(medHisId);
+		MedicalHistory medHis = null;
+		List<Medication> meds = null;
+		if (medOpt.isPresent()) {
+			medHis = medOpt.get();
+			meds = medHis.getMedications();
+		}
+		return meds;
+	}
 
 	@Override
 	public MedicalHistory createNewMedicalHistory(MedicalHistory medHis) {

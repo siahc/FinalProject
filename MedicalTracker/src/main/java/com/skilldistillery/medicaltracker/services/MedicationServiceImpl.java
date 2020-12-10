@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.medicaltracker.entities.MedicalHistory;
 import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.repositories.MedicationRepository;
 
@@ -31,6 +32,17 @@ public class MedicationServiceImpl implements MedicationService {
 		med = medOpt.get();
 		}
 		return med;
+	}
+	@Override
+	public MedicalHistory findMedicationHistoryById(int medId) {
+		Optional<Medication> medOpt = repo.findById(medId);
+		Medication med = null;
+		MedicalHistory medHist = null;
+		if(medOpt.isPresent()) {
+			med = medOpt.get();
+			medHist = med.getMedHis();
+		}
+		return medHist;
 	}
 	
 	@Override
