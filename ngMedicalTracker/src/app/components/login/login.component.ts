@@ -21,14 +21,12 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.authUser.username, this.authUser.password).subscribe(
       next => {
         console.log('Component.Login.login():User logged in successfully');
-        this.router.navigateByUrl('howto');
+        this.router.navigateByUrl('profile');
 
       },
       error=>{
         console.error(error);
         console.error('Component.Login.login():Failed login');
-
-
       }
     )
   }
