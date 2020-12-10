@@ -27,18 +27,19 @@ export class LoggedInComponent implements OnInit {
   hisUpdated = null;
   medToAdd = new Medication();
   historyToAdd = new MedicalHistory();
-  showMedToAdd = false;
-  showHistoryForm = false;
+  // showMedToAdd = false;
+  // showHistoryForm = false;
   providers = [];
-  myProvList = false;
+  // myProvList = false;
   provId = null;
   message = new Message();
   messages = [];
-  myMessages = false;
+  // myMessages = false;
   msgToEdit = null;
   msgProvId = null;
   rxHisDeets = null;
   dxMedDeets = null;
+  showView = 'medications';
 
 
 
@@ -270,6 +271,7 @@ export class LoggedInComponent implements OnInit {
     )
   }
   setRxDeets(rx: Medication): void{
+    this.showView = 'rxDetails'
     this.rxDeets = rx;
     this.getShowRxHis(this.rxDeets.id);
   }
@@ -287,6 +289,7 @@ export class LoggedInComponent implements OnInit {
     )
   }
   setDxMedications(dx: History): void{
+    this.showView = 'historyDetails'
     this.hisDeets = dx;
     this.getDxMedications(this.hisDeets.id);
   }

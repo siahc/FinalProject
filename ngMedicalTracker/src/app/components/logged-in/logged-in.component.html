@@ -3,22 +3,28 @@
     Welcome {{ user.fname }} {{ user.lname }}
   </h3>
 
-  <button class="btn btn-small btn-info" (click)="showMedToAdd = true">
+  <button class="btn btn-small btn-info" (click)="showView = 'addMed'">
     Add medication
   </button>
-  <button class="btn btn-small btn-info" (click)="showHistoryForm = true">
+  <button class="btn btn-small btn-info" (click)="showView = 'addHist'">
     Add Medical History
   </button>
 
-  <button class="btn btn-small btn-info" (click)="myProvList = true">
+  <button class="btn btn-small btn-info" (click)="showView = 'providers'">
     My Providers
   </button>
-  <button class="btn btn-small btn-info" (click)="myMessages = true">
+  <button class="btn btn-small btn-info" (click)="showView = 'messages'">
     My Messages
+  </button>
+  <button class="btn btn-small btn-info" (click)="showView = 'medications'">
+    My Medications
+  </button>
+  <button class="btn btn-small btn-info" (click)="showView = 'history'">
+    My Medical History
   </button>
 
   <!-- Rx -->
-  <div class="display" *ngIf="!rxDeets && !showMedToAdd">
+  <div class="display" *ngIf="showView == 'medications'">
     <table class="table">
       <tr>
         <thead>
@@ -41,7 +47,7 @@
       </tbody>
     </table>
   </div>
-  <div class="info" *ngIf="rxDeets">
+  <div class="info" *ngIf="showView == 'rxDetails'">
     <ul>
       <li>Name: {{ rxDeets.name }}</li>
 
@@ -86,7 +92,7 @@
     </form>
   </div>
 
-  <div class="formdiv" *ngIf="showMedToAdd">
+  <div class="formdiv" *ngIf="showView == 'addMed'">
     <form>
       <div class="form-group">
         Name:
@@ -110,7 +116,7 @@
   </div>
 
   <!-- MedHis -->
-  <div class="display" *ngIf="!hisDeets && !showHistoryForm">
+  <div class="display" *ngIf="showView == 'history'">
     <table class="table">
       <tr>
         <thead>
@@ -133,7 +139,8 @@
       </tbody>
     </table>
   </div>
-  <div class="info" *ngIf="hisDeets && !rxDeets">
+
+  <div class="info" *ngIf="showView == 'historyDetails'">
     <ul>
       <li>Diagnosis: {{ hisDeets.diagnosis }}</li>
       <li>Onset: {{ hisDeets.onset }}</li>
@@ -173,7 +180,7 @@
       <button (click)="updateHisComponent()">Submit Test Button</button>
     </form>
   </div>
-  <div class="formdiv" *ngIf="showHistoryForm">
+  <div class="formdiv" *ngIf="showView == 'addHist'">
     <h3>Add Medical History Item:</h3>
     <form>
       <div class="form-group">
@@ -194,7 +201,8 @@
       </button>
     </form>
   </div>
-  <div class="info" *ngIf="myProvList">
+
+  <div class="info" *ngIf="showView == 'providers'">
     <h1>My Providers:</h1>
     <ul *ngFor="let prov of providers">
       <li>
@@ -223,7 +231,8 @@
       value="Add Provider"
     />
   </div>
-  <div class="info" *ngIf="myMessages">
+
+  <div class="info" *ngIf="showView == 'messages'">
     <h1>My Messages:</h1>
     <ul *ngFor="let msg of messages">
       <li>
