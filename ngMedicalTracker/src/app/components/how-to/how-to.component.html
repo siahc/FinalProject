@@ -1,2 +1,2 @@
-<p>how-to works!</p>
-<h5>{{test}}</h5>
+<app-logged-in *ngIf="checkRole()=='patient'"></app-logged-in>
+<app-provider *ngIf="checkRole()=='provider'"></app-provider>
