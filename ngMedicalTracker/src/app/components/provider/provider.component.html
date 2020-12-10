@@ -1,20 +1,19 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
-  <button (click)="viewMsg = true">View Messages</button>
+  <button class="btn btn-info" (click)="viewMsg = true">View Messages</button>
   <div *ngIf="viewMsg">
     <ul *ngFor="let msg of messages">
-      <li>{{msg.content}}</li>
-      <li><button (click)="msgToEdit= msg">Update Message</button></li>
+      <li>{{ msg.content }}</li>
+      <li><button (click)="msgToEdit = msg">Update Message</button></li>
       <li><button (click)="deleteMessage(msg)">Delete Message</button></li>
     </ul>
     <div *ngIf="msgToEdit">
-      <input type="text" name="content" [(ngModel)]="msgToEdit.content">
+      <input type="text" name="content" [(ngModel)]="msgToEdit.content" />
       <button (click)="updateMessage(msgToEdit)">Submit</button>
-      <br>
+      <br />
       <button (click)="msgToEdit = null">Cancel</button>
     </div>
   </div>
-
 
   <div *ngIf="!selectedPt && !viewMsg">
     <table class="table table-hover">
@@ -25,38 +24,51 @@
       </thead>
       <tbody *ngFor="let pt of patients" (click)="displayDetails(pt)">
         <tr>
-          <td>{{pt.id}}</td>
-          <td>{{pt.fname}}</td>
-          <td>{{pt.lname}}</td>
-          <td><button (click)="ptToMsgId = pt.id">Message PT</button></td>
+          <td>{{ pt.id }}</td>
+          <td>{{ pt.fname }}</td>
+          <td>{{ pt.lname }}</td>
+          <td>
+            <button class="btn btn-light" (click)="ptToMsgId = pt.id">
+              Message PT
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div *ngIf="ptToMsgId">
-    <input type="text" name="content" [(ngModel)]="message.content">
-    <button type="submit" (click)="createMessage(message, ptToMsgId)">Send</button>
+    <input type="text" name="content" [(ngModel)]="message.content" />
+    <button
+      class="btn btn-success"
+      type="submit"
+      (click)="createMessage(message, ptToMsgId)"
+    >
+      Send
+    </button>
   </div>
+  <div class="patientInfo">
+    <div *ngIf="selectedPt">
+      <h3>{{ selectedPt.fname }} {{ selectedPt.lname }} Entered Information</h3>
+      <button class="btn btn-warning" (click)="selectedPt = null">
+        Return to Patient List
+      </button>
+      <button class="btn btn-danger" (click)="removePatient()">
+        Remove Patient from List
+      </button>
 
-  <div *ngIf="selectedPt">
-    <h3>{{selectedPt.fname}} {{selectedPt.lname}} Entered Information</h3>
-    <button class="btn btn-primary" (click)="selectedPt = null">Return to Patient List</button>
-    <button class="btn btn-primary" (click)="removePatient()">Remove Patient from List</button>
-
-    <h5>Medications</h5>
-    <ul *ngFor="let rx of medications">
-      <li>{{rx.name}}</li>
-      <li>{{rx.description}}</li>
-    </ul>
+      <h5>Medications</h5>
+      <ul *ngFor="let rx of medications">
+        <li>{{ rx.name }}</li>
+        <li>{{ rx.description }}</li>
+      </ul>
+    </div>
+    <div *ngIf="selectedPt">
+      <h5>Medical History</h5>
+      <ul *ngFor="let hist of history">
+        <li>{{ hist.diagnosis }}</li>
+        <li>{{ hist.onset }}</li>
+      </ul>
+    </div>
   </div>
-  <div *ngIf="selectedPt">
-    <h5>Medical History</h5>
-    <ul *ngFor="let hist of history">
-      <li>{{hist.diagnosis}}</li>
-      <li>{{hist.onset}}</li>
-    </ul>
-  </div>
-
-
 </div>
