@@ -59,6 +59,18 @@ public class MedicationController {
 		}
 		return hist;
 	}
+	@GetMapping("medication/{medId}/{histId}")
+	public boolean addHistoryToMedication(
+			@PathVariable Integer medId,
+			@PathVariable Integer histId,
+			HttpServletRequest req,
+			HttpServletResponse res,
+			Principal principal
+			) {
+		boolean added = svc.addHistoryToMedication(medId, histId);
+		return added;
+		
+	}
 	
 	@PostMapping("medication")
 	public Medication addMedication(
@@ -115,6 +127,26 @@ public class MedicationController {
 			}
 		} catch (Exception e) {
 			response.setStatus(400);
+		}
+	}
+	@DeleteMapping("medication/{medId}/history")
+	public boolean removeHistoryFromMed(
+			@PathVariable int medId,
+			HttpServletRequest req,
+			HttpServletResponse res,
+			Principal principal
+			) {
+		try {
+			if (svc.removeHistFromMed(medId)) {
+				res.setStatus(204);
+				return true;
+			} else {
+				res.setStatus(404);
+				return false;
+			}
+		} catch (Exception e) {
+			res.setStatus(400);
+			return false;
 		}
 	}
 

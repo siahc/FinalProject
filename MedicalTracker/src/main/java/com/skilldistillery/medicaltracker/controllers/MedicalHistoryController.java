@@ -56,7 +56,14 @@ public class MedicalHistoryController {
 		}
 		return meds;
 	}
-	
+	@GetMapping("medicalHistory/{medHistId}/{medId}")
+	public List<Medication> addMedToHist(@PathVariable Integer medHistId, @PathVariable Integer medId, HttpServletResponse res, HttpServletRequest req, Principal principal){
+		List<Medication> meds = svc.addMedToHist(medHistId, medId);
+		if(meds == null) {
+			res.setStatus(404);
+		}
+		return meds;
+	}
 	@PostMapping("medicalHistory")
 	public MedicalHistory addMedicalHistory(
 			@RequestBody MedicalHistory medHis,
