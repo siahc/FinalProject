@@ -41,8 +41,22 @@
     <ul>
       <li>Description: {{ rxDeets.description }}</li>
     </ul>
+<<<<<<< HEAD
+    <ul>
+      <li>Dose: {{ rxDeets.dose }}</li>
+    </ul>
+    <ul>
+      <li>Frequency: {{ rxDeets.frequency }}</li>
+    </ul>
+    <ul>
+      <li>Provider: {{ rxDeets.provider }}</li>
+    </ul>
+    <ul>
+      <li>Comment: {{ rxDeets.comment }}</li>
+=======
     <ul *ngIf="rxHisDeets">
       <li>Diagnosis: {{rxHisDeets.diagnosis}} </li>
+>>>>>>> ab67664d086e0cc3b7140ff971fc30ae3863361c
     </ul>
     <input class="btn btn-success" type="button" value="Update this medication" (click)="rxUpdated=rxDeets">
     <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
@@ -107,8 +121,13 @@
   <ul>
     <li>Onset: {{ hisDeets.onset }}</li>
   </ul>
+<<<<<<< HEAD
+  <ul>
+    <li>Treament: {{ hisDeets.treatment }}</li>
+=======
   <ul *ngFor="let medication of dxMedDeets">
     <li>Meds: {{medication.name}}</li>
+>>>>>>> ab67664d086e0cc3b7140ff971fc30ae3863361c
   </ul>
   <input class="btn btn-success" type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
   <button class="btn btn-danger" (click)="destroyHist()">Delete History Item</button>
