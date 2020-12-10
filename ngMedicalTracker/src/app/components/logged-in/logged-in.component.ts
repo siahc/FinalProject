@@ -289,6 +289,7 @@ export class LoggedInComponent implements OnInit {
   setDxMedications(dx: History): void{
     this.hisDeets = dx;
     this.getDxMedications(this.hisDeets.id);
+    this.rxDeets = null;
   }
 
 
