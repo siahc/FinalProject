@@ -1,3 +1,4 @@
+import { IonicModule } from '@ionic/angular';
 import { Message } from './../../models/message';
 import { MessageService } from './../../services/message.service';
 import { MedicalHistoryService } from './../../services/medical-history.service';
@@ -36,6 +37,9 @@ export class LoggedInComponent implements OnInit {
   myMessages = false;
   msgToEdit = null;
   msgProvId = null;
+  rxHisDeets = null;
+  dxMedDeets = null;
+
 
 
 
@@ -45,7 +49,7 @@ export class LoggedInComponent implements OnInit {
     private route: ActivatedRoute,
     private rxService: MedicationService,
     private hisService: MedicalHistoryService,
-    private messageService: MessageService
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -253,6 +257,40 @@ export class LoggedInComponent implements OnInit {
       }
     )
   }
+  getShowRxHis(rxId: number): void {
+    this.rxService.showRxHis(rxId).subscribe(
+    data => {
+      this.rxHisDeets = data;
+      console.log('Rx History successfully retrieved');
+    },
+    (err) => {
+      console.error('Component.Medication.ts.getRxHisDeets() failed')
+      console.error(err);
+    }
+    )
+  }
+  setRxDeets(rx: Medication): void{
+    this.rxDeets = rx;
+    this.getShowRxHis(this.rxDeets.id);
+  }
+
+  getDxMedications(medHisId: number): void {
+    this.hisService.getDxMedications(medHisId).subscribe(
+    data => {
+      this.dxMedDeets = data;
+      console.log('Diagnosis medications successfully retrieved');
+    },
+    (err) => {
+      console.error('Component.MedicalHistory.ts.getDxMedicaitons() failed')
+      console.error(err);
+    }
+    )
+  }
+  setDxMedications(dx: History): void{
+    this.hisDeets = dx;
+    this.getDxMedications(this.hisDeets.id);
+  }
+
 
   reload(): void {
   this.user = null;
