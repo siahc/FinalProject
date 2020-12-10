@@ -19,5 +19,9 @@ public interface MedicationService {
 
 	MedicalHistory findMedicationHistoryById(int medId);
 
+	boolean addHistoryToMedication(int medId, int histId);
+
+	boolean removeHistFromMed(int medId);
+
 
 }

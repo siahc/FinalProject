@@ -18,7 +18,7 @@ public interface MedicalHistoryService {
 	MedicalHistory updateMedicalHistory(int medId, MedicalHistory medHis);
 
 	List<Medication> findHistoryMedsById(int medHisId);
-	
+	List<Medication> addMedToHist(int medHistId, int medId);
 
 
 }
