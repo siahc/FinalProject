@@ -2,6 +2,9 @@ package com.skilldistillery.medicaltracker.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -51,9 +54,10 @@ class MedicalHistoryTest {
 	}
 	@Test
 	void test_MedicalHistory_Medication_mapping(){
-		Medication m = medHis.getMedication();
+		List<Medication> m = medHis.getMedications();
 		assertNotNull(m);
-		assertEquals("Botox", m.getName());
+		assertTrue(m.size() > 0);
+		System.out.println(m.size());
 	}
 	@Test
 	void test_Medical_History_mapping() {

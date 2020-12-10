@@ -29,7 +29,7 @@ public class Medication {
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 	@JsonIgnore
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="medical_history_id")
 	private MedicalHistory medHis;
 	
