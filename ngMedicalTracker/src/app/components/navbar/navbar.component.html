@@ -1,8 +1,8 @@
 <section id = "navbaredit">
 <nav class="navbar navbar-expand-lg navbar-light ">
   <a class="navbar-brand" href="#">
-    <img src="logo/caduceus.png" class="d-inline-block align-top">
-    MedTrak </a> <img src="assets/logo/caduceus.png" height="30px"class="d-inline-block align-top">
+    <img id="image"src="assets/logo/caduceus.png" height="35px" class="d-inline-block align-top">
+    MedTrak </a>
   <button
     class="navbar-toggler"
     type="button"
@@ -22,7 +22,7 @@
         >
       </li>
       <li class="nav-item active" *ngIf="loggedin()">
-        <a class="nav-link" [routerLink]="['/logged-in']"
+        <a class="nav-link" [routerLink]="['/prolile']"
           >Home <span class="sr-only">(current)</span></a
         >
       </li>
