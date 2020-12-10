@@ -74,6 +74,10 @@ export class AuthService {
     return localStorage.getItem('credentials');
   }
 
+  getRole():string {
+    return localStorage.getItem('role');
+  }
+
   getHttpOptions() {
     const credentials = this.getCredentials();
     const httpOptions = {

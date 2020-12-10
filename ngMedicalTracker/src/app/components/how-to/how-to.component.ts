@@ -11,5 +11,7 @@ export class HowToComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  checkRole():string{
+    return localStorage.getItem('role');
+  }
 }
