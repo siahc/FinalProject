@@ -48,9 +48,9 @@ Refer to the list below for possible functionalities of the site.
  * A provider can see the list of patients that has added them and see their current medications and diagnosis'.
 
  * The user creates an account, entering:
-    1. First Name and Last Name
-    2. Date of Birth
-    3. Email/Username and Password
+    - First Name and Last Name
+    - Date of Birth
+    - Email/Username and Password
 
 #### Stretch Goals
 * Have a provider be able to verify identity on website without contacting admin.
