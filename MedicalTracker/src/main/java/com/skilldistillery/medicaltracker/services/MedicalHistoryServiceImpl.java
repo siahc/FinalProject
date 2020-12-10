@@ -61,8 +61,8 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 			if (medHis.getPatient() != null) {
 				managedMed.setPatient(medHis.getPatient());
 			}
-			if (medHis.getMedication() != null) {
-				managedMed.setMedication(medHis.getMedication());
+			if (medHis.getMedications() != null) {
+				managedMed.setMedications(medHis.getMedications());
 			}
 			repo.saveAndFlush(managedMed);
 		}
@@ -76,14 +76,17 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 		Optional<MedicalHistory> medOpt = repo.findById(medId);
 		if (medOpt.isPresent()) {
 			MedicalHistory medHis = medOpt.get();
-			if (medHis.getMedication() != null) {
-				Optional<Medication> rxOpt = rxRepo.findById(medHis.getMedication().getId());
-				if (rxOpt.isPresent()) {
-					Medication med = rxOpt.get();
-					med.setMedHis(null);
-					rxRepo.saveAndFlush(med);
+			if (medHis.getMedications() != null) {
+				List<Medication> medList = medHis.getMedications();
+				for (Medication medication : medList) {
+					Optional<Medication> rxOpt = rxRepo.findById(medication.getId());
+					if (rxOpt.isPresent()) {
+						Medication med = rxOpt.get();
+						med.setMedHis(null);
+						rxRepo.saveAndFlush(med);
+					}
 				}
-			}
+				}
 			repo.deleteById(medId);
 			deleted = true;
 		}
@@ -91,17 +94,3 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 	}
 
 }
-
-//@Override
-//public boolean deleteMedication(int medId) {
-//	boolean deleted = false;
-//	Optional<Medication> medOpt = repo.findById(medId);
-//	if(medOpt.isPresent()) {
-//		Medication med = medOpt.get();
-//		med.setMedHis(null);
-//		repo.saveAndFlush(med);
-//		repo.deleteById(medId);
-//		deleted = true;
-//	}
-//	return deleted;
-//}

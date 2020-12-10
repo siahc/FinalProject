@@ -1,12 +1,14 @@
 package com.skilldistillery.medicaltracker.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,16 +33,12 @@ public class MedicalHistory {
 	@JoinColumn(name = "patient_id")
 	@JsonIgnore
 	private Patient patient;
-	@OneToOne(mappedBy = "medHis")
+	@OneToMany(mappedBy = "medHis")
 	@JsonIgnore
-	private Medication medication;
-	
-	
-	
+	private List<Medication> medications;
 	
 	//Methods
 	
-
 	public MedicalHistory() {
 		super();
 	}
@@ -93,25 +91,19 @@ public class MedicalHistory {
 		this.patient = patient;
 	}
 
-	public Medication getMedication() {
-		return medication;
+	public List<Medication> getMedications() {
+		return medications;
 	}
 
-	public void setMedication(Medication medication) {
-		this.medication = medication;
+	public void setMedications(List<Medication> medications) {
+		this.medications = medications;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (active ? 1231 : 1237);
-		result = prime * result + ((diagnosis == null) ? 0 : diagnosis.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((medication == null) ? 0 : medication.hashCode());
-		result = prime * result + ((onset == null) ? 0 : onset.hashCode());
-		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
-		result = prime * result + ((treatment == null) ? 0 : treatment.hashCode());
 		return result;
 	}
 
@@ -124,34 +116,7 @@ public class MedicalHistory {
 		if (getClass() != obj.getClass())
 			return false;
 		MedicalHistory other = (MedicalHistory) obj;
-		if (active != other.active)
-			return false;
-		if (diagnosis == null) {
-			if (other.diagnosis != null)
-				return false;
-		} else if (!diagnosis.equals(other.diagnosis))
-			return false;
 		if (id != other.id)
-			return false;
-		if (medication == null) {
-			if (other.medication != null)
-				return false;
-		} else if (!medication.equals(other.medication))
-			return false;
-		if (onset == null) {
-			if (other.onset != null)
-				return false;
-		} else if (!onset.equals(other.onset))
-			return false;
-		if (patient == null) {
-			if (other.patient != null)
-				return false;
-		} else if (!patient.equals(other.patient))
-			return false;
-		if (treatment == null) {
-			if (other.treatment != null)
-				return false;
-		} else if (!treatment.equals(other.treatment))
 			return false;
 		return true;
 	}
@@ -159,7 +124,7 @@ public class MedicalHistory {
 	@Override
 	public String toString() {
 		return "MedicalHistory [id=" + id + ", diagnosis=" + diagnosis + ", active=" + active + ", onset=" + onset
-				+ ", treatment=" + treatment + ", patient=" + patient + ", medication=" + medication + "]";
+				+ ", treatment=" + treatment + ", patient=" + patient;
 	}
 	
 
