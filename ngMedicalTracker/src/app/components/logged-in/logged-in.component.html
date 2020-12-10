@@ -37,6 +37,18 @@
     <ul>
       <li>Description: {{ rxDeets.description }}</li>
     </ul>
+    <ul>
+      <li>Dose: {{ rxDeets.dose }}</li>
+    </ul>
+    <ul>
+      <li>Frequency: {{ rxDeets.frequency }}</li>
+    </ul>
+    <ul>
+      <li>Provider: {{ rxDeets.provider }}</li>
+    </ul>
+    <ul>
+      <li>Comment: {{ rxDeets.comment }}</li>
+    </ul>
     <input class="btn btn-success" type="button" value="Update this medication" (click)="rxUpdated=rxDeets">
     <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
   </div>
@@ -95,6 +107,9 @@
   </ul>
   <ul>
     <li>Onset: {{ hisDeets.onset }}</li>
+  </ul>
+  <ul>
+    <li>Treament: {{ hisDeets.treatment }}</li>
   </ul>
   <input class="btn btn-success" type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
   <button class="btn btn-danger" (click)="destroyHist()">Delete History Item</button>
