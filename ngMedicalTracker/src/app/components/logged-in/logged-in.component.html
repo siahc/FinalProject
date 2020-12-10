@@ -1,13 +1,21 @@
 <div class="container-fluid">
-  <h3 class="userWelcome text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
+  <h3 class="userWelcome text-center">
+    Welcome {{ user.fname }} {{ user.lname }}
+  </h3>
 
-  <button class="btn btn-small btn-info" (click)="showMedToAdd = true">Add medication</button>
-  <button class="btn btn-small btn-info" (click)="showHistoryForm = true">Add Medical History</button>
+  <button class="btn btn-small btn-info" (click)="showMedToAdd = true">
+    Add medication
+  </button>
+  <button class="btn btn-small btn-info" (click)="showHistoryForm = true">
+    Add Medical History
+  </button>
 
-  <button class="btn btn-small btn-info" (click)="myProvList = true">My Providers</button>
-  <button class="btn btn-small btn-info" (click)="myMessages = true">My Messages</button>
-
-
+  <button class="btn btn-small btn-info" (click)="myProvList = true">
+    My Providers
+  </button>
+  <button class="btn btn-small btn-info" (click)="myMessages = true">
+    My Messages
+  </button>
 
   <!-- Rx -->
   <div class="display" *ngIf="!rxDeets && !showMedToAdd">
@@ -26,15 +34,18 @@
             {{ rx.description }}
           </td>
 
-          <td class="btn btn-info details" (click)="rxDeets = rx">View Detailed Information</td>
+          <td class="btn btn-info details" (click)="rxDeets = rx">
+            View Detailed Information
+          </td>
 
-          <td class="details"(click)="setRxDeets(rx)">View Detailed Information</td>
-
+          <td class="details" (click)="setRxDeets(rx)">
+            View Detailed Information
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class= "info" *ngIf="rxDeets">
+  <div class="info" *ngIf="rxDeets">
     <ul>
       <li>Name: {{ rxDeets.name }}</li>
 
@@ -49,149 +60,199 @@
       <li>Comment: {{ rxDeets.comment }}</li>
     </ul>
     <ul *ngIf="rxHisDeets">
-      <li>Diagnosis: {{rxHisDeets.diagnosis}} </li>
-
+      <li>Diagnosis: {{ rxHisDeets.diagnosis }}</li>
     </ul>
-    <input class="btn btn-success" type="button" value="Update this medication" (click)="rxUpdated=rxDeets">
+    <input
+      class="btn btn-success"
+      type="button"
+      value="Update this medication"
+      (click)="rxUpdated = rxDeets"
+    />
     <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
+    <button class="btn btn-small btn-light" (click)="reload()">Back</button>
+
   </div>
-<div *ngIf="rxUpdated">
-  <form>
-    <div class="form-group">
-      Name:
-      <input type="text" name="rxName" [(ngModel)]="rxUpdated.name">
-    </div>
-    <div class="form-group">
-      Description:
-      <input type="text" name="rxDescription" [(ngModel)]="rxUpdated.description">
-    </div>
-    <input type="submit" value="Submit" (click)="updateRxComponent()">
-  </form>
-</div>
+  <div *ngIf="rxUpdated">
+    <form>
+      <div class="form-group">
+        Name:
+        <input type="text" name="rxName" [(ngModel)]="rxUpdated.name" />
+      </div>
+      <div class="form-group">
+        Description:
+        <input
+          type="text"
+          name="rxDescription"
+          [(ngModel)]="rxUpdated.description"
+        />
+      </div>
+      <input type="submit" value="Submit" (click)="updateRxComponent()" />
+    </form>
+  </div>
 
-<div class="formdiv" *ngIf="showMedToAdd">
-  <form>
-    <div class="form-group">
-      Name:
-      <input type="text" name="rxName" [(ngModel)]="medToAdd.name">
-    </div>
-    <div class="form-group">
-      Description:
-      <input type="text" name="rxDescription" [(ngModel)]="medToAdd.description">
-    </div>
-    <input class= "btn btn-success" type="submit" value="Submit" (click)="createMed()">
-  </form>
-</div>
+  <div class="formdiv" *ngIf="showMedToAdd">
+    <form>
+      <div class="form-group">
+        Name:
+        <input type="text" name="rxName" [(ngModel)]="medToAdd.name" />
+      </div>
+      <div class="form-group">
+        Description:
+        <input
+          type="text"
+          name="rxDescription"
+          [(ngModel)]="medToAdd.description"
+        />
+      </div>
+      <input
+        class="btn btn-success"
+        type="submit"
+        value="Submit"
+        (click)="createMed()"
+      />
+    </form>
+  </div>
 
-<!-- MedHis -->
-<div class="display" *ngIf="!hisDeets && !showHistoryForm">
-  <table class="table">
-    <tr>
-      <thead>
-        Medical History
-      </thead>
-    </tr>
-    <tbody>
-      <tr *ngFor="let history of medicalHistory">
-        <td>
-          {{ history.diagnosis }}
-        </td>
-        <td>
-          {{ history.onset}}
-        </td>
-
-        <td class=" btn btn-info details" (click)="hisDeets = history">View Detailed Information</td>
-
-        <td class="details" (click)="setDxMedications(history)">View Detailed Information</td>
-
+  <!-- MedHis -->
+  <div class="display" *ngIf="!hisDeets && !showHistoryForm">
+    <table class="table">
+      <tr>
+        <thead>
+          Medical History
+        </thead>
       </tr>
-    </tbody>
-  </table>
-</div>
-<div class="info" *ngIf="hisDeets">
-  <ul>
-    <li>Diagnosis: {{ hisDeets.diagnosis }}</li>
-    <li>Onset: {{ hisDeets.onset }}</li>
-    <li>Treament: {{ hisDeets.treatment }}</li>
-  </ul>
+      <tbody>
+        <tr *ngFor="let history of medicalHistory">
+          <td>
+            {{ history.diagnosis }}
+          </td>
+          <td>
+            {{ history.onset }}
+          </td>
 
+          <td class="btn btn-info details" (click)="hisDeets = history">
+            View Detailed Information
+          </td>
 
-  <ul *ngFor="let medication of dxMedDeets">
-    <li>Meds: {{medication.name}}</li>
-
-  </ul>
-  <input class="btn btn-success" type="button" value="Update this medical history item" (click)="hisUpdated=hisDeets">
-  <button class="btn btn-danger" (click)="destroyHist()">Delete History Item</button>
-
-</div>
-<div *ngIf="hisUpdated">
-<form>
-  <div class="form-group">
-    Diagnosis:
-    <input type="text" name="diagnosisName" [(ngModel)]="hisUpdated.diagnosis">
+          <td class="details" (click)="setDxMedications(history)">
+            View Detailed Information
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="form-group">
-    Onset:
-    <input type="text" name="Onset" [(ngModel)]="hisUpdated.onset">
+  <div class="info" *ngIf="hisDeets && !rxDeets">
+    <ul>
+      <li>Diagnosis: {{ hisDeets.diagnosis }}</li>
+      <li>Onset: {{ hisDeets.onset }}</li>
+      <li>Treament: {{ hisDeets.treatment }}</li>
+    </ul>
+
+    <ul *ngFor="let medication of dxMedDeets">
+      <li (click)="rxDeets = medication">Meds: {{ medication.name }}</li>
+    </ul>
+    <input
+      class="btn btn-success"
+      type="button"
+      value="Update this medical history item"
+      (click)="hisUpdated = hisDeets"
+    />
+    <button class="btn btn-danger" (click)="destroyHist()">
+      Delete History Item
+    </button>
+    <button class="btn btn-small btn-light" (click)="reload()">Back</button>
+
   </div>
-  <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
-  <button (click)="updateHisComponent()">Submit Test Button</button>
-</form>
-</div>
-<div class="formdiv" *ngIf="showHistoryForm">
-  <h3>Add Medical History Item: </h3>
-  <form>
-    <div class="form-group">
-      Diagnosis
-      <input type="text" name="diagnosisName" [(ngModel)]="historyToAdd.diagnosis">
+  <div *ngIf="hisUpdated">
+    <form>
+      <div class="form-group">
+        Diagnosis:
+        <input
+          type="text"
+          name="diagnosisName"
+          [(ngModel)]="hisUpdated.diagnosis"
+        />
+      </div>
+      <div class="form-group">
+        Onset:
+        <input type="text" name="Onset" [(ngModel)]="hisUpdated.onset" />
+      </div>
+      <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
+      <button (click)="updateHisComponent()">Submit Test Button</button>
+    </form>
+  </div>
+  <div class="formdiv" *ngIf="showHistoryForm">
+    <h3>Add Medical History Item:</h3>
+    <form>
+      <div class="form-group">
+        Diagnosis
+        <input
+          type="text"
+          name="diagnosisName"
+          [(ngModel)]="historyToAdd.diagnosis"
+        />
+      </div>
+      <div class="form-group">
+        Onset:
+        <input type="text" name="Onset" [(ngModel)]="historyToAdd.onset" />
+      </div>
+      <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
+      <button class="btn btn-success" (click)="createMedicalHistory()">
+        Submit Test Button
+      </button>
+    </form>
+  </div>
+  <div class="info" *ngIf="myProvList">
+    <h1>My Providers:</h1>
+    <ul *ngFor="let prov of providers">
+      <li>
+        {{ prov.fname }} {{ prov.lname }}
+        <button class="btn btn-danger" (click)="removeProvider(prov.id)">
+          Remove Provider
+        </button>
+      </li>
+      <li>
+        <button class="btn btn-small btn-light" (click)="msgProvId = prov.id">
+          Message Provider
+        </button>
+      </li>
+    </ul>
+    <div *ngIf="msgProvId">
+      <input type="text" name="content" [(ngModel)]="message.content" />
+      <button (click)="createMessage(message, msgProvId)">Submit</button>
     </div>
-    <div class="form-group">
-      Onset:
-      <input type="text" name="Onset" [(ngModel)]="historyToAdd.onset">
-    </div>
-    <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
-    <button class="btn btn-success" (click)="createMedicalHistory()">Submit Test Button</button>
-  </form>
-</div>
-<div class="info" *ngIf="myProvList">
-  <h1>My Providers:</h1>
-<ul *ngFor="let prov of providers">
-  <li>
-    {{prov.fname}} {{prov.lname}}
-  <button class="btn btn-danger" (click)="removeProvider(prov.id)">Remove Provider</button>
-  </li>
-  <li>
-    <button class="btn btn-small btn-light" (click)="msgProvId = prov.id">Message Provider</button>
-  </li>
-</ul>
-<div *ngIf="msgProvId" >
-<input type="text" name="content" [(ngModel)]="message.content">
-<button (click)="createMessage(message, msgProvId)">Submit</button>
-</div>
-</div>
-<div>
-<input type="number" name="providerId" [(ngModel)]="provId">
-<input class="btn btn-success" type="button" (click)="addProvider(provId)" value="Add Provider">
-</div>
-<div class="info" *ngIf="myMessages">
-  <h1>My Messages:</h1>
-  <ul *ngFor="let msg of messages">
-    <li>
-      {{msg.content}}
-    </li>
-    <li>
-      <button (click)="deleteMessage(msg)">Delete Message</button>
-    </li>
-    <li>
-      <button (click)="msgToEdit = msg">Update This Message</button>
-    </li>
-  </ul>
-  <div *ngIf="msgToEdit">
-  <input type="text" name="content" [(ngModel)]="msgToEdit.content">
-  <button (click)="updateMessage(msgToEdit)">Submit</button>
-  <br>
-  <button (click)="msgToEdit = null">Cancel</button>
   </div>
-<button class="btn btn-small btn-warning" (click)="myMessages=(false)">Close Messages</button>
+  <div>
+    <input type="number" name="providerId" [(ngModel)]="provId" />
+    <input
+      class="btn btn-success"
+      type="button"
+      (click)="addProvider(provId)"
+      value="Add Provider"
+    />
+  </div>
+  <div class="info" *ngIf="myMessages">
+    <h1>My Messages:</h1>
+    <ul *ngFor="let msg of messages">
+      <li>
+        {{ msg.content }}
+      </li>
+      <li>
+        <button (click)="deleteMessage(msg)">Delete Message</button>
+      </li>
+      <li>
+        <button (click)="msgToEdit = msg">Update This Message</button>
+      </li>
+    </ul>
+    <div *ngIf="msgToEdit">
+      <input type="text" name="content" [(ngModel)]="msgToEdit.content" />
+      <button (click)="updateMessage(msgToEdit)">Submit</button>
+      <br />
+      <button (click)="msgToEdit = null">Cancel</button>
+    </div>
+    <button class="btn btn-small btn-warning" (click)="myMessages = false">
+      Close Messages
+    </button>
+  </div>
+  <!-- <button class="btn btn-small btn-light" (click)="reload()">Back</button> -->
 </div>
-
