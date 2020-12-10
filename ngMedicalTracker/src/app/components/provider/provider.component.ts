@@ -1,3 +1,7 @@
+import { MedicalHistoryService } from 'src/app/services/medical-history.service';
+import { MedicationService } from 'src/app/services/medication.service';
+import { MedicalHistory } from './../../models/medical-history';
+import { Medication } from './../../models/medication';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Message } from 'src/app/models/message';
@@ -21,10 +25,15 @@ export class ProviderComponent implements OnInit {
   user = null;
   selectedPt = null;
   viewMsg = false;
+  showView = 0;
+  viewItem = null;
+  associatedItem = null;
 
   constructor(
     private messageService: MessageService,
     private providerService: ProviderService,
+    private rxSvc: MedicationService,
+    private dxSvc: MedicalHistoryService,
     private router: Router
   ) {}
 
@@ -64,6 +73,24 @@ export class ProviderComponent implements OnInit {
     }
   }
 
+  viewHist(hist:MedicalHistory):void{
+    this.showView = 4;
+    this.viewItem = hist;
+    this.viewHistAssocRx(hist);
+  }
+
+  viewRx(rx:Medication): void {
+    this.showView = 3;
+    this.viewItem = rx;
+    this.viewRxAssocHist(rx);
+  }
+
+  returnToPtList(): void{
+    this.showView = 0;
+    this.selectedPt = null;
+    this.associatedItem = null;
+  }
+
   viewPtMed(): void {
     this.providerService.providerViewPatientMeds(this.selectedPt.id).subscribe(
       (medsList) => {
@@ -90,6 +117,33 @@ export class ProviderComponent implements OnInit {
         console.error(err);
       }
     );
+  }
+
+  viewRxAssocHist(rx:Medication):void{
+    this.rxSvc.showRxHis(rx.id).subscribe(
+      hist=>{
+        console.log('components.provider.ts.viewRxAssocHist(rx):Return hist successfully');
+        this.associatedItem = hist;
+      },
+      err=>{
+        console.error(err);
+        console.error('component.provider.ts.viewRxAssocHist(rx):Failure');
+      }
+    )
+  }
+
+  viewHistAssocRx(hist:MedicalHistory):void{
+    this.dxSvc.getDxMedications(hist.id).subscribe(
+      data=>{
+        console.log('components.provider.ts.viewHistAssocRx(hist):Retreived meds list');
+       this.associatedItem = data;
+      },
+      err=>{
+        console.error(err);
+        console.error('components.provider.ts.viewHistAssocRx(hist):Failed');
+
+      }
+    )
   }
 
   displayDetails(pt:Patient): void {
