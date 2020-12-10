@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.medicaltracker.entities.MedicalHistory;
+import com.skilldistillery.medicaltracker.entities.Medication;
 import com.skilldistillery.medicaltracker.entities.User;
 import com.skilldistillery.medicaltracker.services.MedicalHistoryService;
 import com.skilldistillery.medicaltracker.services.UserService;
@@ -46,6 +47,14 @@ public class MedicalHistoryController {
 			response.setStatus(404);
 		}
 		return med;
+	}
+	@GetMapping("medicalHistory/{medHistId}/medications")
+	public List<Medication> showHistoryMedications(@PathVariable Integer medHistId, HttpServletResponse res, HttpServletRequest req, Principal principal){
+		List<Medication> meds = svc.findHistoryMedsById(medHistId);
+		if(meds == null) {
+			res.setStatus(404);
+		}
+		return meds;
 	}
 	
 	@PostMapping("medicalHistory")

@@ -2,6 +2,7 @@ package com.skilldistillery.medicaltracker.services;
 
 import java.util.List;
 
+import com.skilldistillery.medicaltracker.entities.MedicalHistory;
 import com.skilldistillery.medicaltracker.entities.Medication;
 
 public interface MedicationService {
@@ -15,6 +16,8 @@ public interface MedicationService {
 	Medication updateMedication(int medId, Medication med);
 
 	boolean deleteMedication(int medId);
+
+	MedicalHistory findMedicationHistoryById(int medId);
 
 
 }
