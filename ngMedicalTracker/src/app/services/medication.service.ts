@@ -1,3 +1,4 @@
+import { MedicalHistory } from './../models/medical-history';
 import { Medication } from './../models/medication';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
@@ -61,6 +62,14 @@ export class MedicationService {
         })
       )
     }
-
+    showRxHis(rxId: number): Observable<MedicalHistory> {
+      const httpOptions = this.getHttpOptions();
+      return this.http.get<MedicalHistory>(`${this.url}/${rxId}/diagnosis`, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('medication diagnosis service failed to display')
+        })
+      )
+    }
 
 }
