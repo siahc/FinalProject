@@ -4,14 +4,15 @@
   <div *ngIf="viewMsg">
     <ul *ngFor="let msg of messages">
       <li>{{ msg.content }}</li>
-      <li><button (click)="msgToEdit = msg">Update Message</button></li>
-      <li><button (click)="deleteMessage(msg)">Delete Message</button></li>
+      <li><button class="btn btn-info" (click)="msgToEdit = msg">Update Message</button></li>
+      <li><button class="btn btn-info" (click)="deleteMessage(msg)">Delete Message</button></li>
+      <button class="btn btn-info" (click)="viewMsg = false">Close Messages</button>
     </ul>
     <div *ngIf="msgToEdit">
       <input type="text" name="content" [(ngModel)]="msgToEdit.content" />
-      <button (click)="updateMessage(msgToEdit)">Submit</button>
+      <button class="btn btn-info" (click)="updateMessage(msgToEdit)">Submit</button>
       <br />
-      <button (click)="msgToEdit = null">Cancel</button>
+      <button class="btn btn-info" (click)="msgToEdit = null">Cancel</button>
     </div>
   </div>
 
