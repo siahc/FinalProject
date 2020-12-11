@@ -1,6 +1,8 @@
 <div class="container-fluid">
+  <ion-app>
+    <ion-content fullscreen>
   <h3 class="userWelcome text-center">
-    Welcome {{ user.fname }} {{ user.lname }}
+    Welcome, {{ user.fname }} {{ user.lname }}
   </h3>
 
   <button class="btn btn-small btn-info" (click)="showView = 'addMed'">
@@ -38,7 +40,6 @@
           <td>
             {{ rx.description }}
           </td>
-
           <td class="btn btn-info details" (click)="setRxDeets(rx)">
             View Detailed Information
           </td>
@@ -63,52 +64,128 @@
       class="btn btn-success"
       type="button"
       value="Update this medication"
-      (click)="rxUpdated = rxDeets"
+      (click)="setRxToUpdate(rxDeets)"
     />
     <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
     <button class="btn btn-small btn-light" (click)="reload()">Back</button>
   </div>
 
-  <div *ngIf="rxUpdated">
-    <form>
-      <div class="form-group">
-        Name:
-        <input type="text" name="rxName" [(ngModel)]="rxUpdated.name" />
-      </div>
-      <div class="form-group">
-        Description:
-        <input
-          type="text"
-          name="rxDescription"
-          [(ngModel)]="rxUpdated.description"
-        />
-      </div>
-      <input type="submit" value="Submit" (click)="updateRxComponent()" />
-    </form>
-  </div>
+    <!-- <br>
+      <form>
+        <div class="form-group">
+          <label for="rxName">Name:</label>
+          <input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name">
+        </div>
+        <div class="form-group">
+          <label for="rxDescription">Description:</label>
+          <input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"/>
+        </div>
+        <div class="form-group">
+          <label for="rxDose">Dose:</label>
+          <input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"/>
+        </div>
+        <div class="form-group">
+          <label for="rxFrequency">Frequency:</label>
+          <input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"/>
+        </div>
+        <div class="form-group">
+          <label for="rxProvider">Provider:</label>
+          <input type="text" id="rxProvider" name="rxProvider" [(ngModel)]="rxEdit.provider"/>
+        </div>
+        <div class="form-group">
+          <label for="rxComment">Comment:</label>
+          <input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"/>
+        </div>
+        <input class="btn btn-success" type="submit" value="Submit" (click)="updateRxComponent()"/>
+      </form> -->
 
-  <div class="formdiv" *ngIf="showView == 'addMed'">
+<div *ngIf="showView == 'updateRx'">
+    <ion-item>
+       <ion-label position="stacked">Name</ion-label>
+       <ion-input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Description</ion-label>
+       <ion-input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Dose</ion-label>
+       <ion-input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Frequency</ion-label>
+       <ion-input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"></ion-input>
+    </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Provider</ion-label>
+        <ion-input type="text" id="rxProvider" name="rxProvider" [(ngModel)]="rxEdit.provider"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Comment</ion-label>
+        <ion-input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"></ion-input>
+      </ion-item>
+    <button type="submit" class="btn btn-lg btn-block" (click)="updateRxComponent()">Submit</button>
+</div>
+
+<div class="formdiv" *ngIf="showView == 'addMed'">
+    <ion-item>
+       <ion-label position="stacked">Name</ion-label>
+       <ion-input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Description</ion-label>
+       <ion-input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Dose</ion-label>
+       <ion-input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Frequency</ion-label>
+       <ion-input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"></ion-input>
+    </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Provider</ion-label>
+        <ion-input type="text" id="rxProvider" name="rxProvider" [(ngModel)]="rxEdit.provider"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Comment</ion-label>
+        <ion-input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"></ion-input>
+      </ion-item>
+    <button type="submit" class="btn btn-lg btn-block" (click)="updateRxComponent()">Submit</button>
+</div>
+
+
+  <!-- <div class="formdiv" *ngIf="showView == 'addMed'">
+    <h3>Add a Medication</h3>
     <form>
       <div class="form-group">
-        Name:
-        <input type="text" name="rxName" [(ngModel)]="medToAdd.name" />
+        <label for="rxName">Name:</label>
+        <input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name">
       </div>
       <div class="form-group">
-        Description:
-        <input
-          type="text"
-          name="rxDescription"
-          [(ngModel)]="medToAdd.description"
-        />
+        <label for="rxDescription">Description:</label>
+        <input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"/>
       </div>
-      <input
-        class="btn btn-success"
-        type="submit"
-        value="Submit"
-        (click)="createMed()"
-      />
+      <div class="form-group">
+        <label for="rxDose">Dose:</label>
+        <input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"/>
+      </div>
+      <div class="form-group">
+        <label for="rxFrequency">Frequency</label>
+        <input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"/>
+      </div>
+      <div class="form-group">
+        <label for="rxProvider">Provider:</label>
+        <input type="text" id="rxProvider" name="rxProvider" [(ngModel)]="rxEdit.provider"/>
+      </div>
+      <div class="form-group">
+        <label for="rxComment">Comment:</label>
+        <input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"/>
+      </div>
+      <button type="submit" class="btn btn-lg btn-block" (click)="updateRxComponent()">Submit</button>
     </form>
-  </div>
+  </div> -->
 
   <!-- MedHis -->
   <div class="display" *ngIf="showView == 'history'">
@@ -140,113 +217,106 @@
       <li>Onset: {{ hisDeets.onset }}</li>
       <li>Treament: {{ hisDeets.treatment }}</li>
     </ul>
-
     <ul *ngFor="let medication of dxMedDeets">
       <button class="btn btn-small btn-light" (click)="setRxDeets(medication)">Meds: {{ medication.name }}</button>
     </ul>
-    <input
-      class="btn btn-success"
-      type="button"
-      value="Update this medical history item"
-      (click)="hisUpdated = hisDeets"
-    />
-    <button class="btn btn-danger" (click)="destroyHist()">
-      Delete History Item
-    </button>
+    <button class="btn btn-success" (click)="setHistToEdit(hisDeets)">Update</button>
+    <button class="btn btn-danger" (click)="destroyHist()">Delete</button>
     <button class="btn btn-small btn-light" (click)="reload()">Back</button>
   </div>
 
-  <div *ngIf="hisUpdated">
-    <form>
-      <div class="form-group">
-        Diagnosis:
-        <input
-          type="text"
-          name="diagnosisName"
-          [(ngModel)]="hisUpdated.diagnosis"
-        />
-      </div>
-      <div class="form-group">
-        Onset:
-        <input type="text" name="Onset" [(ngModel)]="hisUpdated.onset" />
-      </div>
-      <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
-      <button (click)="updateHisComponent()">Submit Test Button</button>
-    </form>
+  <div *ngIf="showView == 'editHistory'">
+    <br>
+    <h5>Edit Medical History Entry</h5>
+      <ion-item>
+        <ion-label position="stacked" for="histDx">Diagnosis:</ion-label>
+        <ion-input type="text" id="histDx" name="diagnosisName" [(ngModel)]="histEdit.diagnosis" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" for="histOnset">Onset:</ion-label>
+        <ion-input type="text" id="histOnset" name="Onset" [(ngModel)]="histEdit.onset" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" for="histTreat">Treatment:</ion-label>
+        <ion-input type="text" id="histTreat" name="Onset" [(ngModel)]="histEdit.treatment" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" for="histActive">Current:</ion-label>
+        <ion-input type="text" id="histActive" name="Onset" [(ngModel)]="histEdit.active" ></ion-input>
+      </ion-item>
+      <button class="btn btn-success" (click)="updateHisComponent()">Submit</button>
   </div>
+
   <div class="formdiv" *ngIf="showView == 'addHist'">
     <h3>Add Medical History Item:</h3>
-    <form>
-      <div class="form-group">
-        Diagnosis
-        <input
-          type="text"
-          name="diagnosisName"
-          [(ngModel)]="historyToAdd.diagnosis"
-        />
-      </div>
-      <div class="form-group">
-        Onset:
-        <input type="text" name="Onset" [(ngModel)]="historyToAdd.onset" />
-      </div>
-      <!-- <input type="submit" value="Submit" (click)="updateHisComponent()"> -->
-      <button class="btn btn-success" (click)="createMedicalHistory()">
-        Submit Test Button
-      </button>
-    </form>
+    <ion-item >
+      <ion-label position= "stacked" for="histDx">Diagnosis:</ion-label>
+      <ion-input type="text" id="histDx" name="diagnosisName" [(ngModel)]="histEdit.diagnosis" ></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label position= "stacked" for="histOnset">Onset:</ion-label>
+      <ion-input type="text" id="histOnset" name="Onset" [(ngModel)]="histEdit.onset" ></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label position= "stacked" for="histTreat">Treatment:</ion-label>
+      <ion-input type="text" id="histTreat" name="Onset" [(ngModel)]="histEdit.treatment" ></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label position= "stacked" for="histActive">Current:</ion-label>
+      <ion-input type="text" id="histActive" name="Onset" [(ngModel)]="histEdit.active" ></ion-input>
+    </ion-item>
+    <button class="btn btn-success" (click)="createMedicalHistory()">Submit</button>
   </div>
 
   <div class="info" *ngIf="showView == 'providers'">
     <h1>My Providers:</h1>
     <ul *ngFor="let prov of providers">
-      <li>
         {{ prov.fname }} {{ prov.lname }}
         <button class="btn btn-danger" (click)="removeProvider(prov.id)">
           Remove Provider
         </button>
-      </li>
-      <li>
         <button class="btn btn-small btn-light" (click)="msgProvId = prov.id">
           Message Provider
         </button>
-      </li>
     </ul>
     <div *ngIf="msgProvId">
-      <input type="text" name="content" [(ngModel)]="message.content" />
-      <button (click)="createMessage(message, msgProvId)">Submit</button>
+      <input type="text" name="content" [(ngModel)]="msgEdit.content" />
+      <button (click)="createMessage(msgEdit, msgProvId)">Submit</button>
     </div>
-  </div>
-  <div>
-    <input type="number" name="providerId" [(ngModel)]="provId" />
-    <input
+    <div>
+      <input type="number" name="providerId" [(ngModel)]="provId" />
+      <input
       class="btn btn-success"
       type="button"
       (click)="addProvider(provId)"
       value="Add Provider"
-    />
+      />
+    </div>
   </div>
 
   <div class="info" *ngIf="showView == 'messages'">
     <h1>My Messages:</h1>
     <ul *ngFor="let msg of messages">
       <li>
-        {{ msg.content }}
-      </li>
-      <li>
-        <button (click)="deleteMessage(msg)">Delete Message</button>
-      </li>
-      <li>
-        <button (click)="msgToEdit = msg">Update This Message</button>
-      </li>
+        {{ msg.content }} <br>
+      <!-- </li>
+      <li> -->
+        <button class="btn btn-danger" (click)="deleteMessage(msg)">Delete Message</button>
+      <!-- </li>
+      <li> -->
+        <button class="btn btn-info" (click)="msgEdit = msg">Update This Message</button>
+      <!-- </li> -->
     </ul>
-    <div *ngIf="msgToEdit">
-      <input type="text" name="content" [(ngModel)]="msgToEdit.content" />
-      <button (click)="updateMessage(msgToEdit)">Submit</button>
+    <div *ngIf="msgEdit">
+      <input type="text" name="content" [(ngModel)]="msgEdit.content" />
+      <button class="btn btn-success" (click)="updateMessage(msgEdit)">Submit</button>
       <br />
-      <button (click)="msgToEdit = null">Cancel</button>
+      <button class="btn btn-warning" (click)="msgToEdit = null">Cancel</button>
     </div>
     <button class="btn btn-small btn-warning" (click)="showView = 'medications'">
       Close Messages
     </button>
   </div>
+</ion-content>
+</ion-app>
 </div>

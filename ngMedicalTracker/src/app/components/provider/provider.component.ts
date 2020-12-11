@@ -1,3 +1,4 @@
+import { Provider } from './../../models/provider';
 import { MedicalHistoryService } from 'src/app/services/medical-history.service';
 import { MedicationService } from 'src/app/services/medication.service';
 import { MedicalHistory } from './../../models/medical-history';
@@ -22,10 +23,9 @@ export class ProviderComponent implements OnInit {
   message = new Message();
   msgToEdit = null;
   ptToMsgId = null;
-  user = null;
+  user:Provider = new Provider();
   selectedPt = null;
-  viewMsg = false;
-  showView = 0;
+  showView = '';
   viewItem = null;
   associatedItem = null;
 
@@ -74,19 +74,19 @@ export class ProviderComponent implements OnInit {
   }
 
   viewHist(hist:MedicalHistory):void{
-    this.showView = 4;
+    this.showView = 'dxDetailed';
     this.viewItem = hist;
     this.viewHistAssocRx(hist);
   }
 
   viewRx(rx:Medication): void {
-    this.showView = 3;
+    this.showView = 'rxDetailed';
     this.viewItem = rx;
     this.viewRxAssocHist(rx);
   }
 
   returnToPtList(): void{
-    this.showView = 0;
+    this.showView = '';
     this.selectedPt = null;
     this.associatedItem = null;
   }

@@ -1,13 +1,16 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
-  <button class="btn btn-info" (click)="viewMsg = true">View Messages</button>
-  <div *ngIf="viewMsg">
+
+  <button class="btn btn-info" (click)="showView = 'msgs'">View Messages</button>
+
+  <div *ngIf="showView == 'msgs'">
     <ul *ngFor="let msg of messages">
       <li>{{ msg.content }}</li>
       <li><button class="btn btn-info" (click)="msgToEdit = msg">Update Message</button></li>
       <li><button class="btn btn-info" (click)="deleteMessage(msg)">Delete Message</button></li>
-      <button class="btn btn-info" (click)="viewMsg = false">Close Messages</button>
     </ul>
+    <button class="btn btn-info" (click)="showView = ''">Close Messages</button>
+
     <div *ngIf="msgToEdit">
       <input type="text" name="content" [(ngModel)]="msgToEdit.content" />
       <button class="btn btn-info" (click)="updateMessage(msgToEdit)">Submit</button>
@@ -16,7 +19,7 @@
     </div>
   </div>
 
-  <div *ngIf="!selectedPt && !viewMsg">
+  <div *ngIf="showView == '' && !selectedPt">
     <table class="table table-hover">
       <thead>
         <th>Patient Id</th>
@@ -38,6 +41,7 @@
     <button class="btn btn-success" type="submit" (click)="createMessage(message, ptToMsgId)">
     Send
     </button>
+    <button class="btn btn-danger" (click)="ptToMsgId = null">Cancel</button>
   </div>
 
   <div class="patientInfo">
@@ -54,14 +58,14 @@
           </tr>
           <tr>
             <td>
-              <button class="btn btn-light" (click)="showView = 1">
+              <button class="btn btn-light" (click)="showView = 'ptRx'">
                 View Pt Medications
               </button>
             </td>
           </tr>
           <tr>
             <td>
-              <button class="btn btn-light" (click)="showView = 2">
+              <button class="btn btn-light" (click)="showView = 'ptDx'">
                 View Pt History
               </button>
             </td>
@@ -84,21 +88,21 @@
       </table>
     </div>
 
-    <div *ngIf="showView == 1">
+    <div *ngIf="showView == 'ptRx'">
       <h5>Medications</h5>
       <ul *ngFor="let rx of medications">
         <li (click)="viewRx(rx)">{{ rx.name }}</li>
       </ul>
     </div>
 
-    <div *ngIf="showView == 2">
+    <div *ngIf="showView == 'ptDx'">
       <h5>Medical History</h5>
       <ul *ngFor="let hist of history">
         <li (click)="viewHist(hist)">{{ hist.diagnosis }}</li>
       </ul>
     </div>
 
-    <div *ngIf="showView == 3">
+    <div *ngIf="showView == 'rxDetailed'">
       <table class="table">
         <thead><th>{{viewItem.name}}</th></thead>
         <tbody>
@@ -117,7 +121,7 @@
       </table>
     </div>
 
-    <div *ngIf="showView == 4">
+    <div *ngIf="showView == 'dxDetailed'">
       <table class="table">
         <thead><th>{{viewItem.diagnosis}}</th></thead>
         <tbody>

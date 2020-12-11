@@ -1,15 +1,15 @@
-import { IonicModule } from '@ionic/angular';
-import { Message } from './../../models/message';
-import { MessageService } from './../../services/message.service';
-import { MedicalHistoryService } from './../../services/medical-history.service';
-import { MedicationService } from './../../services/medication.service';
-import { User } from 'src/app/models/user';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MedicalHistory } from './../../models/medical-history';
 import { Medication } from './../../models/medication';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Message } from './../../models/message';
+import { MedicalHistoryService } from './../../services/medical-history.service';
+import { MedicationService } from './../../services/medication.service';
+import { MessageService } from './../../services/message.service';
 import { PatientService } from './../../services/patient.service';
 import { Patient } from './../../models/patient';
-import { Component, OnInit, Provider } from '@angular/core';
+// import { User } from 'src/app/models/user';
+// import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-logged-in',
@@ -17,24 +17,25 @@ import { Component, OnInit, Provider } from '@angular/core';
   styleUrls: ['./logged-in.component.css']
 })
 export class LoggedInComponent implements OnInit {
-  user = null;
-  patients = [];
-  medication = [];
-  medicalHistory = [];
+  user:Patient = new Patient();
+
+  medication:Medication[] = [];
+  medicalHistory:MedicalHistory[] = [];
+  messages = [];
+  providers = [];
+
   rxDeets = null;
   hisDeets = null;
-  rxUpdated = null;
-  hisUpdated = null;
-  medToAdd = new Medication();
-  historyToAdd = new MedicalHistory();
-  providers = [];
-  provId = null;
-  message = new Message();
-  messages = [];
-  msgToEdit = null;
-  msgProvId = null;
   rxHisDeets = null;
   dxMedDeets = null;
+
+  rxEdit:Medication = new Medication();
+  histEdit:MedicalHistory = new MedicalHistory();
+  msgEdit:Message = new Message();
+
+  provId = null;
+  msgProvId = null;
+
   showView = 'medications';
 
   constructor(
@@ -47,64 +48,59 @@ export class LoggedInComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.paramMap);
     try {
       this.patientService.userPatientInfo().subscribe(
         patient => {
-        //TODO: get todo with this id, set selected
-        console.log('Patient retrieved');
         this.user = patient;
         if(this.user != null){
-          this.getMessages();
           this.patientService.userPatientMedication().subscribe(
             data => {
               this.medication = data;
           },
           err=>{
-            console.error('Loggedin.reload():index failed');
+            console.error('Loggedin.ngOnInit():userPatientMedication() failed');
             console.error(err);
-
           }
           )
-        }
-        if(this.user != null){
           this.patientService.userMedicalHistory().subscribe(
             data => {
               this.medicalHistory = data;
           },
           err=>{
-            console.error('Loggedin.reload():index failed');
+            console.error('Loggedin.ngOnInit():userMedicalHistory() failed');
             console.error(err);
-
-          }
-          )
-        }
-        if(this.user != null){
+          })
           this.patientService.patientProvList().subscribe(
             data => {
               this.providers = data;
           },
           err=>{
-            console.error('Pt Providers:provider list failed');
+            console.error('Loggedin.ngOnInit():patientProvList() failed');
             console.error(err);
-
-          }
-          )
+          })
+          this.messageService.getMessages().subscribe(
+            data=>{
+              this.messages = data;
+            },
+            err=>{
+              console.error('Loggedin.ngOnInit():getMessages() failed');
+              console.error(err);
+            })
         }
-
       },
       err => {
-        this.router.navigateByUrl('notFound');
-      }
-   );
+        console.error('Logged-in.component.ts.reload(): User patient not found');
+        console.error(err);
+        this.router.navigateByUrl('home')
+      });
     } catch (error) {
-      this.router.navigateByUrl('invalidId');
+      this.router.navigateByUrl('home');
     }
   }
 
   updateHisComponent(): void {
-    console.log(this.hisUpdated.diagnosis)
-    this.hisService.updateMedHis(this.hisUpdated).subscribe(
+    console.log(this.histEdit.diagnosis)
+    this.hisService.updateMedHis(this.histEdit).subscribe(
       (good) => {
       console.log('update MedHis success')
       this.reload();
@@ -113,10 +109,10 @@ export class LoggedInComponent implements OnInit {
         console.error(bad);
       }
     );
-    this.hisUpdated = null;
+    this.histEdit = null;
   }
   updateRxComponent(): void {
-    this.rxService.updateRx(this.rxUpdated).subscribe(
+    this.rxService.updateRx(this.rxEdit).subscribe(
       (good) => {
       console.log('update Rx success')
       this.reload();
@@ -125,10 +121,29 @@ export class LoggedInComponent implements OnInit {
         console.error(bad);
       }
     );
-    this.rxUpdated = null;
+    this.rxEdit = null;
   }
+  setRxToUpdate(rx:Medication):void{
+    this.rxEdit.name = rx.name;
+    this.rxEdit.id = rx.id;
+    this.rxEdit.description = rx.description;
+    this.rxEdit.dose = rx.dose;
+    this.rxEdit.frequency = rx.frequency;
+    this.rxEdit.provider = rx.provider;
+    this.rxEdit.comment = rx.comment;
+    this.showView = 'updateRx';
+  }
+  setHistToEdit(dx:MedicalHistory):void{
+    this.histEdit.diagnosis = dx.diagnosis;
+    this.histEdit.active = dx.active;
+    this.histEdit.id = dx.id;
+    this.histEdit.onset = dx.onset;
+    this.histEdit.treatment = dx.treatment;
+    this.showView = 'editHistory'
+  }
+
   createMed(): void {
-    this.rxService.addMed(this.medToAdd).subscribe(
+    this.rxService.addMed(this.rxEdit).subscribe(
       (good) => {
         console.log('added med successfully')
         this.reload();
@@ -139,7 +154,7 @@ export class LoggedInComponent implements OnInit {
     );
   }
   createMedicalHistory(): void {
-    this.hisService.createMedHis(this.historyToAdd).subscribe(
+    this.hisService.createMedHis(this.histEdit).subscribe(
       (good) => {
         console.log('added medical history successfully')
         this.reload();
@@ -162,7 +177,6 @@ export class LoggedInComponent implements OnInit {
       }
     );
   }
-
   destroyHist():void{
     this.hisService.deleteMedHis(this.hisDeets.id).subscribe(
       (good) => {
@@ -201,6 +215,7 @@ export class LoggedInComponent implements OnInit {
       }
     );
   }
+
   getMessages(): void {
     this.messageService.getMessages().subscribe(
     data => {
@@ -230,7 +245,7 @@ export class LoggedInComponent implements OnInit {
       data => {
         this.getMessages();
         console.log("Message updated successfully");
-        this.msgToEdit = null;
+        this.msgEdit = null;
       },
     (err) => {
       console.error('Component.message.ts.updateMessages() failed');
@@ -242,7 +257,7 @@ export class LoggedInComponent implements OnInit {
     this.messageService.createMessage(id, message).subscribe(
       data => {
         this.getMessages();
-        this.message = new Message;
+        this.msgEdit = new Message;
         console.log("Message created successfully");
       },
       err => {
@@ -251,7 +266,13 @@ export class LoggedInComponent implements OnInit {
       }
     )
   }
-  getShowRxHis(rxId: number): void {
+
+  setRxDeets(rx: Medication): void{
+    this.showView = 'rxDetails'
+    this.rxDeets = rx;
+    this.getRxHis(this.rxDeets.id);
+  }
+  getRxHis(rxId: number): void {
     this.rxService.showRxHis(rxId).subscribe(
     data => {
       this.rxHisDeets = data;
@@ -263,12 +284,6 @@ export class LoggedInComponent implements OnInit {
     }
     )
   }
-  setRxDeets(rx: Medication): void{
-    this.showView = 'rxDetails'
-    this.rxDeets = rx;
-    this.getShowRxHis(this.rxDeets.id);
-  }
-
   getDxMedications(medHisId: number): void {
     this.hisService.getDxMedications(medHisId).subscribe(
     data => {
@@ -278,8 +293,7 @@ export class LoggedInComponent implements OnInit {
     (err) => {
       console.error('Component.MedicalHistory.ts.getDxMedicaitons() failed')
       console.error(err);
-    }
-    )
+    })
   }
   setDxMedications(dx: History): void{
     this.showView = 'historyDetails'
@@ -288,18 +302,15 @@ export class LoggedInComponent implements OnInit {
     this.rxDeets = null;
   }
 
-
   reload(): void {
-  this.user = null;
-  this.patients = [];
+  this.user = new Patient();
   this.medication = [];
   this.medicalHistory = [];
   this.rxDeets = null;
   this.hisDeets = null;
-  this.rxUpdated = null;
-  this.hisUpdated = null;
-  this.medToAdd = new Medication();
-  this.historyToAdd = new MedicalHistory();
+  this.rxEdit = new Medication();
+  this.histEdit = new MedicalHistory();
+  this.msgEdit = new Message();
   this.providers = [];
   this.provId = null;
   this.showView = 'medications';
@@ -307,8 +318,6 @@ export class LoggedInComponent implements OnInit {
     try {
       this.patientService.userPatientInfo().subscribe(
         patient => {
-        //TODO: get todo with this id, set selected
-        console.log('Patient retrieved');
         this.user = patient;
         if(this.user != null){
           this.patientService.userPatientMedication().subscribe(
@@ -316,44 +325,43 @@ export class LoggedInComponent implements OnInit {
               this.medication = data;
           },
           err=>{
-            console.error('Loggedin.reload():index failed');
+            console.error('Loggedin.reload().userPatientMedication() failed');
             console.error(err);
-
-          }
-          )
-        }
-        if(this.user != null){
+          })
           this.patientService.userMedicalHistory().subscribe(
             data => {
               this.medicalHistory = data;
           },
           err=>{
-            console.error('Loggedin.reload():index failed');
+            console.error('Loggedin.reload().userMedicalHistory() failed');
             console.error(err);
-
-          }
-          )
-        }
-        if(this.user != null){
+          })
           this.patientService.patientProvList().subscribe(
             data => {
               this.providers = data;
           },
           err=>{
-            console.error('Pt Providers:provider list failed');
+            console.error('Loggedin.reload().patientProvList() failed');
             console.error(err);
-
-          }
-          )
+          })
+          this.messageService.getMessages().subscribe(
+            data=>{
+              this.messages = data;
+            },
+            err=>{
+              console.error('Loggedin.reload().getMessages() failed');
+              console.error(err);
+            })
         }
-
       },
       err => {
-        this.router.navigateByUrl('notFound');
+        console.error('Logged-in.component.ts.reload(): User patient not found');
+        console.error(err);
+        this.router.navigateByUrl('home')
       }
    );
     } catch (error) {
-      this.router.navigateByUrl('invalidId');
+      this.router.navigateByUrl('home');
     }
   }
 }

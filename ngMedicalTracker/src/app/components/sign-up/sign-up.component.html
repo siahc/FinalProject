@@ -1,5 +1,5 @@
 <div class="container-fluid signup">
-
+<!--
     <label for="username">User Name</label>
     <input type="test" class="form-control" id="username" placeholder="Enter a username" [(ngModel)]='newUser.username'>
 
@@ -9,7 +9,7 @@
     <label for="fname">First Name</label>
     <input type="text" class="form-control" id="fname" placeholder="First Name" [(ngModel)]='newPatient.fname'>
 
-    <label for="lname">First Name</label>
+    <label for="lname">Last Name</label>
     <input type="text" class="form-control" id="lname" placeholder="Last Name" [(ngModel)]='newPatient.lname'>
 
     <label for="dob">Date of Birth</label>
@@ -20,6 +20,46 @@
 
 
   <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
-  <button type="submit" class="btn btn-lg btn-block" (click)='register()'>Submit</button>
+  <button type="submit" class="btn btn-lg btn-block" (click)='register()'>Submit</button> -->
+
+  <ion-app>
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-title>Sign up!</ion-title>
+      </ion-toolbar>
+    </ion-header>
+   <ion-content fullscreen>
+    <ion-item>
+       <ion-label position="stacked">Username</ion-label>
+       <ion-input type="text" name="username" [(ngModel)]='newUser.username'></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Password</ion-label>
+       <ion-input type="password" name="password" [(ngModel)]='newUser.password'></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">First Name</ion-label>
+       <ion-input type="text" name="fname" [(ngModel)]='newPatient.fname'></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label position="stacked">Last Name</ion-label>
+       <ion-input type="text" name="lname" [(ngModel)]='newPatient.lname'></ion-input>
+    </ion-item>
+    <div id="desktopdate">
+      <ion-item>
+        <ion-label position="stacked">Date of Birth</ion-label>
+        <ion-input type="date" name="bday" [(ngModel)]='newPatient.dob'></ion-input>
+      </ion-item>
+    </div>
+    <div id="mobiledate">
+      <ion-item>
+        <ion-label position="floating">MM/DD/YYYY</ion-label>
+        <ion-datetime name="bday" [(ngModel)]='newPatient.dob' displayFormat="MM/DD/YYYY" min="1940-01-01" max="2022-12-12"></ion-datetime>
+      </ion-item>
+    </div>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your information with anyone else.</small>
+    <button type="submit" class="btn btn-lg btn-block" (click)='register()'>Submit</button>
+    </ion-content>
+  </ion-app>
 
 </div>

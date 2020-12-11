@@ -1,5 +1,6 @@
 package com.skilldistillery.medicaltracker.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,7 @@ public class MessageServiceImpl implements MessageService {
 	
 	@Override
 	public Message createMessage(Message message) {
+		message.setRead(false);
 		repo.saveAndFlush(message);
 		return message;
 	}
@@ -43,6 +45,8 @@ public class MessageServiceImpl implements MessageService {
 		if(messOpt.isPresent()) {
 			managedMessage = messOpt.get();
 			if(message.getContent() != null) {managedMessage.setcontent(message.getContent());}
+			if(message.getTitle() != null) {managedMessage.setTitle(message.getTitle());}
+			if(message.getRead()) {managedMessage.setRead(true);}
 			if(message.getPatient() != null) {managedMessage.setPatient(message.getPatient());}
 			if(message.getProvider() != null) {managedMessage.setProvider(message.getProvider());}
 			repo.saveAndFlush(managedMessage);
