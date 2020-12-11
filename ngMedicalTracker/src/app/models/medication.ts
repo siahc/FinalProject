@@ -16,7 +16,7 @@ export class Medication {
     dose?: string,
     frequency?: string,
     provider?: string,
-    comment?: string,
+    comment?: string
   ){
     this.id = id;
     this.active = active;

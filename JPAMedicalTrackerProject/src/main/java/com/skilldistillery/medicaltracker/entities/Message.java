@@ -1,5 +1,8 @@
 package com.skilldistillery.medicaltracker.entities;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,19 +10,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String title;
 	private String content;
-//	@JsonIgnore
+	@CreationTimestamp
+	@Column(name="creation_date")
+	private LocalDateTime date;
+	private Boolean read;
 	@ManyToOne
 	@JoinColumn(name="patient_id")
 	private Patient patient;
-//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="provider_id")
 	private Provider provider;
@@ -52,6 +58,24 @@ public class Message {
 	}
 	public void setProvider(Provider provider) {
 		this.provider = provider;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public LocalDateTime getDate() {
+		return date;
+	}
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+	public boolean getRead() {
+		return read;
+	}
+	public void setRead(boolean read) {
+		this.read = read;
 	}
 	@Override
 	public int hashCode() {
