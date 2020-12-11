@@ -25,7 +25,6 @@ export class ProviderComponent implements OnInit {
   ptToMsgId = null;
   user:Provider = new Provider();
   selectedPt = null;
-  viewMsg = false;
   showView = '';
   viewItem = null;
   associatedItem = null;
