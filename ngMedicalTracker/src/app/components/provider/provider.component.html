@@ -2,6 +2,9 @@
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
 
   <button class="btn btn-info" (click)="showView = 'msgs'">View Messages</button>
+  <button class="btn btn-warning" (click)="returnToPtList()" *ngIf= "selectedPt">
+    Return to Patient List
+  </button>
 
   <div *ngIf="showView == 'msgs'">
     <ul *ngFor="let msg of messages">
@@ -49,13 +52,7 @@
       <h3>{{ selectedPt.fname }} {{ selectedPt.lname }}</h3>
       <table>
         <tbody>
-          <tr>
-            <td>
-              <button class="btn btn-warning" (click)="returnToPtList()">
-                Return to Patient List
-              </button>
-            </td>
-          </tr>
+          <br>
           <tr>
             <td>
               <button class="btn btn-light" (click)="showView = 'ptRx'">
@@ -63,6 +60,7 @@
               </button>
             </td>
           </tr>
+          <br>
           <tr>
             <td>
               <button class="btn btn-light" (click)="showView = 'ptDx'">
@@ -70,6 +68,7 @@
               </button>
             </td>
           </tr>
+          <br>
           <tr>
             <td>
               <button class="btn btn-light" (click)="ptToMsgId = selectedPt.id">
@@ -77,6 +76,8 @@
               </button>
             </td>
           </tr>
+          <br>
+          <br>
           <tr>
             <td>
               <button class="btn btn-danger" (click)="removePatient()">
