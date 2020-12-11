@@ -162,7 +162,6 @@ CREATE TABLE IF NOT EXISTS `message` (
   `patient_id` INT NOT NULL,
   `provider_id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
-  `creation_date` DATETIME NULL,
   `reviewed` TINYINT NULL,
   `provider_read` TINYINT NULL,
   `patient_read` TINYINT NULL,
