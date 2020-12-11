@@ -22,7 +22,10 @@ public class Message {
 	@CreationTimestamp
 	@Column(name="creation_date")
 	private LocalDateTime date;
-	private Boolean read;
+	@Column(name="provider_read")
+	private Boolean provider_read;
+	@Column(name="patient_read")
+	private Boolean patient_read;
 	@ManyToOne
 	@JoinColumn(name="patient_id")
 	private Patient patient;
@@ -44,7 +47,7 @@ public class Message {
 	public String getContent() {
 		return content;
 	}
-	public void setcontent(String content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 	public Patient getPatient() {
@@ -71,11 +74,17 @@ public class Message {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	public boolean getRead() {
-		return read;
+	public Boolean getProvider_read() {
+		return provider_read;
 	}
-	public void setRead(boolean read) {
-		this.read = read;
+	public void setProvider_read(Boolean provider_read) {
+		this.provider_read = provider_read;
+	}
+	public Boolean getPatient_read() {
+		return patient_read;
+	}
+	public void setPatient_read(Boolean patient_read) {
+		this.patient_read = patient_read;
 	}
 	@Override
 	public int hashCode() {
