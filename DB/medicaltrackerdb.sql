@@ -257,6 +257,7 @@ INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequ
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (3, 'Lisinopril', 'my blood pressure pill', '20mg', '1 tab daily', 'Tommy', 'i get a cough with this.', 1, 1, 2);
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (4, 'Avianne', 'birth control', '0.1 mg', '1 tab daily', 'Robert', 'do not forget. to broke for a baby', 6, 1, 4);
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (5, 'Ventolin HFA', 'inhaler', '90 mcg', '2 puffs every 4 hrs', 'Samuel', 'makes me jittery', 4, 1, 5);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (6, 'Fluconazole', 'White pill one side is shorter than the other', '1', 'daily', 'Banfield', 'It seems to work', 5, 1, NULL);
 
 COMMIT;
 
