@@ -310,7 +310,7 @@
     <div *ngIf="msgEdit">
       <input type="text" name="content" [(ngModel)]="msgEdit.content" />
       <button class="btn btn-success" (click)="updateMessage(msgEdit)">Submit</button>
-      <br />
+      <br/>
       <button class="btn btn-warning" (click)="msgToEdit = null">Cancel</button>
     </div>
     <button class="btn btn-small btn-warning" (click)="showView = 'medications'">
