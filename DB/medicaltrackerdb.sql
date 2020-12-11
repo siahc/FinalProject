@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `user` ;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(2000) NOT NULL,
+  `password` VARCHAR(200) NOT NULL,
   `enabled` TINYINT(1) NOT NULL,
   `role` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -90,16 +90,15 @@ CREATE TABLE IF NOT EXISTS `medication` (
   `patient_id` INT NOT NULL,
   `active` TINYINT NULL,
   `medical_history_id` INT NULL,
-  `verified` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_medications_patient1_idx` (`patient_id` ASC),
-  INDEX `fk_medication_medical_history1_idx` (`medical_history_id` ASC),
+  INDEX `fk_medications_medical_history1_idx` (`medical_history_id` ASC),
   CONSTRAINT `fk_medications_patient1`
     FOREIGN KEY (`patient_id`)
     REFERENCES `patient` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_medication_medical_history1`
+  CONSTRAINT `fk_medications_medical_history1`
     FOREIGN KEY (`medical_history_id`)
     REFERENCES `medical_history` (`id`)
     ON DELETE NO ACTION
@@ -137,7 +136,6 @@ DROP TABLE IF EXISTS `provider_has_patient` ;
 CREATE TABLE IF NOT EXISTS `provider_has_patient` (
   `provider_id` INT NOT NULL,
   `patient_id` INT NOT NULL,
-  PRIMARY KEY (`provider_id`, `patient_id`),
   INDEX `fk_provider_has_patient_patient1_idx` (`patient_id` ASC),
   INDEX `fk_provider_has_patient_provider1_idx` (`provider_id` ASC),
   CONSTRAINT `fk_provider_has_patient_provider1`
@@ -164,8 +162,9 @@ CREATE TABLE IF NOT EXISTS `message` (
   `patient_id` INT NOT NULL,
   `provider_id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
-  `creation_date` DATETIME NULL,
-  `read` TINYINT NULL,
+  `provider_read` TINYINT NULL,
+  `patient_read` TINYINT NULL,
+  `creation_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_message_patient1_idx` (`patient_id` ASC),
   INDEX `fk_message_provider1_idx` (`provider_id` ASC),
@@ -197,9 +196,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', '$2a$10$IlnXxhorq9uTuBY3JkHSD.noPEYSdWMe2q8hHsHv9tpohz7PwkzRS', 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (1, 'admin', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'admin');
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (2, 'patient', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'patient');
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'provider', '$2a$10$ao6ZMZ/BsDpzJqMQ.wSfQeoOOm.HTrHirMeIgwL8yw/YJXD070qxy', 1, 'provider');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (3, 'provider', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (4, 'rben', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (5, 'lshep', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`) VALUES (6, 'tcross', '$2a$10$NLAuqqi/2axdV7KaO1Ic9.UniGiN5PEJGiSORY5IpHMDjDoja1wZW', 1, 'provider');
@@ -238,7 +237,7 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (1, 'CHF', 1, '1800', 'Lasix', 1);
-INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (2, 'Eczema', 1, '1999', 'lotion', 5);
+INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (2, 'Eczema', 1, '1999', 'lotion', 1);
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (3, 'High Blood Pressure', 1, '1990\'s?', 'diet and exercise', 7);
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (4, 'Contraception', 1, 'early 2000\'s', 'condoms', 6);
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (5, 'Asthma', 1, '2006ish', 'ProAir', 4);
@@ -251,11 +250,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`, `verified`) VALUES (1, 'Botox', 'youth', '1 child', 'daily', 'Billy', 'I hate Max Dennison', 1, 1, NULL, 1);
-INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`, `verified`) VALUES (2, 'Hydrocortisone', 'itch cream', '2.5%', '2-3X daily', 'Lane', 'I like this cream', 5, 1, NULL, NULL);
-INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`, `verified`) VALUES (3, 'Lisinopril', 'my blood pressure pill', '20mg', '1 tab daily', 'Tommy', 'i get a cough with this.', 7, 1, NULL, NULL);
-INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`, `verified`) VALUES (4, 'Avianne', 'birth control', '0.1 mg', '1 tab daily', 'Robert', 'do not forget. to broke for a baby', 6, 1, NULL, NULL);
-INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`, `verified`) VALUES (5, 'Ventolin HFA', 'inhaler', '90 mcg', '2 puffs every 4 hrs', 'Samuel', 'makes me jittery', 4, 1, NULL, NULL);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (1, 'Botox', 'youth', '1 child', 'daily', 'Billy', 'I hate Max Dennison', 1, 1, 1);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (2, 'Hydrocortisone', 'itch cream', '2.5%', '2-3X daily', 'Lane', 'I like this cream', 1, 1, 1);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (3, 'Lisinopril', 'my blood pressure pill', '20mg', '1 tab daily', 'Tommy', 'i get a cough with this.', 1, 1, 2);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (4, 'Avianne', 'birth control', '0.1 mg', '1 tab daily', 'Robert', 'do not forget. to broke for a baby', 6, 1, 4);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (5, 'Ventolin HFA', 'inhaler', '90 mcg', '2 puffs every 4 hrs', 'Samuel', 'makes me jittery', 4, 1, 5);
 
 COMMIT;
 
@@ -280,6 +279,10 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `provider_has_patient` (`provider_id`, `patient_id`) VALUES (1, 1);
+INSERT INTO `provider_has_patient` (`provider_id`, `patient_id`) VALUES (1, 2);
+INSERT INTO `provider_has_patient` (`provider_id`, `patient_id`) VALUES (2, 1);
+INSERT INTO `provider_has_patient` (`provider_id`, `patient_id`) VALUES (3, 1);
+INSERT INTO `provider_has_patient` (`provider_id`, `patient_id`) VALUES (1, 3);
 
 COMMIT;
 
@@ -289,9 +292,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `creation_date`, `read`) VALUES (1, 'Hello World', 1, 1, 'This Is My First Message', NULL, NULL);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `creation_date`, `read`) VALUES (2, 'Hey Doc', 2, 2, 'Second Message', NULL, NULL);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `creation_date`, `read`) VALUES (3, 'I love this App', 3, 4, 'I am new here', NULL, NULL);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (1, 'Hello World', 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (2, 'Hey Doc', 2, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (3, 'I love this App', 3, 4, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
