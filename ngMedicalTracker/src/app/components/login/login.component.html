@@ -1,14 +1,17 @@
 
-<table class="table" style="width:100%">
+
   <div class="container-fluid formdiv">
-    <td class="form-inline">
-      <div class="form-group">
-        <input placeholder="Username" type="text" name="username" id="username" [(ngModel)]="authUser.username">
-      </div>
-      <div class="form-group">
-        <input placeholder="Password" type="password" name="password" id="password" [(ngModel)]="authUser.password">
-      </div>
-      <input type="submit" class="btn" value="Login" (click)="login()">
-    </td>
+    <ion-app>
+      <ion-content>
+        <ion-item>
+          <ion-label position="stacked">Username</ion-label>
+        <ion-input placeholder="Username" type="text" name="username" id="username" [(ngModel)]="authUser.username"> </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input placeholder="Password" type="password" name="password" id="password" [(ngModel)]="authUser.password"></ion-input>
+      </ion-item>
+      <ion-input type="submit" class="btn" value="Login" (click)="login()"></ion-input>
+    </ion-content>
+  </ion-app>
   </div>
-  </table>
