@@ -27,22 +27,15 @@ export class LoggedInComponent implements OnInit {
   hisUpdated = null;
   medToAdd = new Medication();
   historyToAdd = new MedicalHistory();
-  // showMedToAdd = false;
-  // showHistoryForm = false;
   providers = [];
-  // myProvList = false;
   provId = null;
   message = new Message();
   messages = [];
-  // myMessages = false;
   msgToEdit = null;
   msgProvId = null;
   rxHisDeets = null;
   dxMedDeets = null;
   showView = 'medications';
-
-
-
 
   constructor(
     private patientService: PatientService,
@@ -305,13 +298,11 @@ export class LoggedInComponent implements OnInit {
   this.hisDeets = null;
   this.rxUpdated = null;
   this.hisUpdated = null;
- this.medToAdd = new Medication();
+  this.medToAdd = new Medication();
   this.historyToAdd = new MedicalHistory();
-  // this.showMedToAdd = false;
-  // this.showHistoryForm = false;
   this.providers = [];
-  // this.myProvList = false;
   this.provId = null;
+  this.showView = 'medications';
 
     try {
       this.patientService.userPatientInfo().subscribe(

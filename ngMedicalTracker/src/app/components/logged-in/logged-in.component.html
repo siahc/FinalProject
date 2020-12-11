@@ -9,7 +9,6 @@
   <button class="btn btn-small btn-info" (click)="showView = 'addHist'">
     Add Medical History
   </button>
-
   <button class="btn btn-small btn-info" (click)="showView = 'providers'">
     My Providers
   </button>
@@ -47,18 +46,14 @@
       </tbody>
     </table>
   </div>
+
   <div class="info" *ngIf="showView == 'rxDetails'">
     <ul>
       <li>Name: {{ rxDeets.name }}</li>
-
       <li>Description: {{ rxDeets.description }}</li>
-
       <li>Dose: {{ rxDeets.dose }}</li>
-
       <li>Frequency: {{ rxDeets.frequency }}</li>
-
       <li>Provider: {{ rxDeets.provider }}</li>
-
       <li>Comment: {{ rxDeets.comment }}</li>
     </ul>
     <ul *ngIf="rxHisDeets">
@@ -72,8 +67,8 @@
     />
     <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
     <button class="btn btn-small btn-light" (click)="reload()">Back</button>
-
   </div>
+
   <div *ngIf="rxUpdated">
     <form>
       <div class="form-group">
@@ -131,7 +126,6 @@
           <td>
             {{ history.onset }}
           </td>
-
           <td class="btn btn-info details" (click)="setDxMedications(history)">
             View Detailed Information
           </td>
@@ -160,8 +154,8 @@
       Delete History Item
     </button>
     <button class="btn btn-small btn-light" (click)="reload()">Back</button>
-
   </div>
+
   <div *ngIf="hisUpdated">
     <form>
       <div class="form-group">
@@ -251,9 +245,8 @@
       <br />
       <button (click)="msgToEdit = null">Cancel</button>
     </div>
-    <button class="btn btn-small btn-warning" (click)="myMessages = false">
+    <button class="btn btn-small btn-warning" (click)="showView = 'medications'">
       Close Messages
     </button>
   </div>
-  <!-- <button class="btn btn-small btn-light" (click)="reload()">Back</button> -->
 </div>
