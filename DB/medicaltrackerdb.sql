@@ -162,6 +162,8 @@ CREATE TABLE IF NOT EXISTS `message` (
   `patient_id` INT NOT NULL,
   `provider_id` INT NOT NULL,
   `title` VARCHAR(45) NULL,
+  `creation_date` DATETIME NULL,
+  `reviewed` TINYINT NULL,
   `provider_read` TINYINT NULL,
   `patient_read` TINYINT NULL,
   `creation_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
@@ -292,9 +294,6 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (1, 'Hello World', 1, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (2, 'Hey Doc', 2, 2, NULL, NULL, NULL, NULL);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (3, 'I love this App', 3, 4, NULL, NULL, NULL, NULL);
 
 COMMIT;
 
