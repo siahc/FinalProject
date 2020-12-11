@@ -33,6 +33,13 @@ nav-link {
   font-weight: lighter;
 }
 
+#image{
+  border-radius: 100%;
+  height: 70px;
+  background-color: #f05454;
+  color: #204051;
+
+}
 
 
 
