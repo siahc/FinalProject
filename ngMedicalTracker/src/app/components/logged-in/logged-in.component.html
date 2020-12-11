@@ -248,17 +248,17 @@
         {{ msg.content }}
       </li>
       <li>
-        <button (click)="deleteMessage(msg)">Delete Message</button>
+        <button class="btn btn-danger" (click)="deleteMessage(msg)">Delete Message</button>
       </li>
       <li>
-        <button (click)="msgEdit = msg">Update This Message</button>
+        <button class="btn btn-info" (click)="msgEdit = msg">Update This Message</button>
       </li>
     </ul>
     <div *ngIf="msgEdit">
       <input type="text" name="content" [(ngModel)]="msgEdit.content" />
-      <button (click)="updateMessage(msgEdit)">Submit</button>
+      <button class="btn btn-success" (click)="updateMessage(msgEdit)">Submit</button>
       <br />
-      <button (click)="msgToEdit = null">Cancel</button>
+      <button class="btn btn-warning" (click)="msgToEdit = null">Cancel</button>
     </div>
     <button class="btn btn-small btn-warning" (click)="showView = 'medications'">
       Close Messages
