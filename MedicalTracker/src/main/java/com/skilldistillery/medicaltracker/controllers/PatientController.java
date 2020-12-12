@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,21 +33,21 @@ public class PatientController {
 	@Autowired 
 	private UserService userSvc;
 	
-	@GetMapping("patients")
-	public List<Patient> showAllPats(HttpServletRequest req, HttpServletResponse res){
-		List<Patient> pats = patServ.showAllPatients();
-		if (pats != null) {
-			return pats;
-		}
-		return null;
-	}	
+//	@GetMapping("patient")
+//	public List<Patient> showAllPats(HttpServletRequest req, HttpServletResponse res){
+//		List<Patient> pats = patServ.showAllPatients();
+//		if (pats != null) {
+//			return pats;
+//		}
+//		return null;
+//	}	
 	
-	@PostMapping("patients")
+	@PostMapping("patient")
 	public Patient createPatient(HttpServletRequest req, HttpServletResponse res, @RequestBody Patient pat, Principal principal) {
 		return patServ.createPatient(pat, principal.getName());
 	}
 	
-	@DeleteMapping("patientproviders/{id}")
+	@DeleteMapping("patient/providers/{id}")
 	public boolean removeProvider(
 			HttpServletRequest request,
 			HttpServletRequest response,
@@ -56,7 +57,7 @@ public class PatientController {
 		return patServ.removeProvider(id, principal.getName());
 	}
 	
-	@GetMapping("patientproviders/{id}")
+	@GetMapping("patient/providers/{id}")
 	public boolean addProviderToPatient(
 			HttpServletRequest request,
 			HttpServletRequest response,
@@ -66,7 +67,7 @@ public class PatientController {
 		return patServ.addProviderToPatient(id, principal.getName());
 	}
 	
-	@GetMapping("patient/info")
+	@GetMapping("patient")
 	public Patient userPatientInfo(
 			HttpServletRequest request,
 			HttpServletResponse response,
@@ -97,5 +98,15 @@ public class PatientController {
 			Principal principal
 			){
 		return patServ.listProviders(principal.getName());
+	}
+	@PutMapping("patient/{id}")
+	public Patient updatePatientInfo(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			Principal principal,
+			@PathVariable int id,
+			@RequestBody Patient pt
+			) {
+		return patServ.update(pt, id);
 	}
 }
