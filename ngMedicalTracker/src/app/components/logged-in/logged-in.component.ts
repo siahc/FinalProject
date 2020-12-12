@@ -36,6 +36,8 @@ export class LoggedInComponent implements OnInit {
 
   provId = null;
   msgProvId = null;
+  dxSelected:MedicalHistory = null;
+  dxId= null;
 
   showView = 'medications';
 
@@ -133,6 +135,19 @@ export class LoggedInComponent implements OnInit {
     this.rxEdit.comment = rx.comment;
     this.rxEdit.active = rx.active;
     this.showView = 'updateRx';
+  }
+  addDxToRx(rxId:number):void{
+    console.log(this.dxId);
+
+    this.rxService.addDxToRx(rxId, this.dxId).subscribe(
+      data=>{
+        console.log('logged-in.component.ts.addDxToRx(): History linked to medication success');
+      },
+      err=>{
+        console.error(err);
+        console.log('logged-in.component.ts.addDxToRx(): Failed');
+      }
+    )
   }
   setHistToEdit(dx:MedicalHistory):void{
     this.histEdit.diagnosis = dx.diagnosis;
@@ -282,6 +297,7 @@ export class LoggedInComponent implements OnInit {
     (err) => {
       console.error('Component.Medication.ts.getRxHisDeets() failed')
       console.error(err);
+      this.rxHisDeets = null;
     }
     )
   }
@@ -292,6 +308,7 @@ export class LoggedInComponent implements OnInit {
       console.log('Diagnosis medications successfully retrieved');
     },
     (err) => {
+      this.dxMedDeets = null;
       console.error('Component.MedicalHistory.ts.getDxMedicaitons() failed')
       console.error(err);
     })

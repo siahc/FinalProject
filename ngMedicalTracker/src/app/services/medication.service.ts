@@ -71,5 +71,14 @@ export class MedicationService {
         })
       )
     }
+    addDxToRx(rxId:number, dxId:number):Observable<boolean>{
+      const httpOptions = this.getHttpOptions();
+      return this.http.get<boolean>(`${this.url}/${rxId}/${dxId}`, httpOptions).pipe(
+        catchError((err:any)=> {
+          console.error(err);
+          return throwError('medication.service.ts.addDxToRx(): Failed')
+        })
+      )
+    }
 
 }
