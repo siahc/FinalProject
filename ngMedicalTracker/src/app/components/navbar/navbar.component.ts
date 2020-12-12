@@ -23,4 +23,8 @@ export class NavbarComponent implements OnInit {
     return localStorage.getItem('role');
   }
 
+  refresh(): void {
+    window.location.reload();
+}
+
 }
