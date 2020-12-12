@@ -9,12 +9,15 @@ tbody{
 
 
 .userWelcome{
+  padding: 30px;
   color:#204051
 }
 
 .info{
   /* background-color: #e4e3e3; */
   background-color: #bbe1fa;
+  padding: 20px;;
+
 }
 
 .display {
@@ -22,6 +25,19 @@ tbody{
   background-color: #bbe1fa;
 }
 
-.formdiv{
+.formdiv {
+  padding: 20px;
   background-color: #bbe1fa;
+
 }
+
+.margin{
+  margin-left: 15px;
+}
+
+.native-input{
+  padding:0;
+}
+
+
+
