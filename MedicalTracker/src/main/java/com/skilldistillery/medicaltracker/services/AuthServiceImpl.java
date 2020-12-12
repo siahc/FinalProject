@@ -21,6 +21,15 @@ public class AuthServiceImpl implements AuthService {
 		user.setRole("patient");
 		return userRepo.saveAndFlush(user);
 	}
+	
+	@Override
+	public User updateUser(User user, String username) {
+		User dbUser = userRepo.findUniqueByUsername(username);
+		if(user.getPassword() != null) {dbUser.setPassword(encoder.encode(user.getPassword()));}
+		if(user.getUsername() != null) {dbUser.setUsername(user.getUsername());}
+		if(user.getEnabled() != null) {dbUser.setEnabled(user.getEnabled());}
+		return userRepo.saveAndFlush(dbUser);
+	}
 
 	@Override
 	public User getUser(String username) {

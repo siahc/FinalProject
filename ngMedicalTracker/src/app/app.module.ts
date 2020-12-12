@@ -17,6 +17,7 @@ import { HowToComponent } from './components/how-to/how-to.component';
 import { IonicModule } from '@ionic/angular';
 import { ProviderComponent } from './components/provider/provider.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     HowToComponent,
     ProviderComponent,
     ProfileComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

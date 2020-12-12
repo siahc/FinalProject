@@ -1,0 +1,109 @@
+<ion-content *ngIf="showForm == 'default'">
+  <h3 class="text-center">Profile Information</h3>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Account Information</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>Username: {{user.username}}</ion-card-content>
+    <ion-button size=small (click)="showForm = 'updateAccount'">Change password or username</ion-button>
+  </ion-card>
+  <ion-card *ngIf="user.role == 'patient'">
+    <ion-card-header>
+      <ion-card-subtitle>Personal Information</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Name: {{patient.fname}} {{patient.lname}}<br>
+      Date of Birth: {{patient.dob}}
+    </ion-card-content>
+    <ion-button size=small (click)="showForm='updatePersonal'">Update Personal Information</ion-button>
+  </ion-card>
+  <ion-card *ngIf="user.role == 'provider'">
+    <ion-card-header>
+      <ion-card-subtitle>Personal Information</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      Name: {{provider.fname}} {{provider.lname}}<br>
+      Title: {{provider.title}}<br>
+      Location: {{provider.location}}
+    </ion-card-content>
+    <ion-button size=small (click)="showForm = 'updatePersonal'">Update Personal Information</ion-button>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="showForm == 'updateAccount'">
+<ion-list lines="full" class="ion-no-margin">
+  <ion-list-header>
+    <ion-label>
+      Change Account Infomation
+    </ion-label>
+  </ion-list-header>
+  <ion-item>
+    <ion-label position="stacked">Username</ion-label>
+    <ion-input name="username" [(ngModel)]="user.username"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input name="username" [(ngModel)]="user.password" type="password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button expand="block" color="primary" (click)="updateUser()">Save Changes</ion-button>&nbsp;
+    <ion-button expand="block" color="danger" (click)="ngOnInit()">Cancel</ion-button>
+  </ion-item>
+</ion-list>
+</ion-content>
+
+<ion-content *ngIf="showForm == 'updatePersonal' && user.role == 'provider'">
+<ion-list lines="full" class="ion-no-margin">
+  <ion-list-header>
+    <ion-label>
+      Change Personal Infomation
+    </ion-label>
+  </ion-list-header>
+  <ion-item>
+    <ion-label position="stacked">First Name</ion-label>
+    <ion-input name="username" [(ngModel)]="provider.fname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Last Name</ion-label>
+    <ion-input name="username" [(ngModel)]="provider.lname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Title</ion-label>
+    <ion-input name="username" [(ngModel)]="provider.title"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Location</ion-label>
+    <ion-input name="username" [(ngModel)]="provider.location"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button expand="block" color="primary" (click)="updateProv(provider)">Save Changes</ion-button>&nbsp;
+    <ion-button expand="block" color="danger" (click)="ngOnInit()">Cancel</ion-button>
+  </ion-item>
+</ion-list>
+</ion-content>
+
+<ion-content *ngIf="showForm == 'updatePersonal' && user.role == 'patient'">
+<ion-list lines="full" class="ion-no-margin">
+  <ion-list-header>
+    <ion-label>
+      Change Personal Infomation
+    </ion-label>
+  </ion-list-header>
+  <ion-item>
+    <ion-label position="stacked">First Name</ion-label>
+    <ion-input name="username" [(ngModel)]="patient.fname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Last Name</ion-label>
+    <ion-input name="username" [(ngModel)]="patient.lname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Title</ion-label>
+    <ion-input name="username" [(ngModel)]="patient.dob"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-button expand="block" color="primary" (click)="updatePt(patient)">Save Changes</ion-button>&nbsp;
+    <ion-button expand="block" color="danger" (click)="ngOnInit()">Cancel</ion-button>
+  </ion-item>
+</ion-list>
+</ion-content>
