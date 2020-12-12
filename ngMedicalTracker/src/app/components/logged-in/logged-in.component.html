@@ -70,14 +70,23 @@
     <ul *ngIf="rxHisDeets">
       <button class="btn btn-small btn-light" (click)="setDxMedications(rxHisDeets)">Diagnosis: {{ rxHisDeets.diagnosis }}</button>
     </ul>
+    <ul *ngIf="!rxHisDeets">
+      <ion-item>
+        <ion-label>Link a Diagnosis?</ion-label>
+        <ion-select interface="popover" (ionChange)="addDxToRx(rxDeets.id)" [(ngModel)]="dxId">
+          <ion-select-option value={{dx.id}} *ngFor="let dx of medicalHistory">{{dx.diagnosis}}</ion-select-option>
+        </ion-select>
+        <!-- <ion-button size="small" color="secondary" (click)="addDxToRx(rxDeets.id)">Save</ion-button> -->
+      </ion-item>
+    </ul>
     <input
-      class="btn btn-success"
+      class="margin btn btn-success"
       type="button"
       value="Update this medication"
       (click)="setRxToUpdate(rxDeets)"
     />
-    <button class="btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
-    <button class="btn btn-small btn-light" (click)="reload()">Back</button>
+    <button class="margin btn btn-danger" (click)="destroyRX()">Delete RX Item</button>
+    <button class="margin btn btn-small btn-light" (click)="reload()">Back</button>
   </div>
 
 <div *ngIf="showView == 'updateRx'">
