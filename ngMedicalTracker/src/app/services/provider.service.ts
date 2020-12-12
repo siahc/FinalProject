@@ -79,7 +79,7 @@ export class ProviderService {
     )
   }
   updateProvider(prov:Provider):Observable<Provider>{
-    let updateUrl = this.baseUrl + '/api/provider/' + prov.id;
+    let updateUrl = this.baseUrl + 'api/provider/' + prov.id;
     const httpOptions = this.getHttpOptions();
     return this.http.put<Provider>(updateUrl, prov, httpOptions).pipe(
       catchError((err:any)=>{
