@@ -47,9 +47,10 @@
     <button class="btn btn-danger" (click)="ptToMsgId = null">Cancel</button>
   </div>
 
-  <div class="patientInfo">
+  <div>
     <div *ngIf="selectedPt">
-      <h3>{{ selectedPt.fname }} {{ selectedPt.lname }}</h3>
+      <h3>{{ selectedPt.fname }} {{ selectedPt.lname }} </h3>
+       <h6>DOB: {{selectedPt.dob}}</h6>
       <table>
         <tbody>
           <br>
