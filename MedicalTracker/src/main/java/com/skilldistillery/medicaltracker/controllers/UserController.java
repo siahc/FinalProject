@@ -34,10 +34,10 @@ public class UserController {
 //		return "pong!";
 //	}
 	
-	@GetMapping("users")
-	public List<User> getUsers(){
-		return userSvc.getAllUsers();
-	}
+//	@GetMapping("users")
+//	public List<User> getUsers(){
+//		return userSvc.getAllUsers();
+//	}
 	
 	@GetMapping("user")
 	public User getUserByUsername(
