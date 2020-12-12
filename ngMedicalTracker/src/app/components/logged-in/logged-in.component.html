@@ -137,6 +137,10 @@
         <ion-label position="stacked">Comment</ion-label>
         <ion-input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Active</ion-label>
+        <ion-checkbox type="checkbox" name="rxActive" [(ngModel)]="rxEdit.active"></ion-checkbox>
+      </ion-item>
     <button type="submit" class="margin btn btn-lg btn-block" (click)="createMed()">Submit</button>
 </div>
 
@@ -175,6 +179,7 @@
       <li>Diagnosis: {{ hisDeets.diagnosis }}</li>
       <li>Onset: {{ hisDeets.onset }}</li>
       <li>Treament: {{ hisDeets.treatment }}</li>
+      <li>Active: <input (change)="updateHisComponent(hisDeets)" type="checkbox" name="active" [(ngModel)]="hisDeets.active">
     </ul>
     <ul *ngFor="let medication of dxMedDeets">
       <button class="btn btn-small btn-light" (click)="setRxDeets(medication)">Meds: {{ medication.name }}</button>
@@ -200,10 +205,10 @@
         <ion-input type="text" id="histTreat" name="Onset" [(ngModel)]="histEdit.treatment" ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="stacked" for="histActive">Current:</ion-label>
-        <ion-input type="text" id="histActive" name="Onset" [(ngModel)]="histEdit.active" ></ion-input>
+        <ion-label position="stacked">Active</ion-label>
+        <ion-checkbox type="checkbox" name="histActive" [(ngModel)]="histEdit.active"></ion-checkbox>
       </ion-item>
-      <button class="btn btn-lg btn-success btn-block" (click)="updateHisComponent()">Submit</button>
+      <button class="btn btn-lg btn-success btn-block" (click)="updateHisComponent(histEdit)">Submit</button>
   </div>
 
   <div class="formdiv" *ngIf="showView == 'addHist'">
@@ -220,9 +225,9 @@
       <ion-label position= "stacked" for="histTreat">Treatment:</ion-label>
       <ion-input type="text" id="histTreat" name="Onset" [(ngModel)]="histEdit.treatment" ></ion-input>
     </ion-item>
-    <ion-item >
-      <ion-label position= "stacked" for="histActive">Current:</ion-label>
-      <ion-input type="text" id="histActive" name="Onset" [(ngModel)]="histEdit.active" ></ion-input>
+    <ion-item>
+      <ion-label position="stacked">Active</ion-label>
+      <ion-checkbox type="checkbox" name="histActive" [(ngModel)]="histEdit.active"></ion-checkbox>
     </ion-item>
     <button class="btn btn-lg btn-success btn-block" (click)="createMedicalHistory()">Submit</button>
   </div>

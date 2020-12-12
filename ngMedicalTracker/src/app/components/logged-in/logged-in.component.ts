@@ -99,9 +99,8 @@ export class LoggedInComponent implements OnInit {
     }
   }
 
-  updateHisComponent(): void {
-    console.log(this.histEdit.diagnosis)
-    this.hisService.updateMedHis(this.histEdit).subscribe(
+  updateHisComponent(hist): void {
+    this.hisService.updateMedHis(hist).subscribe(
       (good) => {
       console.log('update MedHis success')
       this.reload();
