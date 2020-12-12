@@ -23,7 +23,7 @@ public class MedicalHistory {
 	
 	private String diagnosis;
 	
-	private boolean active;
+	private Boolean active;
 
 	private String onset;
 	
@@ -59,11 +59,11 @@ public class MedicalHistory {
 		this.diagnosis = diagnosis;
 	}
 
-	public boolean isActive() {
+	public Boolean isActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 

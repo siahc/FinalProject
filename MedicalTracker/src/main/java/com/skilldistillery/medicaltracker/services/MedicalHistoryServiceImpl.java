@@ -78,7 +78,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 			if (medHis.getDiagnosis() != null) {
 				managedMed.setDiagnosis(medHis.getDiagnosis());
 			}
-			if (medHis.isActive() != false) {
+			if (medHis.isActive() != null) {
 				managedMed.setActive(medHis.isActive());
 			}
 			if (medHis.getOnset() != null) {
