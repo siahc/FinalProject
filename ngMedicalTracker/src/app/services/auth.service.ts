@@ -1,7 +1,7 @@
 import { User } from 'src/app/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 // import { environment } from './../../environments/environment';
 
@@ -99,7 +99,26 @@ export class AuthService {
       err=>{
         console.error(err);
 
-      }
+      })
+  }
+
+  getUserInfo(): Observable<User>{
+    const httpOptions = this.getHttpOptions();
+    return this.http.get<User>(this.baseUrl + 'api/user', httpOptions).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError('AuthService.updateUserInfo(): Failed to get user');
+      })
+    )
+  }
+
+  updateUserInfo(user:User): Observable<User>{
+    const httpOptions = this.getHttpOptions();
+    return this.http.put<User>(this.baseUrl + 'api/user',user, httpOptions).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError('AuthService.updateUserInfo(): Failed to update user');
+      })
     )
   }
 

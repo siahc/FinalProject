@@ -62,15 +62,15 @@ public class ProviderServiceImpl implements ProviderService {
 		if(provider.getTitle() != null) {
 			p.setTitle(provider.getTitle());
 		}
-		if(provider.getUser() != null) {
-			p.setUser(provider.getUser());
-		}
-		if(provider.getPatients() != null) {
-			p.setPatients(provider.getPatients());
-		}
-		if(provider.getMessages() != null) {
-			p.setMessages(provider.getMessages());
-		}
+//		if(provider.getUser() != null) {
+//			p.setUser(provider.getUser());
+//		}
+//		if(provider.getPatients() != null) {
+//			p.setPatients(provider.getPatients());
+//		}
+//		if(provider.getMessages() != null) {
+//			p.setMessages(provider.getMessages());
+//		}
 		
 		return providerRepo.saveAndFlush(p);
 	}

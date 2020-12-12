@@ -14,7 +14,7 @@ import { Provider } from '../models/provider';
 })
 export class PatientService {
   private baseUrl = 'http://localhost:8090/';
-  private url = this.baseUrl + 'api/patients';
+  private url = this.baseUrl + 'api/patient';
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
@@ -42,13 +42,11 @@ export class PatientService {
 
   userPatientInfo(): Observable<Patient> {
     const httpOptions = this.getHttpOptions();
-    let testUrl = this.baseUrl + 'api/patient/info';
+    let testUrl = this.baseUrl + 'api/patient';
     return this.http.get<Patient>(testUrl, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
-        return throwError(
-          'PatientService.userPatientInfo(): Failed to get patient'
-        );
+        return throwError('PatientService.userPatientInfo(): Failed to get patient');
       })
     );
   }
@@ -58,9 +56,7 @@ export class PatientService {
     return this.http.get<Patient>(`${this.url}/${patientId}`, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
-        return throwError(
-          'PatientService.index(): Error retrieving patient ' + patientId
-        );
+        return throwError('PatientService.index(): Error retrieving patient ' + patientId);
       })
     );
   }
@@ -70,9 +66,7 @@ export class PatientService {
     return this.http.get<Medication[]>(testUrl, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
-        return throwError(
-          'PatientService.userPatientMedication(): Failed to get patient'
-        );
+        return throwError('PatientService.userPatientMedication(): Failed to get patient');
       })
     );
   }
@@ -82,15 +76,12 @@ export class PatientService {
     return this.http.get<MedicalHistory[]>(testUrl, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
-        return throwError(
-          'PatientService.userMedicalHistory: Failed to get medical history'
-        );
+        return throwError('PatientService.userMedicalHistory: Failed to get medical history');
       })
     );
   }
   createPatient(patient: Patient): Observable<Patient> {
     const httpOptions = this.getHttpOptions();
-
     return this.http.post<Patient>(this.url, patient, httpOptions).pipe(
       catchError((err: any) => {
         console.log(err);
@@ -105,9 +96,7 @@ export class PatientService {
     return this.http.get<Provider[]>(ptproviderlist, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
-        return throwError(
-          'PatientService.providerlist: Failed to get list of providers'
-        );
+        return throwError('PatientService.providerlist: Failed to get list of providers');
       })
     );
   }
@@ -117,9 +106,7 @@ export class PatientService {
     return this.http.delete<boolean>(`${rmvptprovlist}/${id}`, httpOptions).pipe(
         catchError((err: any) => {
           console.error(err);
-          return throwError(
-            'PatientService.rmptproviderlist: Failed to remove provider from list'
-          );
+          return throwError('PatientService.rmptproviderlist: Failed to remove provider from list');
         })
       );
   }
@@ -129,9 +116,16 @@ export class PatientService {
     return this.http.get<boolean>(`${addptprovlist}/${id}`, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
-        return throwError(
-          'PatientService.addptproviderlist: Failed to add provider to list'
-        );
+        return throwError('PatientService.addptproviderlist: Failed to add provider to list');
+      })
+    );
+  }
+  updatePt(pt:Patient): Observable<Patient>{
+    const httpOptions = this.getHttpOptions();
+    return this.http.put<Patient>(`${this.url}/${pt.id}`, pt, httpOptions).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError('PatientService.addptproviderlist: Failed to update pt');
       })
     );
   }
