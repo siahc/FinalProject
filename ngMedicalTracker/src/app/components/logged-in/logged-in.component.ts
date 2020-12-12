@@ -136,12 +136,13 @@ export class LoggedInComponent implements OnInit {
     this.rxEdit.active = rx.active;
     this.showView = 'updateRx';
   }
-  addDxToRx(rxId:number):void{
+  addDxToRx(rx:Medication):void{
     console.log(this.dxId);
 
-    this.rxService.addDxToRx(rxId, this.dxId).subscribe(
+    this.rxService.addDxToRx(rx.id, this.dxId).subscribe(
       data=>{
         console.log('logged-in.component.ts.addDxToRx(): History linked to medication success');
+        this.setRxDeets(rx);
       },
       err=>{
         console.error(err);
