@@ -2,7 +2,7 @@
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
 
   <button class="btn btn-info" (click)="showView = 'msgs'">View Messages</button>
-  <button class="btn btn-warning" (click)="returnToPtList()" *ngIf= "selectedPt">
+  <button class="btn btn-warning margin" (click)="returnToPtList()" *ngIf= "selectedPt">
     Return to Patient List
   </button>
 
@@ -89,14 +89,14 @@
     <div *ngIf="showView == 'ptRx'">
       <h5>Medications</h5>
       <ul *ngFor="let rx of medications">
-        <li (click)="viewRx(rx)">{{ rx.name }}</li>
+        <li class="btn btn-info" (click)="viewRx(rx)">{{ rx.name }}</li>
       </ul>
     </div>
 
     <div *ngIf="showView == 'ptDx'">
       <h5>Medical History</h5>
       <ul *ngFor="let hist of history">
-        <li (click)="viewHist(hist)">{{ hist.diagnosis }}</li>
+        <li class="btn btn-info" (click)="viewHist(hist)">{{ hist.diagnosis }}</li>
       </ul>
     </div>
 
