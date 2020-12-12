@@ -5,12 +5,12 @@
     Welcome, {{ user.fname }} {{ user.lname }}
   </h3>
 
-  <button class="margin btn btn-small btn-info" (click)="showView = 'addMed'">
+  <!-- <button class="margin btn btn-small btn-info" (click)="showView = 'addMed'">
     Add medication
-  </button>
-  <button class="margin btn btn-small btn-info" (click)="showView = 'addHist'">
+  </button> -->
+  <!-- <button class="margin btn btn-small btn-info" (click)="showView = 'addHist'">
     Add Medical History
-  </button>
+  </button> -->
   <button class="margin btn btn-small btn-info" (click)="showView = 'providers'">
     My Providers
   </button>
@@ -27,11 +27,19 @@
   <!-- Rx -->
   <div class="display" *ngIf="showView == 'medications'">
     <table class="table">
-      <tr>
+
         <thead>
-          Perscriptions
+          <th>Perscriptions</th>
+          <th></th>
+          <th>  <button class="margin btn btn-small btn-info" (click)="showView = 'addMed'">
+            Add medication
+          </button></th>
         </thead>
-      </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+
       <tbody>
         <tr *ngFor="let rx of medication">
           <td>
@@ -56,6 +64,8 @@
       <li>Frequency: {{ rxDeets.frequency }}</li>
       <li>Provider: {{ rxDeets.provider }}</li>
       <li>Comment: {{ rxDeets.comment }}</li>
+      <li>Current Medication: <input (change)="updateRxComponent(rxDeets)" type="checkbox" name="active" [(ngModel)]="rxDeets.active">
+      </li>
     </ul>
     <ul *ngIf="rxHisDeets">
       <button class="btn btn-small btn-light" (click)="setDxMedications(rxHisDeets)">Diagnosis: {{ rxHisDeets.diagnosis }}</button>
@@ -70,52 +80,23 @@
     <button class="btn btn-small btn-light" (click)="reload()">Back</button>
   </div>
 
-    <!-- <br>
-      <form>
-        <div class="form-group">
-          <label for="rxName">Name:</label>
-          <input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name">
-        </div>
-        <div class="form-group">
-          <label for="rxDescription">Description:</label>
-          <input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"/>
-        </div>
-        <div class="form-group">
-          <label for="rxDose">Dose:</label>
-          <input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"/>
-        </div>
-        <div class="form-group">
-          <label for="rxFrequency">Frequency:</label>
-          <input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"/>
-        </div>
-        <div class="form-group">
-          <label for="rxProvider">Provider:</label>
-          <input type="text" id="rxProvider" name="rxProvider" [(ngModel)]="rxEdit.provider"/>
-        </div>
-        <div class="form-group">
-          <label for="rxComment">Comment:</label>
-          <input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"/>
-        </div>
-        <input class="btn btn-success" type="submit" value="Submit" (click)="updateRxComponent()"/>
-      </form> -->
-
 <div *ngIf="showView == 'updateRx'">
     <ion-item>
        <ion-label position="stacked">Name</ion-label>
        <ion-input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name"></ion-input>
-    </ion-item>
-    <ion-item>
-       <ion-label position="stacked">Description</ion-label>
-       <ion-input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"></ion-input>
-    </ion-item>
-    <ion-item>
-       <ion-label position="stacked">Dose</ion-label>
-       <ion-input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"></ion-input>
-    </ion-item>
-    <ion-item>
-       <ion-label position="stacked">Frequency</ion-label>
-       <ion-input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"></ion-input>
-    </ion-item>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Description</ion-label>
+        <ion-input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Dose</ion-label>
+        <ion-input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Frequency</ion-label>
+        <ion-input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"></ion-input>
+      </ion-item>
       <ion-item>
         <ion-label position="stacked">Provider</ion-label>
         <ion-input type="text" id="rxProvider" name="rxProvider" [(ngModel)]="rxEdit.provider"></ion-input>
@@ -124,10 +105,14 @@
         <ion-label position="floating">Comment</ion-label>
         <ion-input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"></ion-input>
       </ion-item>
-    <button type="submit" class="margin btn btn-lg btn-block" (click)="updateRxComponent()">Submit</button>
-</div>
+      <ion-item>
+        <ion-label position="stacked">Active</ion-label>
+        <ion-checkbox type="checkbox" name="rxActive" [(ngModel)]="rxEdit.active"></ion-checkbox>
+      </ion-item>
+      <button type="submit" class="margin btn btn-lg btn-block" (click)="updateRxComponent(rxEdit)">Submit</button>
+    </div>
 
-<div class="formdiv" *ngIf="showView == 'addMed'">
+    <div class="formdiv" *ngIf="showView == 'addMed'">
     <ion-item>
        <ion-label position="stacked">Name</ion-label>
        <ion-input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name"></ion-input>
@@ -155,45 +140,19 @@
     <button type="submit" class="margin btn btn-lg btn-block" (click)="createMed()">Submit</button>
 </div>
 
-
-  <!-- <div class="formdiv" *ngIf="showView == 'addMed'">
-    <h3>Add a Medication</h3>
-    <form>
-      <div class="form-group">
-        <label for="rxName">Name:</label>
-        <input type="text" id="rxName" name="rxName" [(ngModel)]="rxEdit.name">
-      </div>
-      <div class="form-group">
-        <label for="rxDescription">Description:</label>
-        <input type="text" id="rxDescription" name="rxDescription" [(ngModel)]="rxEdit.description"/>
-      </div>
-      <div class="form-group">
-        <label for="rxDose">Dose:</label>
-        <input type="text" id="rxDose" name="rxDose" [(ngModel)]="rxEdit.dose"/>
-      </div>
-      <div class="form-group">
-        <label for="rxFrequency">Frequency</label>
-        <input type="text" id="rxFrequency" name="rxFrequency" [(ngModel)]="rxEdit.frequency"/>
-      </div>
-      <div class="form-group">
-        <label for="rxProvider">Provider:</label>
-        <input type="text" id="rxProvider" name="rxProvider" [(ngModel)]="rxEdit.provider"/>
-      </div>
-      <div class="form-group">
-        <label for="rxComment">Comment:</label>
-        <input type="text" id="rxComment" name="rxComment" [(ngModel)]="rxEdit.comment"/>
-      </div>
-      <button type="submit" class="btn btn-lg btn-block" (click)="updateRxComponent()">Submit</button>
-    </form>
-  </div> -->
-
   <!-- MedHis -->
   <div class="display" *ngIf="showView == 'history'">
     <table class="table">
+      <thead>
+        <th>Medical History</th>
+        <th></th>
+        <th>  <button class="margin btn btn-small btn-info" (click)="showView = 'addHist'">
+          Add Medical History
+        </button></th>
+      </thead>
       <tr>
-        <thead>
-          Medical History
-        </thead>
+        <th>Diagnosis</th>
+        <th>Onset</th>
       </tr>
       <tbody>
         <tr *ngFor="let history of medicalHistory">

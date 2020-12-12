@@ -8,6 +8,7 @@ import { MedicationService } from './../../services/medication.service';
 import { MessageService } from './../../services/message.service';
 import { PatientService } from './../../services/patient.service';
 import { Patient } from './../../models/patient';
+import { Provider } from './../../models/provider';
 // import { User } from 'src/app/models/user';
 // import { IonicModule } from '@ionic/angular';
 
@@ -21,8 +22,8 @@ export class LoggedInComponent implements OnInit {
 
   medication:Medication[] = [];
   medicalHistory:MedicalHistory[] = [];
-  messages = [];
-  providers = [];
+  messages:Message[] = [];
+  providers:Provider[] = [];
 
   rxDeets = null;
   hisDeets = null;
@@ -111,8 +112,8 @@ export class LoggedInComponent implements OnInit {
     );
     this.histEdit = null;
   }
-  updateRxComponent(): void {
-    this.rxService.updateRx(this.rxEdit).subscribe(
+  updateRxComponent(rx:Medication): void {
+    this.rxService.updateRx(rx).subscribe(
       (good) => {
       console.log('update Rx success')
       this.reload();
@@ -131,6 +132,7 @@ export class LoggedInComponent implements OnInit {
     this.rxEdit.frequency = rx.frequency;
     this.rxEdit.provider = rx.provider;
     this.rxEdit.comment = rx.comment;
+    this.rxEdit.active = rx.active;
     this.showView = 'updateRx';
   }
   setHistToEdit(dx:MedicalHistory):void{
