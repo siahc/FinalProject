@@ -7,13 +7,12 @@
   color: #204051;
 }
 
-.patientInfo{
-  padding-top: 4px;
-  background-color: #bbe1fa;
-}
 .buttonPadding{
-  padding-bottom: 4px;
+  margin-bottom: 15px;
 }
 .rmvPt{
   padd-top: 8px;
+}
+.margin{
+  margin-left: 15px;
 }
