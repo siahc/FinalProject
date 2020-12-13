@@ -5,12 +5,6 @@
         Welcome, {{ user.fname }} {{ user.lname }}
       </h3>
 
-      <!-- <button class="margin btn btn-small btn-info" (click)="showView = 'addMed'">
-    Add medication
-  </button> -->
-      <!-- <button class="margin btn btn-small btn-info" (click)="showView = 'addHist'">
-    Add Medical History
-  </button> -->
       <button
         class="margin btn btn-small btn-info"
         (click)="showView = 'providers'"
@@ -41,22 +35,16 @@
         <table class="table">
           <thead>
             <th colspan="2">Perscriptions</th>
-
             <th>
-              <button
-                class="margin btn btn-small btn-info"
-                (click)="showView = 'addMed'"
-              >
+              <button class="margin btn btn-small btn-info" (click)="showView = 'addMed'">
                 Add medication
               </button>
             </th>
-
           </thead>
           <tr>
             <th>Name</th>
             <th>Description</th>
           </tr>
-
           <tbody>
             <tr *ngFor="let rx of medication">
               <td>
@@ -274,8 +262,7 @@
       <div class="display" *ngIf="showView == 'history'">
         <table class="table">
           <thead>
-            <th>Medical History</th>
-            <th></th>
+            <th colspan="2">Medical History</th>
             <th>
               <button
                 class="margin btn btn-small btn-info"
@@ -297,10 +284,7 @@
               <td>
                 {{ history.onset }}
               </td>
-              <td
-                class="btn btn-info details"
-                (click)="setDxMedications(history)"
-              >
+              <td class="btn btn-info details" (click)="setDxMedications(history)" >
                 View Detailed Information
               </td>
             </tr>
@@ -315,20 +299,12 @@
           <li>Treament: {{ hisDeets.treatment }}</li>
           <li>
             Active:
-            <input
-              (change)="updateHisComponent(hisDeets)"
-              type="checkbox"
-              name="active"
-              [(ngModel)]="hisDeets.active"
-            />
+            <input (change)="updateHisComponent(hisDeets)" type="checkbox" name="active" [(ngModel)]="hisDeets.active"/>
           </li>
         </ul>
 
         <ul *ngFor="let medication of dxMedDeets">
-          <button
-            class="btn btn-small btn-light"
-            (click)="setRxDeets(medication)"
-          >
+          <button class="btn btn-small btn-light" (click)="setRxDeets(medication)">
             Meds: {{ medication.name }}
           </button>
         </ul>
@@ -437,46 +413,68 @@
         </button>
       </div>
 
-      <div class="info" *ngIf="showView == 'providers'">
-        <h1>My Providers:</h1>
+      <div class="display" *ngIf="showView == 'providers'">
+        <table class="table">
+          <thead>
+            <th colspan="2">My Providers</th>
+            <th><button class="btn btn-info" (click)="showView == 'addProvider'">Add A Provider</button></th>
+          </thead>
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let p of providers">
+              <td>{{p.fname}} {{p.lname}}</td>
+              <td>{{p.title}}</td>
+              <td><button class="btn btn-info" (click)="setProviderDetails(p)">More Information</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+        <!-- <h1>My Providers:</h1>
         <ul *ngFor="let prov of providers">
-          {{
-            prov.fname
-          }}
-          {{
-            prov.lname
-          }}
-          <button
-            class="margin btn btn-danger"
-            (click)="removeProvider(prov.id)"
-          >
-            Remove Provider
-          </button>
-          <button
-            class="margin btn btn-small btn-light"
-            (click)="msgProvId = prov.id"
-          >
-            Message Provider
-          </button>
-        </ul>
-        <div *ngIf="msgProvId">
-          <input type="text" name="content" [(ngModel)]="msgEdit.content" />
-          <button
-            class="margin btn btn-success"
-            (click)="createMessage(msgEdit, msgProvId)"
-          >
-            Submit
-          </button>
-        </div>
-        <div>
-          <input type="number" name="providerId" [(ngModel)]="provId" />
-          <input
-            class="margin btn btn-success"
-            type="button"
-            (click)="addProvider(provId)"
-            value="Add Provider"
-          />
-        </div>
+          <button class="btn btn-info" (click)="setProviderDetails(prov)">{{prov.fname}} {{prov.lname}}</button>
+        </ul> -->
+
+      <!-- <div *ngIf="msgProvId">
+        <input type="text" name="content" [(ngModel)]="msgEdit.content" />
+        <button class="margin btn btn-success" (click)="createMessage(msgEdit, msgProvId)">
+          Submit
+        </button>
+    </div>
+          <div>
+            <input type="number" name="providerId" [(ngModel)]="provId" />
+            <input class="margin btn btn-success" type="button" (click)="addProvider(provId)" value="Add Provider"/>
+          </div> -->
+
+      <div class="display" *ngIf="showView == 'providerDetails'">
+        <table class="table">
+          <thead><th>Provider Details</th></thead>
+          <tbody>
+            <tr>
+              <td>Title</td>
+              <td>{{provDetails.title}}</td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>{{provDetails.fname}} {{provDetails.lname}}</td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td>{{provDetails.location}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="margin btn btn=small btn-light" (click)="showView = 'providers'">Back</button>
+        <button class="margin btn btn-small btn-info" (click)="msgProvId = provDetails.id">
+          Message Provider
+        </button>
+              <button class="margin btn btn-danger" (click)="removeProvider(provDetails.id)">
+                    Remove Provider
+              </button>
       </div>
 
       <div class="info" *ngIf="showView == 'messages'">
