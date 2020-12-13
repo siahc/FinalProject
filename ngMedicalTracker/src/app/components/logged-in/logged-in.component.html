@@ -8,7 +8,6 @@
       <ion-button
         color="medium"
         class="col-lg-2 ionbtn"
-
         (click)="showView = 'providers'"
       >
         My Providers
@@ -16,27 +15,28 @@
 
       <ion-button
         color="medium"
-        class="col-lg-3 "
+        class="col-lg-3"
         (click)="showView = 'messages'"
       >
         My Messages
       </ion-button>
       <ion-button
         color="medium"
-        class="col-lg-3 "
+        class="col-lg-3"
         (click)="showView = 'medications'"
       >
         My Medications
       </ion-button>
       <ion-button
         color="medium"
-        class="col-lg-3 "
+        class="col-lg-3"
         (click)="showView = 'history'"
       >
         My Medical History
       </ion-button>
 
       <!-- Rx -->
+
       <div class="display" *ngIf="showView == 'medications'">
         <table class="table">
           <thead>
