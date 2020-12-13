@@ -75,13 +75,6 @@
               </button>
             </td>
           </tr>
-          <!-- <tr>
-            <td>
-              <button class="btn btn-danger buttonPadding" (click)="removePatient()">
-                Remove Patient from List
-              </button>
-            </td>
-          </tr> -->
         </tbody>
       </table>
     </div>
@@ -110,11 +103,12 @@
           <tr><td>Frequency: </td><td>{{viewItem.frequency}}</td></tr>
           <tr><td>Provider: </td><td>{{viewItem.provider}}</td></tr>
           <tr><td>Comment: </td><td>{{viewItem.comment}}</td></tr>
-          <tr><td>Active: </td><td>{{viewItem.active}}</td></tr>
+          <tr><td>Active: </td><td *ngIf="viewItem.active">Yes</td><td *ngIf="!viewItem.active">No</td></tr>
           <tr *ngIf="associatedItem">
             <td>For: </td>
-            <td>{{associatedItem.diagnosis}}&nbsp;
-            <button class="btn btn-info" (click)="viewHist(associatedItem)"> patient diagnosis details</button></td>
+            <td>
+            <button class="btn btn-info" (click)="viewHist(associatedItem)">{{associatedItem.diagnosis}}</button>
+          </td>
           </tr>
         </tbody>
       </table>
@@ -132,7 +126,7 @@
       <div *ngIf="associatedItem">
         <h5>Medications for {{viewItem.diagnosis}}</h5>
         <ul *ngFor="let med of associatedItem">
-          <li (click)="viewRx(med)">{{med.name}}</li>
+          <li><button class="btn btn-info" (click)="viewRx(med)">{{med.name}}</button></li>
         </ul>
       </div>
     </div>
