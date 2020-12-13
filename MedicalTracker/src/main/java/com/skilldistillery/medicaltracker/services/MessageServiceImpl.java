@@ -46,6 +46,8 @@ public class MessageServiceImpl implements MessageService {
 			if(message.getTitle() != null) {managedMessage.setTitle(message.getTitle());}
 			if(message.getPatient() != null) {managedMessage.setPatient(message.getPatient());}
 			if(message.getProvider() != null) {managedMessage.setProvider(message.getProvider());}
+			if(message.getPatientRead() != null) {managedMessage.setPatientRead(message.getPatientRead());}
+			if(message.getProviderRead() != null) {managedMessage.setProviderRead(message.getProviderRead());}
 			repo.saveAndFlush(managedMessage);
 		}
 		

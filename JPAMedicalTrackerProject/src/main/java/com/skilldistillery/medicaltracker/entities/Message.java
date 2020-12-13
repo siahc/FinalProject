@@ -21,17 +21,19 @@ public class Message {
 	private String content;
 	@CreationTimestamp
 	@Column(name="creation_date")
-	private LocalDateTime date;
+	private LocalDateTime creationDate;
 	@Column(name="provider_read")
-	private Boolean provider_read;
+	private Boolean providerRead;
 	@Column(name="patient_read")
-	private Boolean patient_read;
+	private Boolean patientRead;
 	@ManyToOne
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 	@ManyToOne
 	@JoinColumn(name="provider_id")
 	private Provider provider;
+	@Column(name="sent_by_patient")
+	private Boolean sentByPt;
 	
 	public Message(){}
 	public Message(String content) {
@@ -68,23 +70,29 @@ public class Message {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDateTime getCreationDate() {
+		return creationDate;
 	}
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setCreationDate(LocalDateTime creationDate) {
+		this.creationDate = creationDate;
 	}
-	public Boolean getProvider_read() {
-		return provider_read;
+	public Boolean getProviderRead() {
+		return providerRead;
 	}
-	public void setProvider_read(Boolean provider_read) {
-		this.provider_read = provider_read;
+	public void setProviderRead(Boolean providerRead) {
+		this.providerRead = providerRead;
 	}
-	public Boolean getPatient_read() {
-		return patient_read;
+	public Boolean getPatientRead() {
+		return patientRead;
 	}
-	public void setPatient_read(Boolean patient_read) {
-		this.patient_read = patient_read;
+	public void setPatientRead(Boolean patientRead) {
+		this.patientRead = patientRead;
+	}
+	public Boolean getSentByPt() {
+		return sentByPt;
+	}
+	public void setSentByPt(Boolean sentByPt) {
+		this.sentByPt = sentByPt;
 	}
 	@Override
 	public int hashCode() {
