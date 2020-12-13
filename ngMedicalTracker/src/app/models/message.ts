@@ -3,31 +3,34 @@ import { Patient } from './patient';
 
 export class Message {
   id: number;
+  title: string;
+  creationDate: Date;
   content: string;
-  patient: Patient;
-  provider: Provider;
   providerRead: boolean;
   patientRead: boolean;
-  creationDate: Date;
-  title: string;
+  patient: Patient;
+  provider: Provider;
+  sentByPt: boolean;
 
   constructor(
     id?: number,
+    title?: string,
     content?: string,
-    patient?: Patient,
-    provider?: Provider,
+    creationDate?: Date,
     providerRead?: boolean,
     patientRead?: boolean,
-    creationDate?: Date,
-    title?: string
+    patient?: Patient,
+    provider?: Provider,
+    sentByPt?: boolean
   ){
     this.id = id;
+    this.title = title;
     this.content = content;
-    this.patient = patient;
-    this.provider = provider;
+    this.creationDate = creationDate;
     this.providerRead = providerRead;
     this.patientRead = patientRead;
-    this.creationDate = creationDate;
-    this.title = title;
+    this.patient = patient;
+    this.provider = provider;
+    this.sentByPt = sentByPt;
   }
 }

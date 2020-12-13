@@ -6,7 +6,26 @@
     Return to Patient List
   </button>
 
-  <div *ngIf="showView == 'msgs'">
+  <div class="info" *ngIf="showView == 'msgs'">
+    <h1>My Messages:</h1>
+    <ion-card *ngFor="let msg of messages">
+      <ion-card-header>
+        <ion-card-title>{{msg.title}}</ion-card-title>
+        <ion-card-subtitle *ngIf="msg.sentByPt">From: {{msg.patient.fname}} {{msg.patient.lname}}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="msg.sentByPt">{{msg.creationDate}}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="!msg.sentByPt">Sent To: {{msg.patient.fname}} {{msg.patient.lname}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>{{msg.content}}</ion-card-content>
+    </ion-card>
+            <!-- <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
+              Delete Message
+            </button>
+            <button class="margin btn btn-info" (click)="msgEdit = msg">
+              Update This Message
+            </button> -->
+  </div>
+
+  <!-- <div *ngIf="showView == 'msgs'">
     <ul *ngFor="let msg of messages">
       <li>{{ msg.content }}</li>
       <li><button class="btn btn-info" (click)="msgToEdit = msg">Update Message</button></li>
@@ -20,7 +39,7 @@
       <br />
       <button class="btn btn-info" (click)="msgToEdit = null">Cancel</button>
     </div>
-  </div>
+  </div> -->
 
   <div *ngIf="showView == '' && !selectedPt">
     <table class="table table-hover">
