@@ -5,30 +5,36 @@
         Welcome, {{ user.fname }} {{ user.lname }}
       </h3>
 
-      <button
-        class="margin btn btn-small btn-info"
+      <ion-button
+        color="medium"
+        class="col-lg-2 ionbtn"
+
         (click)="showView = 'providers'"
       >
         My Providers
-      </button>
-      <button
-        class="margin btn btn-small btn-info"
+      </ion-button>
+
+      <ion-button
+        color="medium"
+        class="col-lg-3 "
         (click)="showView = 'messages'"
       >
         My Messages
-      </button>
-      <button
-        class="margin btn btn-small btn-info"
+      </ion-button>
+      <ion-button
+        color="medium"
+        class="col-lg-3 "
         (click)="showView = 'medications'"
       >
         My Medications
-      </button>
-      <button
-        class="margin btn btn-small btn-info"
+      </ion-button>
+      <ion-button
+        color="medium"
+        class="col-lg-3 "
         (click)="showView = 'history'"
       >
         My Medical History
-      </button>
+      </ion-button>
 
       <!-- Rx -->
       <div class="display" *ngIf="showView == 'medications'">
@@ -36,7 +42,10 @@
           <thead>
             <th colspan="2">Perscriptions</th>
             <th>
-              <button class="margin btn btn-small btn-info" (click)="showView = 'addMed'">
+              <button
+                class="margin btn btn-small btn-info"
+                (click)="showView = 'addMed'"
+              >
                 Add medication
               </button>
             </th>
@@ -284,7 +293,10 @@
               <td>
                 {{ history.onset }}
               </td>
-              <td class="btn btn-info details" (click)="setDxMedications(history)" >
+              <td
+                class="btn btn-info details"
+                (click)="setDxMedications(history)"
+              >
                 View Detailed Information
               </td>
             </tr>
@@ -299,11 +311,19 @@
           <li>Treament: {{ hisDeets.treatment }}</li>
           <li>
             Active:
-            <input (change)="updateHisComponent(hisDeets)" type="checkbox" name="active" [(ngModel)]="hisDeets.active"/>
+            <input
+              (change)="updateHisComponent(hisDeets)"
+              type="checkbox"
+              name="active"
+              [(ngModel)]="hisDeets.active"
+            />
           </li>
         </ul>
         <ul *ngFor="let medication of dxMedDeets">
-          <button class="btn btn-small btn-light" (click)="setRxDeets(medication)">
+          <button
+            class="btn btn-small btn-light"
+            (click)="setRxDeets(medication)"
+          >
             Meds: {{ medication.name }}
           </button>
         </ul>
@@ -316,10 +336,14 @@
         <button class="margin btn btn-danger" (click)="destroyHist()">
           Delete This Entry
         </button>
+
         <button class="margin btn btn-small btn-warning" (click)="reload()">
           Back
         </button>
-        <button class="margin btn btn-small btn-light" (click)="showView = 'history'">
+        <button
+          class="margin btn btn-small btn-light"
+          (click)="showView = 'history'"
+        >
           Back To Medical History
         </button>
       </div>
@@ -417,12 +441,19 @@
 
       <div class="display" *ngIf="showView == 'addProvider'">
         <ion-item>
-          <ion-label position="stacked">Enter your provider's ID. Not sure? Contact your provider and ask them about MedTrak!</ion-label>
+          <ion-label position="stacked"
+            >Enter your provider's ID. Not sure? Contact your provider and ask
+            them about MedTrak!</ion-label
+          >
           <ion-input type="number" [(ngModel)]="provId"></ion-input>
         </ion-item>
         <ion-item>
-          <button class="margin btn btn-success" (click)="addProvider(provId)">Submit</button>
-          <button class="margin btn btn-light" (click)="showView='providers'">Back</button>
+          <button class="margin btn btn-success" (click)="addProvider(provId)">
+            Submit
+          </button>
+          <button class="margin btn btn-light" (click)="showView = 'providers'">
+            Back
+          </button>
         </ion-item>
       </div>
 
@@ -430,7 +461,11 @@
         <table class="table">
           <thead>
             <th colspan="2">My Providers</th>
-            <th><button class="btn btn-info" (click)="showView = 'addProvider'">Add A Provider</button></th>
+            <th>
+              <button class="btn btn-info" (click)="showView = 'addProvider'">
+                Add A Provider
+              </button>
+            </th>
           </thead>
           <tr>
             <th>Name</th>
@@ -438,9 +473,13 @@
           </tr>
           <tbody>
             <tr *ngFor="let p of providers">
-              <td>{{p.fname}} {{p.lname}}</td>
-              <td>{{p.title}}</td>
-              <td><button class="btn btn-info" (click)="setProviderDetails(p)">More Information</button></td>
+              <td>{{ p.fname }} {{ p.lname }}</td>
+              <td>{{ p.title }}</td>
+              <td>
+                <button class="btn btn-info" (click)="setProviderDetails(p)">
+                  More Information
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -448,27 +487,40 @@
 
       <div class="display" *ngIf="showView == 'providerDetails'">
         <table class="table">
-          <thead><th>Provider Details</th></thead>
+          <thead>
+            <th>Provider Details</th>
+          </thead>
           <tbody>
             <tr>
               <td>Title</td>
-              <td>{{provDetails.title}}</td>
+              <td>{{ provDetails.title }}</td>
             </tr>
             <tr>
               <td>Name</td>
-              <td>{{provDetails.fname}} {{provDetails.lname}}</td>
+              <td>{{ provDetails.fname }} {{ provDetails.lname }}</td>
             </tr>
             <tr>
               <td>Location</td>
-              <td>{{provDetails.location}}</td>
+              <td>{{ provDetails.location }}</td>
             </tr>
           </tbody>
         </table>
-        <button class="margin btn btn=small btn-light" (click)="showView = 'providers'">Back</button>
-        <button class="margin btn btn-small btn-info" (click)="msgProvId = provDetails.id">
+        <button
+          class="margin btn btn=small btn-light"
+          (click)="showView = 'providers'"
+        >
+          Back
+        </button>
+        <button
+          class="margin btn btn-small btn-info"
+          (click)="msgProvId = provDetails.id"
+        >
           Message Provider
         </button>
-        <button class="margin btn btn-danger" (click)="removeProvider(provDetails.id)">
+        <button
+          class="margin btn btn-danger"
+          (click)="removeProvider(provDetails.id)"
+        >
           Remove Provider
         </button>
       </div>
@@ -477,12 +529,15 @@
         <h1>My Messages:</h1>
         <ion-card *ngFor="let msg of messages">
           <ion-card-header>
-            <ion-card-title>{{msg.title}}</ion-card-title>
-            <ion-card-subtitle>From: {{msg.provider.fname}} {{msg.provider.lname}}</ion-card-subtitle>
+            <ion-card-title>{{ msg.title }}</ion-card-title>
+            <ion-card-subtitle
+              >From: {{ msg.provider.fname }}
+              {{ msg.provider.lname }}</ion-card-subtitle
+            >
           </ion-card-header>
-          <ion-card-content>{{msg.content}}</ion-card-content>
+          <ion-card-content>{{ msg.content }}</ion-card-content>
         </ion-card>
-                <!-- <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
+        <!-- <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
                   Delete Message
                 </button>
                 <button class="margin btn btn-info" (click)="msgEdit = msg">

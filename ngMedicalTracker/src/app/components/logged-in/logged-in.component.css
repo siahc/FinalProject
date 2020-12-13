@@ -14,14 +14,12 @@ tbody{
 }
 
 .info{
-  /* background-color: #e4e3e3; */
   background-color: #bbe1fa;
-  padding: 20px;;
+  padding: 20px;
 
 }
 
 .display {
-  padding:0;
   background-color: #bbe1fa;
 }
 
@@ -32,7 +30,7 @@ tbody{
 }
 
 .margin{
-  margin-left: 15px;
+  margin: 0 15px;
 }
 
 .native-input{
