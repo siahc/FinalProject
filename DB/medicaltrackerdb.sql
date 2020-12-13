@@ -165,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   `provider_read` TINYINT NULL,
   `patient_read` TINYINT NULL,
   `creation_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `sent_by_patient` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_message_patient1_idx` (`patient_id` ASC),
   INDEX `fk_message_provider1_idx` (`provider_id` ASC),
@@ -293,9 +294,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (1, 'Hello World', 1, 1, NULL, NULL, NULL, NULL);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (2, 'Hey Doc', 2, 2, NULL, NULL, NULL, NULL);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`) VALUES (3, 'I love this App', 3, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (1, 'Hello World', 1, 1, 'Hey', 1, 1, '2020-12-12 12:12:12', 0);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (2, 'Hey Doc', 2, 2, 'HEY', 1, 1, NULL, 1);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (3, 'I love this App', 3, 4, 'TALK ', 0, 0, NULL, 1);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (4, 'That funny white one made me sick', 1, 1, 'Problem', 0, 0, '2020-12-13 12:12:12', 1);
 
 COMMIT;
 

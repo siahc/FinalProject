@@ -475,17 +475,19 @@
 
       <div class="info" *ngIf="showView == 'messages'">
         <h1>My Messages:</h1>
-        <ul *ngFor="let msg of messages">
-          <li>
-            {{ msg.content }} <br />
-            <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
-              Delete Message
-            </button>
-            <button class="margin btn btn-info" (click)="msgEdit = msg">
-              Update This Message
-            </button>
-          </li>
-        </ul>
+        <ion-card *ngFor="let msg of messages">
+          <ion-card-header>
+            <ion-card-title>{{msg.title}}</ion-card-title>
+            <ion-card-subtitle>From: {{msg.provider.fname}} {{msg.provider.lname}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>{{msg.content}}</ion-card-content>
+        </ion-card>
+                <!-- <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
+                  Delete Message
+                </button>
+                <button class="margin btn btn-info" (click)="msgEdit = msg">
+                  Update This Message
+                </button> -->
 
         <div *ngIf="msgEdit">
           <input type="text" name="content" [(ngModel)]="msgEdit.content" />
