@@ -302,7 +302,6 @@
             <input (change)="updateHisComponent(hisDeets)" type="checkbox" name="active" [(ngModel)]="hisDeets.active"/>
           </li>
         </ul>
-
         <ul *ngFor="let medication of dxMedDeets">
           <button class="btn btn-small btn-light" (click)="setRxDeets(medication)">
             Meds: {{ medication.name }}
@@ -319,7 +318,7 @@
         </button>
         <button class="margin btn btn-small btn-warning" (click)="reload()">
           Back
-
+        </button>
         <button class="margin btn btn-small btn-light" (click)="showView = 'history'">
           Back To Medical History
         </button>
