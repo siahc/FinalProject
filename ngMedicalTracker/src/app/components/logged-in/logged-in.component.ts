@@ -29,6 +29,7 @@ export class LoggedInComponent implements OnInit {
   hisDeets = null;
   rxHisDeets = null;
   dxMedDeets = null;
+  provDetails = new Provider();
 
   rxEdit:Medication = new Medication();
   histEdit:MedicalHistory = new MedicalHistory();
@@ -158,7 +159,10 @@ export class LoggedInComponent implements OnInit {
     this.histEdit.treatment = dx.treatment;
     this.showView = 'editHistory'
   }
-
+  setProviderDetails(prov:Provider):void{
+    this.provDetails = prov;
+    this.showView = 'providerDetails';
+  }
   createMed(): void {
     this.rxService.addMed(this.rxEdit).subscribe(
       (good) => {
