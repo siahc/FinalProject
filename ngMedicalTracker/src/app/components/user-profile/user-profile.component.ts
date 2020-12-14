@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProviderService } from './../../services/provider.service';
 import { PatientService } from './../../services/patient.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,12 +17,15 @@ export class UserProfileComponent implements OnInit {
   patient:Patient = new Patient();
   provider:Provider = new Provider();
   showForm:string = 'default';
+  updatedUser:User = new User();
+  changePassword:boolean = false;
 
 
   constructor(
     private authSvc: AuthService,
     private ptSvc: PatientService,
-    private provSvc: ProviderService
+    private provSvc: ProviderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -62,22 +66,20 @@ export class UserProfileComponent implements OnInit {
     }
   }
   updateUser():void{
-   this.authSvc.updateUserInfo(this.user).subscribe(
+    if(this.updatedUser.password != null || this.updatedUser.password != ""){
+      this.user.password = this.updatedUser.password;
+    }
+    this.authSvc.updateUserInfo(this.user).subscribe(
      data=>{
        this.user = data;
-       //  if (data.role == 'patient'){
-       //    this.updatePt(this.patient);
-       //  }
-       //  if (data.role == 'provider'){
-       //    this.updateProv(this.provider);
-       //  }
-           this.showForm = 'default'
-     },
-     err=>{
-       console.error(err);
-       console.error('user-profile.component.ts.updateProfileInfo():Failed');
-     })
-  }
+       this.authSvc.logout();
+       this.router.navigateByUrl('/home');
+      },
+      err=>{
+        console.error(err);
+        console.error('user-profile.component.ts.updateProfileInfo():Failed');
+      })
+    }
   updatePt(pt:Patient):void{
     this.ptSvc.updatePt(pt).subscribe(
       data=>{
