@@ -41,10 +41,14 @@
     <ion-label position="stacked">Username</ion-label>
     <ion-input name="username" [(ngModel)]="user.username"></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Password</ion-label>
-    <ion-input name="username" [(ngModel)]="user.password" type="password"></ion-input>
+  <ion-item *ngIf="!changePassword">
+    <ion-button (click)="changePassword = true">Change Password</ion-button>
   </ion-item>
+  <ion-item *ngIf="changePassword">
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input name="username" [(ngModel)]="updatedUser.password" type="password"></ion-input>
+  </ion-item>
+  <small class="form-text text-muted">You'll need to log back into your account after any changes!</small><br>
   <ion-item>
     <ion-button expand="block" color="primary" (click)="updateUser()">Save Changes</ion-button>&nbsp;
     <ion-button expand="block" color="danger" (click)="ngOnInit()">Cancel</ion-button>
