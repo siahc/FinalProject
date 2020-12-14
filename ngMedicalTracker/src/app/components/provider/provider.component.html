@@ -77,7 +77,7 @@
           <br>
           <tr>
             <td>
-              <button class="btn btn-warning buttonPadding" (click)="returnToPtList()" *ngIf="showView == 'msgs' || selectedPt">
+              <button class="patbtn btn btn-warning buttonPadding" (click)="returnToPtList()" *ngIf="showView == 'msgs' || selectedPt">
                 Return to Patient List
               </button>
             </td>
@@ -85,21 +85,21 @@
           <tr>
             <td>
               <button class="btn btn-info buttonPadding" (click)="showView = 'ptRx'">
-                View Pt Medications
+                View Patient Medications
               </button>
             </td>
           </tr>
           <tr>
             <td>
               <button class="btn btn-info buttonPadding" (click)="showView = 'ptDx'">
-                View Pt History
+                View Patient History
               </button>
             </td>
           </tr>
           <tr>
             <td>
               <button class="btn btn-info buttonPadding" (click)="ptToMsgId = selectedPt.id">
-                Message PT
+                Message Patient
               </button>
             </td>
           </tr>
