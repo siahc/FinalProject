@@ -28,6 +28,8 @@ public class Provider {
 	private String lname;
 	private String location;
 	private String title;
+	private String email;
+	private String phone;
 //	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="user_id")
@@ -114,6 +116,18 @@ public class Provider {
 	}
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	@Override
 	public int hashCode() {

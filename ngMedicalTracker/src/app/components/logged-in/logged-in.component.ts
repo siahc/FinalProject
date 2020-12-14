@@ -228,7 +228,7 @@ export class LoggedInComponent implements OnInit {
       console.log(
         'Provider successfully removed'
       );
-      this.reload();
+      this.showView = 'providers';
       },
       (err) => {
         console.error('Component.patient.ts.removeProviderFailed')

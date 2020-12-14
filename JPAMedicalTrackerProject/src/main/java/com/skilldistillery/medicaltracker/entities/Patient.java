@@ -27,6 +27,7 @@ public class Patient {
 	@Column(name="date_of_birth")
 	private String dob;
 	private String img;
+	private String email;
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="user_id")
@@ -127,6 +128,12 @@ public class Patient {
 	}
 	public void setMedHis(List<MedicalHistory> medHis) {
 		this.medHis = medHis;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	@Override
 	public int hashCode() {

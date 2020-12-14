@@ -48,7 +48,7 @@ public class PatientServiceImpl implements PatientService {
 			if(patient.getDob() != null) dbPat.setDob(patient.getDob());
 			if(patient.getFname() != null) dbPat.setFname(patient.getFname());
 			if(patient.getLname() != null) dbPat.setLname(patient.getLname());
-			if(patient.getImg() != null) dbPat.setImg(patient.getImg());
+			if(patient.getEmail() != null) dbPat.setEmail(patient.getEmail());
 			patRepo.flush();
 		}
 		return dbPat;

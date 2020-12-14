@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `date_of_birth` VARCHAR(45) NULL,
   `img` VARCHAR(2000) NULL,
   `user_id` INT NOT NULL,
+  `email` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_patient_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_patient_user1`
@@ -118,6 +119,8 @@ CREATE TABLE IF NOT EXISTS `provider` (
   `location` VARCHAR(200) NULL,
   `title` VARCHAR(45) NULL,
   `user_id` INT NOT NULL,
+  `phone` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_provider_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_provider_user1`
@@ -221,13 +224,13 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (1, 'Winifred', 'Sanderson', 'October 31, 1759', 'https://pbs.twimg.com/profile_images/517608236783263744/OnfUnthO_400x400.jpeg', 2);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (2, 'Magic', 'Mike', '7/12/1960', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMPef4KPk-0QekdQ3cBE7DgoWcMcw7tJHXlQ&usqp=CAU', 10);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (3, 'Samuel', 'Adams', '1-16-1900', 'https://www.biography.com/.image/t_share/MTE1ODA0OTcxNTMzNDM2NDI5/samuel-adams-9176129-1-402.jpg', 11);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (4, 'Brennon', 'Pop', '9-9-1999', 'https://members.baseballfactory.com/player/bm/06bfa9a9fdec4bd0bcdf7906cad3b947.jpg', 12);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (5, 'Betty', 'Rivers', '10-1-1928', 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE1ODA0OTcxODg1ODIzNTAx/betty-white-9542614-1-402.jpg', 13);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (6, 'April', 'Chandler', '4-1-1982', 'https://m.media-amazon.com/images/M/MV5BYTBhZDg4N2YtYzlhMy00NzgzLWI3NGItMGVlM2U0NWVjNmMwXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg', 14);
-INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`) VALUES (7, 'Richard', 'Dickies', '6-19-1958', 'https://doximity-res.cloudinary.com/image/upload/t_public_profile_photo_320x320/lm7mlawhrvq0wag6pjdp.jpg', 15);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`, `email`) VALUES (1, 'Winifred', 'Sanderson', 'October 31, 1759', 'https://pbs.twimg.com/profile_images/517608236783263744/OnfUnthO_400x400.jpeg', 2, 'hocus@pocus.org');
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`, `email`) VALUES (2, 'Magic', 'Mike', '7/12/1960', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMPef4KPk-0QekdQ3cBE7DgoWcMcw7tJHXlQ&usqp=CAU', 10, 'mikeyJones@test.com');
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`, `email`) VALUES (3, 'Samuel', 'Adams', '1-16-1900', 'https://www.biography.com/.image/t_share/MTE1ODA0OTcxNTMzNDM2NDI5/samuel-adams-9176129-1-402.jpg', 11, 'sAdams@test.com');
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`, `email`) VALUES (4, 'Brennon', 'Pop', '9-9-1999', 'https://members.baseballfactory.com/player/bm/06bfa9a9fdec4bd0bcdf7906cad3b947.jpg', 12, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`, `email`) VALUES (5, 'Betty', 'Rivers', '10-1-1928', 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTE1ODA0OTcxODg1ODIzNTAx/betty-white-9542614-1-402.jpg', 13, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`, `email`) VALUES (6, 'April', 'Chandler', '4-1-1982', 'https://m.media-amazon.com/images/M/MV5BYTBhZDg4N2YtYzlhMy00NzgzLWI3NGItMGVlM2U0NWVjNmMwXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg', 14, NULL);
+INSERT INTO `patient` (`id`, `first_name`, `last_name`, `date_of_birth`, `img`, `user_id`, `email`) VALUES (7, 'Richard', 'Dickies', '6-19-1958', 'https://doximity-res.cloudinary.com/image/upload/t_public_profile_photo_320x320/lm7mlawhrvq0wag6pjdp.jpg', 15, NULL);
 
 COMMIT;
 
@@ -239,7 +242,7 @@ START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (1, 'CHF', 1, '1800', 'Lasix', 1);
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (2, 'Eczema', 1, '1999', 'lotion', 1);
-INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (3, 'High Blood Pressure', 1, '1990\'s?', 'diet and exercise', 7);
+INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (3, 'High Blood Pressure', 0, '1990\'s?', 'diet and exercise', 1);
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (4, 'Contraception', 1, 'early 2000\'s', 'condoms', 6);
 INSERT INTO `medical_history` (`id`, `diagnosis`, `active`, `onset`, `treatment`, `patient_id`) VALUES (5, 'Asthma', 1, '2006ish', 'ProAir', 4);
 
@@ -252,7 +255,7 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (1, 'Botox', 'youth', '1 child', 'daily', 'Billy', 'I hate Max Dennison', 1, 1, 1);
-INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (2, 'Hydrocortisone', 'itch cream', '2.5%', '2-3X daily', 'Lane', 'I like this cream', 1, 1, 1);
+INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (2, 'Hydrocortisone', 'itch cream', '2.5%', '2-3X daily', 'Lane', 'I like this cream', 1, 0, 1);
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (3, 'Lisinopril', 'my blood pressure pill', '20mg', '1 tab daily', 'Tommy', 'i get a cough with this.', 1, 1, 2);
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (4, 'Avianne', 'birth control', '0.1 mg', '1 tab daily', 'Robert', 'do not forget. to broke for a baby', 6, 1, 4);
 INSERT INTO `medication` (`id`, `medication_name`, `description`, `dose`, `frequency`, `provider`, `comment`, `patient_id`, `active`, `medical_history_id`) VALUES (5, 'Ventolin HFA', 'inhaler', '90 mcg', '2 puffs every 4 hrs', 'Samuel', 'makes me jittery', 4, 1, 5);
@@ -266,11 +269,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `medicaltrackerdb`;
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (1, 'Lane', 'Shepard', 'walkin', 'PA-C', 5);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (2, 'Robert', 'Benjamin', 'Cortez', 'PA-c', 4);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (3, 'Tommy', 'Cross', 'Denver', 'MD', 6);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (4, 'Maria', 'Cornelius', 'Shiprock', 'MD', 7);
-INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`) VALUES (5, 'Amy', 'Powers', 'Las Vegas', 'DO', 8);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`, `phone`, `email`) VALUES (1, 'Lane', 'Shepard', 'walkin', 'PA-C', 5, '123-555-1234', NULL);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`, `phone`, `email`) VALUES (2, 'Robert', 'Benjamin', 'Cortez', 'PA-C', 4, '313-555-3829', NULL);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`, `phone`, `email`) VALUES (3, 'Tommy', 'Cross', 'Denver', 'MD', 6, '252-555-2849', NULL);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`, `phone`, `email`) VALUES (4, 'Maria', 'Cornelius', 'Shiprock', 'MD', 7, '943-555-2948', NULL);
+INSERT INTO `provider` (`id`, `first_name`, `last_name`, `location`, `title`, `user_id`, `phone`, `email`) VALUES (5, 'Amy', 'Powers', 'Las Vegas', 'DO', 8, '123-555-4321', NULL);
 
 COMMIT;
 
@@ -295,8 +298,8 @@ COMMIT;
 START TRANSACTION;
 USE `medicaltrackerdb`;
 INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (1, 'Hello World', 1, 1, 'Hey', 1, 1, '2020-12-12 12:12:12', 0);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (2, 'Hey Doc', 2, 2, 'HEY', 1, 1, NULL, 1);
-INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (3, 'I love this App', 3, 4, 'TALK ', 0, 0, NULL, 1);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (2, 'Hey Doc', 2, 2, 'HEY', 1, 1, '2020-12-12 12:12:12', 1);
+INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (3, 'I love this App', 3, 4, 'TALK ', 0, 0, '2020-12-12 12:12:12', 1);
 INSERT INTO `message` (`id`, `content`, `patient_id`, `provider_id`, `title`, `provider_read`, `patient_read`, `creation_date`, `sent_by_patient`) VALUES (4, 'That funny white one made me sick', 1, 1, 'Problem', 0, 0, '2020-12-13 12:12:12', 1);
 
 COMMIT;

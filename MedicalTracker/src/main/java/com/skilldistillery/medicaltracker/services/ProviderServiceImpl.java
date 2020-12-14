@@ -62,6 +62,12 @@ public class ProviderServiceImpl implements ProviderService {
 		if(provider.getTitle() != null) {
 			p.setTitle(provider.getTitle());
 		}
+		if(provider.getEmail() != null) {
+			p.setEmail(provider.getEmail());
+		}
+		if(provider.getPhone() != null) {
+			p.setPhone(provider.getPhone());
+		}
 //		if(provider.getUser() != null) {
 //			p.setUser(provider.getUser());
 //		}

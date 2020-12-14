@@ -103,7 +103,7 @@ export class PatientService {
   }
   rmvPtProvList(id: number): Observable<boolean> {
     const httpOptions = this.getHttpOptions();
-    let rmvptprovlist = this.baseUrl + 'api/patientproviders';
+    let rmvptprovlist = this.baseUrl + 'api/patient/providers';
     return this.http.delete<boolean>(`${rmvptprovlist}/${id}`, httpOptions).pipe(
         catchError((err: any) => {
           console.error(err);
