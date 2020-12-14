@@ -273,15 +273,22 @@ export class LoggedInComponent implements OnInit {
       }
     )
   }
-  createMessage(message: Message, id: number): void{
-    this.messageService.createMessage(id, message).subscribe(
+  createMessage(message: Message): void{
+    message.sentByPt = true;
+    message.patientRead = true;
+    console.log('**************' + this.msgProvId);
+
+    this.messageService.createMessage(this.msgProvId, message).subscribe(
       data => {
         this.getMessages();
         this.msgEdit = new Message;
         console.log("Message created successfully");
+        this.showView = 'messages';
+        this.msgProvId = null;
+        this.message = new Message();
       },
       err => {
-        console.error('Component.message.tx.crateMessage() failed');
+        console.error('Component.message.tx.createMessage() failed');
         console.error(err);
       }
     )
@@ -366,6 +373,10 @@ export class LoggedInComponent implements OnInit {
         console.error(err);
       }
     )
+  }
+  cancelMsg():void{
+    this.message = new Message();
+    this.showView = 'messages';
   }
 
   reload(): void {
