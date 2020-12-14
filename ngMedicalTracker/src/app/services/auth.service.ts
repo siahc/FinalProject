@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-// import { environment } from './../../environments/environment';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8090/'
-  // private baseUrl = environment.baseUrl;
+  // private baseUrl = 'http://localhost:8090/'
+  private baseUrl = environment.baseUrl;
   user = null;
   constructor(
     private http:HttpClient
