@@ -20,14 +20,17 @@ export class ProviderComponent implements OnInit {
   medications = [];
   history = [];
   messages = [];
+  msgSelectedId = null;
+  ptToMsgId = null;
   message = new Message();
   msgToEdit = null;
-  ptToMsgId = null;
+  replyMsg = null;
   user:Provider = new Provider();
   selectedPt = null;
   showView = '';
   viewItem = null;
   associatedItem = null;
+  showSentMsg = true;
 
   constructor(
     private messageService: MessageService,
@@ -204,12 +207,15 @@ export class ProviderComponent implements OnInit {
     }
     )
   }
-  createMessage(message: Message, id: number): void{
+  replyMessage(message: Message, id: number): void{
+    message.sentByPt = false;
+    message.providerRead = true;
+    message.title = 'RE: ' + this.replyMsg.title;
     this.messageService.createMessage(id, message).subscribe(
       data => {
         this.getMessages();
         this.message = new Message;
-        this.ptToMsgId = null;
+        this.replyMsg = null;
         console.log("Message created successfully");
       },
       err => {
@@ -217,6 +223,21 @@ export class ProviderComponent implements OnInit {
         console.error(err);
       }
     )
+  }
+
+  msgView(msg):void{
+    if (msg.providerRead != true){
+      msg.providerRead = true;
+      this.updateMessage(msg);
+    }
+    if (!this.msgSelectedId){
+      this.msgSelectedId = msg.id;
+    } else if (this.msgSelectedId == msg.id) {
+      this.msgSelectedId = null;
+    } else {
+      this.msgSelectedId = null;
+      this.msgSelectedId = msg.id;
+    }
   }
 
   reload(): void {

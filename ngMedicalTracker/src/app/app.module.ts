@@ -18,6 +18,9 @@ import { IonicModule } from '@ionic/angular';
 import { ProviderComponent } from './components/provider/provider.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ActiveMedsPipe } from './pipes/active-meds.pipe';
+import { ActiveHistoryPipe } from './pipes/active-history.pipe';
+import { PatientSentMessagePipe } from './pipes/patient-sent-message.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     ProviderComponent,
     ProfileComponent,
     UserProfileComponent,
+    ActiveMedsPipe,
+    ActiveHistoryPipe,
+    PatientSentMessagePipe
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,10 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     IonicModule.forRoot()
   ],
   providers: [
-    AuthService
+    AuthService,
+    ActiveMedsPipe,
+    ActiveHistoryPipe,
+    PatientSentMessagePipe
   ],
   bootstrap: [AppComponent]
 })
