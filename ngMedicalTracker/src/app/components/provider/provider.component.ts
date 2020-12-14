@@ -20,16 +20,17 @@ export class ProviderComponent implements OnInit {
   medications = [];
   history = [];
   messages = [];
-  message = new Message();
   msgSelectedId = null;
-  msgToEdit = null;
   ptToMsgId = null;
+  message = new Message();
+  msgToEdit = null;
   replyMsg = null;
   user:Provider = new Provider();
   selectedPt = null;
   showView = '';
   viewItem = null;
   associatedItem = null;
+  showSentMsg = true;
 
   constructor(
     private messageService: MessageService,
