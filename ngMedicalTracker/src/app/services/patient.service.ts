@@ -113,7 +113,7 @@ export class PatientService {
   }
   addPtProvList(id: number): Observable<boolean> {
     const httpOptions = this.getHttpOptions();
-    let addptprovlist = this.baseUrl + 'api/patientproviders';
+    let addptprovlist = this.baseUrl + 'api/patient/providers';
     return this.http.get<boolean>(`${addptprovlist}/${id}`, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
