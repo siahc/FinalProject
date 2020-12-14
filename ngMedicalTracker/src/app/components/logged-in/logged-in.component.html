@@ -38,40 +38,47 @@
       <!-- Rx -->
 
       <div class="display" *ngIf="showView == 'medications'">
-        <table class="table">
-          <thead>
-            <th colspan="2">Perscriptions</th>
-            <th>
-              <button
-                class="margin btn btn-small btn-info"
-                (click)="showView = 'addMed'"
-              >
-                Add medication
-              </button>
-            </th>
-          </thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <td>
-              <label for="showAll">Show All Medications</label>
-              <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showAllRx">
-            </td>
-          </tr>
-          <tbody>
-            <tr *ngFor="let rx of medication | activeMeds:showAllRx">
-              <td>
-                {{ rx.name }}
-              </td>
-              <td>
-                {{ rx.description }}
-              </td>
-              <td class="btn btn-info details" (click)="setRxDeets(rx)">
-                View Detailed Information
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            <table class="table">
+              <thead>
+                <th colspan="2">Perscriptions</th>
+                <th>
+                  <ion-button
+                    size="small"
+                    (click)="showView = 'addMed'"
+                  >
+                    Add meds
+                  </ion-button>
+                </th>
+              </thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <td>
+                  <label for="showAll">Show All Medications</label>
+                  <input
+                    type="checkbox"
+                    name="showAll"
+                    id="showComplete"
+                    [(ngModel)]="showAllRx"
+                  />
+                </td>
+              </tr>
+              <tbody>
+                <tr *ngFor="let rx of medication | activeMeds: showAllRx">
+                  <td>
+                    {{ rx.name }}
+                  </td>
+                  <td>
+                    {{ rx.description }}
+                  </td>
+                  <td>
+                    <ion-button size="small" (click)="setRxDeets(rx)"
+                      >Details</ion-button
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
       </div>
 
       <div class="info" *ngIf="showView == 'rxDetails'">
@@ -277,12 +284,12 @@
           <thead>
             <th colspan="2">Medical History</th>
             <th>
-              <button
-                class="margin btn btn-small btn-info"
+              <ion-button
+                size="small"
                 (click)="showView = 'addHist'"
               >
                 Add Medical History
-              </button>
+              </ion-button>
             </th>
           </thead>
           <tr>
@@ -290,22 +297,27 @@
             <th>Onset</th>
             <td>
               <label for="showAll">Show All History</label>
-              <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showAllDx">
+              <input
+                type="checkbox"
+                name="showAll"
+                id="showComplete"
+                [(ngModel)]="showAllDx"
+              />
             </td>
           </tr>
           <tbody>
-            <tr *ngFor="let history of medicalHistory | activeHistory:showAllDx">
+            <tr
+              *ngFor="let history of medicalHistory | activeHistory: showAllDx"
+            >
               <td>
                 {{ history.diagnosis }}
               </td>
               <td>
                 {{ history.onset }}
               </td>
-              <td
-                class="btn btn-info details"
-                (click)="setDxMedications(history)"
-              >
-                View Detailed Information
+              <td>
+              <ion-button size = "small"
+              (click)="setDxMedications(history)">Details</ion-button>
               </td>
             </tr>
           </tbody>
@@ -470,9 +482,9 @@
           <thead>
             <th colspan="2">My Providers</th>
             <th>
-              <button class="btn btn-info" (click)="showView = 'addProvider'">
+              <ion-button size=small (click)="showView = 'addProvider'">
                 Add A Provider
-              </button>
+              </ion-button>
             </th>
           </thead>
           <tr>
@@ -484,9 +496,9 @@
               <td>{{ p.fname }} {{ p.lname }}</td>
               <td>{{ p.title }}</td>
               <td>
-                <button class="btn btn-info" (click)="setProviderDetails(p)">
-                  More Information
-                </button>
+                <ion-button size="small" (click)="setProviderDetails(p)">
+                  Details
+                </ion-button>
               </td>
             </tr>
           </tbody>
@@ -533,58 +545,90 @@
         </button>
       </div>
 
-        <div class="info" *ngIf="showView == 'messages'">
-          <ion-button shape="round" (click)="showView = 'newMsg'">Send a new message.</ion-button>
-          <h1>My Messages:</h1>
-          <!-- <label for="showAll">Show Sent Messages</label>
+      <div class="info" *ngIf="showView == 'messages'">
+        <ion-button shape="round" (click)="showView = 'newMsg'"
+          >Send a new message.</ion-button
+        >
+        <h1>My Messages:</h1>
+        <!-- <label for="showAll">Show Sent Messages</label>
           <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showSentMsg"> -->
-          <ion-card>
-            <ion-item>
-              <ion-label>Show Sent Messages</ion-label>
-              <ion-checkbox color="primary" checked slot="start" name="showAll" id="showComplete" [(ngModel)]="showSentMsg"></ion-checkbox>
-            </ion-item>
-          </ion-card>
-          <ion-card *ngFor="let msg of messages|patientSentMessage:showSentMsg" (click)="msgView(msg)">
-            <ion-card-header>
-              <ion-card-title>{{msg.title}}</ion-card-title>
-              <ion-card-subtitle>{{msg.creationDate|date:'short'}}</ion-card-subtitle>
-              <ion-card-subtitle *ngIf="!msg.sentByPt">
-                From: {{msg.provider.fname}} {{msg.provider.lname}}
-              </ion-card-subtitle>
-              <ion-card-subtitle *ngIf="msg.sentByPt">Sent To: {{msg.provider.fname}} {{msg.provider.lname}}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content *ngIf="msgSelectedId == msg.id">
-              {{msg.content}}<br>
-              <ion-button *ngIf="msg.sentByPt" size=small (click)="replyMsg = msg">Reply</ion-button>
-            </ion-card-content>
-          </ion-card>
-        </div>
+        <ion-card>
+          <ion-item>
+            <ion-label>Show Sent Messages</ion-label>
+            <ion-checkbox
+              color="primary"
+              checked
+              slot="start"
+              name="showAll"
+              id="showComplete"
+              [(ngModel)]="showSentMsg"
+            ></ion-checkbox>
+          </ion-item>
+        </ion-card>
+        <ion-card
+          *ngFor="let msg of messages | patientSentMessage: showSentMsg"
+          (click)="msgView(msg)"
+        >
+          <ion-card-header>
+            <ion-card-title>{{ msg.title }}</ion-card-title>
+            <ion-card-subtitle>{{
+              msg.creationDate | date: "short"
+            }}</ion-card-subtitle>
+            <ion-card-subtitle *ngIf="!msg.sentByPt">
+              From: {{ msg.provider.fname }} {{ msg.provider.lname }}
+            </ion-card-subtitle>
+            <ion-card-subtitle *ngIf="msg.sentByPt"
+              >Sent To: {{ msg.provider.fname }}
+              {{ msg.provider.lname }}</ion-card-subtitle
+            >
+          </ion-card-header>
+          <ion-card-content *ngIf="msgSelectedId == msg.id">
+            {{ msg.content }}<br />
+            <ion-button
+              *ngIf="msg.sentByPt"
+              size="small"
+              (click)="replyMsg = msg"
+              >Reply</ion-button
+            >
+          </ion-card-content>
+        </ion-card>
+      </div>
 
-        <div class="info" *ngIf="showView == 'newMsg'">
-          <ion-item>
-            <ion-label>Select A Recepient</ion-label>
-            <ion-select [(ngModel)]="msgProvId">
-              <ion-select-option
-                value="{{prov.id}}"
-                *ngFor="let prov of providers"
-              >
-                {{ prov.fname }} {{prov.lname}}, {{prov.title}}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-             <ion-label position="stacked">Title</ion-label>
-             <ion-input type="text" name="title" [(ngModel)]='message.title'></ion-input>
-          </ion-item>
-          <ion-item>
-             <ion-label position="stacked">Content</ion-label>
-             <ion-textarea name="content" [(ngModel)]='message.content'></ion-textarea>
-          </ion-item>
-          <br>
-          <ion-button shape="round" (click)='createMessage(message)'>Submit</ion-button>
-          <ion-button shape="round" color="danger" (click)="cancelMsg()">Cancel</ion-button>
-        </div>
-
+      <div class="info" *ngIf="showView == 'newMsg'">
+        <ion-item>
+          <ion-label>Select A Recepient</ion-label>
+          <ion-select [(ngModel)]="msgProvId">
+            <ion-select-option
+              value="{{ prov.id }}"
+              *ngFor="let prov of providers"
+            >
+              {{ prov.fname }} {{ prov.lname }}, {{ prov.title }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Title</ion-label>
+          <ion-input
+            type="text"
+            name="title"
+            [(ngModel)]="message.title"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Content</ion-label>
+          <ion-textarea
+            name="content"
+            [(ngModel)]="message.content"
+          ></ion-textarea>
+        </ion-item>
+        <br />
+        <ion-button shape="round" (click)="createMessage(message)"
+          >Submit</ion-button
+        >
+        <ion-button shape="round" color="danger" (click)="cancelMsg()"
+          >Cancel</ion-button
+        >
+      </div>
     </ion-content>
   </ion-app>
 </div>
