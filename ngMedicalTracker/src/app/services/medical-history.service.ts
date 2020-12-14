@@ -4,15 +4,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Patient } from '../models/patient';
 import { AuthService } from './auth.service';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicalHistoryService {
 
-  private baseUrl = 'http://localhost:8090/';
+  // private baseUrl = 'http://localhost:8090/';
+  private baseUrl = environment.baseUrl;
   private url = this.baseUrl + 'api/medicalHistory';
 
   constructor(

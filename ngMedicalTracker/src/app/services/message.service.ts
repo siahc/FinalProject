@@ -4,12 +4,14 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError} from 'rxjs';
 import { Message } from '../models/message';
 import { AuthService } from './auth.service';
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
-  private baseUrl = 'http://localhost:8090/';
+  // private baseUrl = 'http://localhost:8090/';
+  private baseUrl = environment.baseUrl;
   private url = this.baseUrl + 'api/message';
 
   constructor(private http: HttpClient, private auth: AuthService) {}
