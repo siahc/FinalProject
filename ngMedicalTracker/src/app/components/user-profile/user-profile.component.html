@@ -14,6 +14,7 @@
     <ion-card-content>
       Name: {{patient.fname}} {{patient.lname}}<br>
       Date of Birth: {{patient.dob}}
+      Email: {{patient.email}}
     </ion-card-content>
     <ion-button size=small (click)="showForm='updatePersonal'">Update Personal Information</ion-button>
   </ion-card>
@@ -24,7 +25,9 @@
     <ion-card-content>
       Name: {{provider.fname}} {{provider.lname}}<br>
       Title: {{provider.title}}<br>
-      Location: {{provider.location}}
+      Location: {{provider.location}}<br>
+      Phone: {{provider.phone}}<br>
+      Email: {{provider.email}}
     </ion-card-content>
     <ion-button size=small (click)="showForm = 'updatePersonal'">Update Personal Information</ion-button>
   </ion-card>
@@ -65,19 +68,27 @@
   </ion-list-header>
   <ion-item>
     <ion-label position="stacked">First Name</ion-label>
-    <ion-input name="username" [(ngModel)]="provider.fname"></ion-input>
+    <ion-input name="provfname" [(ngModel)]="provider.fname"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Last Name</ion-label>
-    <ion-input name="username" [(ngModel)]="provider.lname"></ion-input>
+    <ion-input name="provlname" [(ngModel)]="provider.lname"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Title</ion-label>
-    <ion-input name="username" [(ngModel)]="provider.title"></ion-input>
+    <ion-input name="title" [(ngModel)]="provider.title"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Location</ion-label>
-    <ion-input name="username" [(ngModel)]="provider.location"></ion-input>
+    <ion-input name="location" [(ngModel)]="provider.location"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Contact Number</ion-label>
+    <ion-input name="phone" [(ngModel)]="provider.phone"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input name="email" [(ngModel)]="provider.email"></ion-input>
   </ion-item>
   <ion-item>
     <ion-button expand="block" color="primary" (click)="updateProv(provider)">Save Changes</ion-button>&nbsp;
@@ -95,15 +106,19 @@
   </ion-list-header>
   <ion-item>
     <ion-label position="stacked">First Name</ion-label>
-    <ion-input name="username" [(ngModel)]="patient.fname"></ion-input>
+    <ion-input name="fname" [(ngModel)]="patient.fname"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked">Last Name</ion-label>
-    <ion-input name="username" [(ngModel)]="patient.lname"></ion-input>
+    <ion-input name="lname" [(ngModel)]="patient.lname"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">Title</ion-label>
-    <ion-input name="username" [(ngModel)]="patient.dob"></ion-input>
+    <ion-label position="stacked">Date of Birth</ion-label>
+    <ion-input name="dob" [(ngModel)]="patient.dob"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input name="email" [(ngModel)]="patient.email"></ion-input>
   </ion-item>
   <ion-item>
     <ion-button expand="block" color="primary" (click)="updatePt(patient)">Save Changes</ion-button>&nbsp;

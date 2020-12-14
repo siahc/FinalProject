@@ -4,6 +4,7 @@ export class Patient {
   lname: string;
   dob: string;
   img: string;
+  email: string;
 
   constructor(
     id?: number,
@@ -11,6 +12,7 @@ export class Patient {
   lname?: string,
   dob?: string,
   img?: string,
+  email?: string
 
   ){
     this.id = id;
@@ -18,7 +20,7 @@ export class Patient {
   this.lname = lname;
   this.dob = dob;
   this.img = img;
-
+  this.email = email;
   }
 
 
