@@ -361,12 +361,12 @@
         <button class="margin btn btn-small btn-warning" (click)="reload()">
           Back
         </button>
-        <button
+        <!-- <button
           class="margin btn btn-small btn-light"
           (click)="showView = 'history'"
         >
           Back To Medical History
-        </button>
+        </button> -->
       </div>
 
       <div *ngIf="showView == 'editHistory'">
@@ -532,12 +532,12 @@
         >
           Back
         </button>
-        <button
+        <!-- <button
           class="margin btn btn-small btn-info"
           (click)="msgProvId = provDetails.id"
         >
           Message Provider
-        </button>
+        </button> -->
         <button
           class="margin btn btn-danger"
           (click)="removeProvider(provDetails.id)"
