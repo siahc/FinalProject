@@ -1,45 +1,55 @@
 <div class="container-fluid">
   <h3 class="text-center">Welcome {{ user.fname }} {{ user.lname }}</h3>
 
-  <button class="btn btn-info" (click)="showView = 'msgs'">View Messages</button>
-  <button class="btn btn-warning margin" (click)="returnToPtList()" *ngIf= "selectedPt">
-    Return to Patient List
+  <button class="btn btn-info" *ngIf="showView != 'msgs' && !selectedPt" (click)="showView = 'msgs'">View Messages</button>
+  <button class="btn btn-warning margin" (click)="returnToPtList()" *ngIf="showView == 'msgs'">
+    Return
   </button>
 
-  <div class="info" *ngIf="showView == 'msgs'">
+  <div class="info" *ngIf="showView == 'msgs' && !replyMsg">
     <h1>My Messages:</h1>
-    <ion-card *ngFor="let msg of messages">
+    <label for="showAll">Show Sent Messages</label>
+    <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showSentMsg">
+    <ion-card *ngFor="let msg of messages|patientSentMessage:showSentMsg" (click)="msgView(msg)">
       <ion-card-header>
         <ion-card-title>{{msg.title}}</ion-card-title>
-        <ion-card-subtitle *ngIf="msg.sentByPt">From: {{msg.patient.fname}} {{msg.patient.lname}}</ion-card-subtitle>
-        <ion-card-subtitle *ngIf="msg.sentByPt">{{msg.creationDate}}</ion-card-subtitle>
+        <ion-card-subtitle>{{msg.creationDate|date:'short'}}</ion-card-subtitle>
+        <ion-card-subtitle *ngIf="msg.sentByPt">
+          From: {{msg.patient.fname}} {{msg.patient.lname}}
+        </ion-card-subtitle>
         <ion-card-subtitle *ngIf="!msg.sentByPt">Sent To: {{msg.patient.fname}} {{msg.patient.lname}}</ion-card-subtitle>
       </ion-card-header>
-      <ion-card-content>{{msg.content}}</ion-card-content>
+      <ion-card-content *ngIf="msgSelectedId == msg.id">
+        {{msg.content}}<br>
+        <ion-button *ngIf="msg.sentByPt" size=small (click)="replyMsg = msg">Reply</ion-button>
+      </ion-card-content>
     </ion-card>
-            <!-- <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
-              Delete Message
-            </button>
-            <button class="margin btn btn-info" (click)="msgEdit = msg">
-              Update This Message
-            </button> -->
   </div>
 
-  <!-- <div *ngIf="showView == 'msgs'">
-    <ul *ngFor="let msg of messages">
-      <li>{{ msg.content }}</li>
-      <li><button class="btn btn-info" (click)="msgToEdit = msg">Update Message</button></li>
-      <li><button class="btn btn-info" (click)="deleteMessage(msg)">Delete Message</button></li>
-    </ul>
-    <button class="btn btn-info" (click)="showView = ''">Close Messages</button>
-
-    <div *ngIf="msgToEdit">
-      <input type="text" name="content" [(ngModel)]="msgToEdit.content" />
-      <button class="btn btn-info" (click)="updateMessage(msgToEdit)">Submit</button>
-      <br />
-      <button class="btn btn-info" (click)="msgToEdit = null">Cancel</button>
-    </div>
-  </div> -->
+  <div *ngIf="replyMsg">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{replyMsg.title}}</ion-card-title>
+        <ion-card-subtitle>{{replyMsg.creationDate|date:'short'}}</ion-card-subtitle>
+        <ion-card-subtitle>
+          From: {{replyMsg.patient.fname}} {{replyMsg.patient.lname}}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{replyMsg.content}}<br>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label position=stacked>Reply</ion-label>
+        <ion-textarea [(ngModel)]="message.content"></ion-textarea>
+      </ion-item>
+      <button class="btn btn-success" type="submit" (click)="replyMessage(message, replyMsg.patient.id)">
+        Send
+      </button>
+      <button class="btn btn-danger" (click)="replyMsg = null">Cancel</button>
+    </ion-card>
+  </div>
 
   <div *ngIf="showView == '' && !selectedPt">
     <table class="table table-hover">
@@ -58,14 +68,6 @@
     </table>
   </div>
 
-  <div *ngIf="ptToMsgId">
-    <input type="text" name="content" [(ngModel)]="message.content" />
-    <button class="btn btn-success" type="submit" (click)="createMessage(message, ptToMsgId)">
-    Send
-    </button>
-    <button class="btn btn-danger" (click)="ptToMsgId = null">Cancel</button>
-  </div>
-
   <div>
     <div *ngIf="selectedPt">
       <h3>{{ selectedPt.fname }} {{ selectedPt.lname }} </h3>
@@ -73,6 +75,13 @@
       <table>
         <tbody>
           <br>
+          <tr>
+            <td>
+              <button class="btn btn-warning buttonPadding" (click)="returnToPtList()" *ngIf="showView == 'msgs' || selectedPt">
+                Return to Patient List
+              </button>
+            </td>
+          </tr>
           <tr>
             <td>
               <button class="btn btn-info buttonPadding" (click)="showView = 'ptRx'">

@@ -1,3 +1,5 @@
+import { ActiveHistoryPipe } from './../../pipes/active-history.pipe';
+import { ActiveMedsPipe } from './../../pipes/active-meds.pipe';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MedicalHistory } from './../../models/medical-history';
@@ -33,14 +35,22 @@ export class LoggedInComponent implements OnInit {
 
   rxEdit:Medication = new Medication();
   histEdit:MedicalHistory = new MedicalHistory();
-  msgEdit:Message = new Message();
 
   provId = null;
-  msgProvId = null;
   dxSelected:MedicalHistory = null;
   dxId= null;
 
   showView = 'medications';
+  showAllRx = false;
+  showAllDx = false;
+
+  msgProvId = null;
+  msgEdit:Message = new Message();
+  showSentMsg = false;
+  msgSelectedId = null;
+  message = new Message();
+  msgToEdit = null;
+  replyMsg = null;
 
   constructor(
     private patientService: PatientService,
@@ -49,6 +59,8 @@ export class LoggedInComponent implements OnInit {
     private rxService: MedicationService,
     private hisService: MedicalHistoryService,
     private messageService: MessageService,
+    private activeHistory:ActiveMedsPipe,
+    private activeMeds:ActiveHistoryPipe
   ) { }
 
   ngOnInit(): void {
@@ -261,19 +273,6 @@ export class LoggedInComponent implements OnInit {
       }
     )
   }
-  updateMessage(message: Message): void{
-    this.messageService.updateMessage(message).subscribe(
-      data => {
-        this.getMessages();
-        console.log("Message updated successfully");
-        this.msgEdit = null;
-      },
-    (err) => {
-      console.error('Component.message.ts.updateMessages() failed');
-      console.error(err);
-    }
-    )
-  }
   createMessage(message: Message, id: number): void{
     this.messageService.createMessage(id, message).subscribe(
       data => {
@@ -323,6 +322,50 @@ export class LoggedInComponent implements OnInit {
     this.hisDeets = dx;
     this.getDxMedications(this.hisDeets.id);
     this.rxDeets = null;
+  }
+  msgView(msg):void{
+    if (msg.providerRead != true){
+      msg.providerRead = true;
+      this.updateMessage(msg);
+    }
+    if (!this.msgSelectedId){
+      this.msgSelectedId = msg.id;
+    } else if (this.msgSelectedId == msg.id) {
+      this.msgSelectedId = null;
+    } else {
+      this.msgSelectedId = null;
+      this.msgSelectedId = msg.id;
+    }
+  }
+  updateMessage(message: Message): void{
+    this.messageService.updateMessage(message).subscribe(
+      data => {
+        this.getMessages();
+        console.log("Message updated successfully");
+        this.msgToEdit = null;
+      },
+    (err) => {
+      console.error('Component.message.ts.updateMessages() failed');
+      console.error(err);
+    }
+    )
+  }
+  replyMessage(message: Message, id: number): void{
+    message.sentByPt = false;
+    message.providerRead = true;
+    message.title = 'RE: ' + this.replyMsg.title;
+    this.messageService.createMessage(id, message).subscribe(
+      data => {
+        this.getMessages();
+        this.message = new Message;
+        this.replyMsg = null;
+        console.log("Message created successfully");
+      },
+      err => {
+        console.error('Component.message.tx.crateMessage() failed');
+        console.error(err);
+      }
+    )
   }
 
   reload(): void {

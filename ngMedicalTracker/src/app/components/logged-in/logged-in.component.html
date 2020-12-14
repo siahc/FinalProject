@@ -53,9 +53,13 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
+            <td>
+              <label for="showAll">Show All Medications</label>
+              <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showAllRx">
+            </td>
           </tr>
           <tbody>
-            <tr *ngFor="let rx of medication">
+            <tr *ngFor="let rx of medication | activeMeds:showAllRx">
               <td>
                 {{ rx.name }}
               </td>
@@ -284,9 +288,13 @@
           <tr>
             <th>Diagnosis</th>
             <th>Onset</th>
+            <td>
+              <label for="showAll">Show All History</label>
+              <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showAllDx">
+            </td>
           </tr>
           <tbody>
-            <tr *ngFor="let history of medicalHistory">
+            <tr *ngFor="let history of medicalHistory | activeHistory:showAllDx">
               <td>
                 {{ history.diagnosis }}
               </td>
@@ -525,18 +533,27 @@
         </button>
       </div>
 
-      <div class="info" *ngIf="showView == 'messages'">
-        <h1>My Messages:</h1>
-        <ion-card *ngFor="let msg of messages">
-          <ion-card-header>
-            <ion-card-title>{{ msg.title }}</ion-card-title>
-            <ion-card-subtitle
-              >From: {{ msg.provider.fname }}
-              {{ msg.provider.lname }}</ion-card-subtitle
-            >
-          </ion-card-header>
-          <ion-card-content>{{ msg.content }}</ion-card-content>
-        </ion-card>
+        <div class="info" *ngIf="showView == 'messages'">
+          <h1>My Messages:</h1>
+          <label for="showAll">Show Sent Messages</label>
+          <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showSentMsg">
+          <ion-card *ngFor="let msg of messages|patientSentMessage:showSentMsg" (click)="msgView(msg)">
+            <ion-card-header>
+              <ion-card-title>{{msg.title}}</ion-card-title>
+              <ion-card-subtitle>{{msg.creationDate|date:'short'}}</ion-card-subtitle>
+              <ion-card-subtitle *ngIf="!msg.sentByPt">
+                From: {{msg.provider.fname}} {{msg.provider.lname}}
+              </ion-card-subtitle>
+              <ion-card-subtitle *ngIf="msg.sentByPt">Sent To: {{msg.provider.fname}} {{msg.provider.lname}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content *ngIf="msgSelectedId == msg.id">
+              {{msg.content}}<br>
+              <ion-button *ngIf="msg.sentByPt" size=small (click)="replyMsg = msg">Reply</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+
+
         <!-- <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
                   Delete Message
                 </button>
@@ -555,13 +572,6 @@
           <br />
           <!-- <button id="bottomCancel" class="margin btn btn-warning" (click)="msgToEdit = null">Cancel</button> -->
         </div>
-        <button
-          class="margin btn btn-small btn-warning"
-          (click)="showView = 'medications'"
-        >
-          Close Messages
-        </button>
-      </div>
     </ion-content>
   </ion-app>
 </div>
