@@ -534,9 +534,16 @@
       </div>
 
         <div class="info" *ngIf="showView == 'messages'">
+          <ion-button shape="round" (click)="showView = 'newMsg'">Send a new message.</ion-button>
           <h1>My Messages:</h1>
-          <label for="showAll">Show Sent Messages</label>
-          <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showSentMsg">
+          <!-- <label for="showAll">Show Sent Messages</label>
+          <input type="checkbox" name="showAll" id="showComplete" [(ngModel)]="showSentMsg"> -->
+          <ion-card>
+            <ion-item>
+              <ion-label>Show Sent Messages</ion-label>
+              <ion-checkbox color="primary" checked slot="start" name="showAll" id="showComplete" [(ngModel)]="showSentMsg"></ion-checkbox>
+            </ion-item>
+          </ion-card>
           <ion-card *ngFor="let msg of messages|patientSentMessage:showSentMsg" (click)="msgView(msg)">
             <ion-card-header>
               <ion-card-title>{{msg.title}}</ion-card-title>
@@ -553,25 +560,31 @@
           </ion-card>
         </div>
 
-
-        <!-- <button class="margin btn btn-danger" (click)="deleteMessage(msg)">
-                  Delete Message
-                </button>
-                <button class="margin btn btn-info" (click)="msgEdit = msg">
-                  Update This Message
-                </button> -->
-
-        <div *ngIf="msgEdit">
-          <input type="text" name="content" [(ngModel)]="msgEdit.content" />
-          <button
-            class="margin btn btn-success"
-            (click)="updateMessage(msgEdit)"
-          >
-            Submit Message
-          </button>
-          <br />
-          <!-- <button id="bottomCancel" class="margin btn btn-warning" (click)="msgToEdit = null">Cancel</button> -->
+        <div class="info" *ngIf="showView == 'newMsg'">
+          <ion-item>
+            <ion-label>Select A Recepient</ion-label>
+            <ion-select [(ngModel)]="msgProvId">
+              <ion-select-option
+                value="{{prov.id}}"
+                *ngFor="let prov of providers"
+              >
+                {{ prov.fname }} {{prov.lname}}, {{prov.title}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+             <ion-label position="stacked">Title</ion-label>
+             <ion-input type="text" name="title" [(ngModel)]='message.title'></ion-input>
+          </ion-item>
+          <ion-item>
+             <ion-label position="stacked">Content</ion-label>
+             <ion-textarea name="content" [(ngModel)]='message.content'></ion-textarea>
+          </ion-item>
+          <br>
+          <ion-button shape="round" (click)='createMessage(message)'>Submit</ion-button>
+          <ion-button shape="round" color="danger" (click)="cancelMsg()">Cancel</ion-button>
         </div>
+
     </ion-content>
   </ion-app>
 </div>
