@@ -12,6 +12,10 @@ tbody{
   color:#204051
 }
 
+.stackBtn{
+  display:block
+}
+
 .info{
   background-color: #bbe1fa;
   padding: 20px;

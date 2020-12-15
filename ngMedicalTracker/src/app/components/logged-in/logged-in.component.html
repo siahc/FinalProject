@@ -44,7 +44,7 @@
                 <th>
                   <ion-button
                     size="small"
-                    (click)="showView = 'addMed'"
+                    (click)="setAddMedication()"
                   >
                     Add meds
                   </ion-button>
@@ -127,17 +127,19 @@
             </ion-select>
           </ion-item>
         </ul>
-        <input
+        <!-- <input
           class="margin btn btn-success"
           type="button"
           value="Update this medication"
           (click)="setRxToUpdate(rxDeets)"
-        />
-        <button class="margin btn btn-danger" (click)="destroyRX()">
-          Delete Medication
-        </button>
-        <button class="margin btn btn-small btn-warning" (click)="showView='medications'">
+        /> -->
+        <button class="stackBtn margin btn btn-success" (click)="setRxToUpdate(rxDeets)">Update</button>
+        <button class="stackBtn margin btn btn-small btn-warning" (click)="showView='medications'">
           Back
+        </button>
+        <br>
+        <button class="stackBtn margin btn btn-danger" (click)="destroyRX()">
+          Delete
         </button>
       </div>
 
@@ -206,7 +208,7 @@
         </ion-item>
         <button
           type="submit"
-          class="margin btn btn-lg btn-block"
+          class="margin btn btn-lg btn-success btn-block"
           (click)="updateRxComponent(rxEdit)"
         >
           Submit
@@ -304,7 +306,7 @@
             <th>
               <ion-button
                 size="small"
-                (click)="showView = 'addHist'"
+                (click)="setAddHistory()"
               >
                 Add Medical History
               </ion-button>
@@ -374,19 +376,20 @@
           </button>
         </ul>
         <button
-          class="margin btn btn-success"
+          class="stackBtn margin btn btn-success"
           (click)="setHistToEdit(hisDeets)"
         >
-          Update This Diagnosis
-        </button>
-        <button class="margin btn btn-danger" (click)="destroyHist()">
-          Delete This Entry
+          Update
         </button>
         <button
-          class="margin btn btn-small btn-light"
+          class="stackBtn margin btn btn-small btn-warning"
           (click)="showView = 'history'"
         >
-          Back To Medical History
+          Back
+        </button>
+        <br>
+        <button class="stackBtn margin btn btn-danger" (click)="destroyHist()">
+          Delete
         </button>
       </div>
 

@@ -112,12 +112,21 @@ export class LoggedInComponent implements OnInit {
       console.error(err);
     })
   }
+  setAddMedication(){
+    this.showView = 'addMed';
+    this.rxEdit = new Medication();
+  }
+  setAddHistory(){
+    this.showView = 'addHist';
+    this.histEdit = new MedicalHistory();
+  }
   updateHisComponent(hist): void {
     this.hisService.updateMedHis(hist).subscribe(
       (good) => {
       console.log('update MedHis success')
       this.getMedicalHistory();
       this.rxHisDeets = hist;
+      this.histEdit = new MedicalHistory();
       this.showView='historyDetails';
       },
       (bad) => {
@@ -196,6 +205,7 @@ export class LoggedInComponent implements OnInit {
       (bad) => {
         console.error(bad);
       });
+      this.rxEdit = new Medication();
       this.showView = 'medications';
   }
   createMedicalHistory(): void {
@@ -203,6 +213,7 @@ export class LoggedInComponent implements OnInit {
       (good) => {
         console.log('added medical history successfully')
         this.getMedicalHistory();
+        this.histEdit = new MedicalHistory();
         this.showView='history';
       },
       (bad) => {
