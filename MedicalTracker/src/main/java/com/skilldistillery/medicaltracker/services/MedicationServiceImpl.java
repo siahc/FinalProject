@@ -92,15 +92,14 @@ public class MedicationServiceImpl implements MedicationService {
 			if(med.getFrequency() != null) {managedMed.setFrequency(med.getFrequency());}
 			if(med.getProvider() != null) {managedMed.setProvider(med.getProvider());}
 			if(med.getComment() != null) {managedMed.setComment(med.getComment());}
-			if(med.getActive() != null) {managedMed.setActive(med.getActive());}
 			if(med.getPatient() != null) {managedMed.setPatient(med.getPatient());}
 			if(med.getMedHis() != null) {managedMed.setMedHis(med.getMedHis());}
+			if(med.getActive() != null) {managedMed.setActive(med.getActive());}
 			repo.saveAndFlush(managedMed);
 		}
 		
 		return managedMed;
 	}
-	
 	
 	@Override
 	public boolean deleteMedication(int medId) {

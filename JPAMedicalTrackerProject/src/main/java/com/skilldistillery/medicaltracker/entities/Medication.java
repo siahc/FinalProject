@@ -28,7 +28,7 @@ public class Medication {
 	@ManyToOne
 	@JoinColumn(name="patient_id")
 	private Patient patient;
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="medical_history_id")
 	private MedicalHistory medHis;

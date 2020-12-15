@@ -31,6 +31,8 @@ export class ProviderComponent implements OnInit {
   viewItem = null;
   associatedItem = null;
   showSentMsg = true;
+  viewAllRx = false;
+  viewAllDx = false;
 
   constructor(
     private messageService: MessageService,
