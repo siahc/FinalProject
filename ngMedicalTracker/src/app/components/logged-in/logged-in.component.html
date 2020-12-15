@@ -50,17 +50,25 @@
                   </ion-button>
                 </th>
               </thead>
+              <tr >
+                <td colspan="3">
+                  <ion-item>
+                    <ion-label>View All</ion-label>
+                    <ion-checkbox class="checkbox" [(ngModel)]="showAllRx"></ion-checkbox>
+                  </ion-item>
+                </td>
+              </tr>
               <tr>
                 <th>Name</th>
                 <th>Description</th>
                 <td>
-                  <label for="showAll">Show All Medications</label>
+                  <!-- <label for="showAll">Show All Medications</label>
                   <input
                     type="checkbox"
                     name="showAll"
                     id="showComplete"
                     [(ngModel)]="showAllRx"
-                  />
+                  /> -->
                 </td>
               </tr>
               <tbody>
@@ -117,7 +125,6 @@
                 >{{ dx.diagnosis }}</ion-select-option
               >
             </ion-select>
-            <!-- <ion-button size="small" color="secondary" (click)="addDxToRx(rxDeets.id)">Save</ion-button> -->
           </ion-item>
         </ul>
         <input
@@ -127,9 +134,9 @@
           (click)="setRxToUpdate(rxDeets)"
         />
         <button class="margin btn btn-danger" (click)="destroyRX()">
-          Delete RX Item
+          Delete Medication
         </button>
-        <button class="margin btn btn-small btn-warning" (click)="reload()">
+        <button class="margin btn btn-small btn-warning" (click)="showView='medications'">
           Back
         </button>
       </div>
@@ -269,6 +276,16 @@
             [(ngModel)]="rxEdit.active"
           ></ion-checkbox>
         </ion-item>
+        <ion-item>
+          <ion-label>Link a Diagnosis?</ion-label>
+          <ion-select [(ngModel)]="dxId">
+            <ion-select-option
+              value="{{ dx.id }}"
+              *ngFor="let dx of medicalHistory"
+              >{{ dx.diagnosis }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
         <ion-button
           color="success"
           expand="block"
@@ -293,17 +310,25 @@
               </ion-button>
             </th>
           </thead>
+          <tr >
+            <td colspan="3">
+              <ion-item>
+                <ion-label>View All</ion-label>
+                <ion-checkbox class="checkbox" [(ngModel)]="showAllDx"></ion-checkbox>
+              </ion-item>
+            </td>
+          </tr>
           <tr>
             <th>Diagnosis</th>
             <th>Onset</th>
             <td>
-              <label for="showAll">Show All History</label>
+              <!-- <label for="showAll">Show All History</label>
               <input
                 type="checkbox"
                 name="showAll"
                 id="showComplete"
                 [(ngModel)]="showAllDx"
-              />
+              /> -->
             </td>
           </tr>
           <tbody>
@@ -356,10 +381,6 @@
         </button>
         <button class="margin btn btn-danger" (click)="destroyHist()">
           Delete This Entry
-        </button>
-
-        <button class="margin btn btn-small btn-warning" (click)="reload()">
-          Back
         </button>
         <button
           class="margin btn btn-small btn-light"
@@ -534,22 +555,13 @@
             </tr>
           </tbody>
         </table>
-        <button
-          class="margin btn btn=small btn-light"
-          (click)="showView = 'providers'"
-        >
+        <button class="margin btn btn=small btn-light" (click)="showView = 'providers'">
           Back
         </button>
-        <button
-          class="margin btn btn-small btn-info"
-          (click)="msgProvId = provDetails.id"
-        >
+        <!-- <button class="margin btn btn-small btn-info" (click)="msgProvId = provDetails.id">
           Message Provider
-        </button>
-        <button
-          class="margin btn btn-danger"
-          (click)="removeProvider(provDetails.id)"
-        >
+        </button> -->
+        <button class="margin btn btn-danger" (click)="removeProvider(provDetails.id)">
           Remove Provider
         </button>
       </div>
@@ -594,7 +606,7 @@
           <ion-card-content *ngIf="msgSelectedId == msg.id">
             {{ msg.content }}<br />
             <ion-button
-              *ngIf="msg.sentByPt"
+              *ngIf="!msg.sentByPt"
               size="small"
               (click)="replyMsg = msg"
               >Reply</ion-button

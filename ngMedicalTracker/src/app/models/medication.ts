@@ -1,3 +1,4 @@
+import { MedicalHistory } from './medical-history';
 export class Medication {
   id: number;
   active: boolean;
@@ -7,6 +8,7 @@ export class Medication {
   frequency: string;
   provider: string;
   comment: string;
+  medicalHistory: MedicalHistory
 
   constructor(
     id?: number,
@@ -16,7 +18,8 @@ export class Medication {
     dose?: string,
     frequency?: string,
     provider?: string,
-    comment?: string
+    comment?: string,
+    medicalHistory?: MedicalHistory
   ){
     this.id = id;
     this.active = active;
@@ -26,5 +29,6 @@ export class Medication {
     this.frequency = frequency;
     this.provider = provider;
     this.comment = comment;
+    this.medicalHistory = medicalHistory;
   }
 }

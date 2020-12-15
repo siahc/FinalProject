@@ -97,13 +97,13 @@
               </button>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>
               <button class="btn btn-info buttonPadding" (click)="ptToMsgId = selectedPt.id">
                 Message Patient
               </button>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -111,14 +111,24 @@
 
     <div *ngIf="showView == 'ptRx'">
       <h5>Medications</h5>
-      <ul *ngFor="let rx of medications">
+      <ion-item>
+        <ion-label>View All</ion-label>
+        <ion-checkbox [(ngModel)]="viewAllRx"></ion-checkbox>
+      </ion-item>
+      <br>
+      <ul *ngFor="let rx of medications|activeMeds:viewAllRx">
         <li class="btn btn-info" (click)="viewRx(rx)">{{ rx.name }}</li>
       </ul>
     </div>
 
     <div *ngIf="showView == 'ptDx'">
       <h5>Medical History</h5>
-      <ul *ngFor="let hist of history">
+      <ion-item>
+        <ion-label>View All</ion-label>
+        <ion-checkbox [(ngModel)]="viewAllDx"></ion-checkbox>
+      </ion-item>
+      <br>
+      <ul *ngFor="let hist of history|activeHistory:viewAllDx">
         <li class="btn btn-info" (click)="viewHist(hist)">{{ hist.diagnosis }}</li>
       </ul>
     </div>
@@ -149,7 +159,7 @@
         <tbody>
           <tr><td>Onset: </td><td>{{viewItem.onset}}</td></tr>
           <tr><td>Treatment: </td><td>{{viewItem.treatment}}</td></tr>
-          <tr><td>Active: </td><td>{{viewItem.active}}</td></tr>
+          <tr><td>Active: </td><td *ngIf="viewItem.active">Yes</td><td *ngIf="!viewItem.active">No</td></tr>
         </tbody>
       </table>
       <div *ngIf="associatedItem">
