@@ -1,5 +1,5 @@
 # MedTrak Final Project
-http://3.20.44.239:8080/MedicalTracker/home
+http://3.20.44.239:8080/MedicalTracker
 
 ## Final Team Project for Skill Distillery
 
