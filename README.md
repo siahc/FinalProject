@@ -1,7 +1,7 @@
 # MedTrak Final Project
 http://3.20.44.239:8080/MedicalTracker
 
-####To login, you will need the following username and password:  
+To login, you will need the following username and password:  
 
 * username: patient
 * password: patient
